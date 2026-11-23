@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Canvas Coffee + Art House</title>
+<meta name="description" content="Coffee roasted in Greenville, wearing Genavieve Gilbert's paintings. Order ahead, see what is in the case, subscribe, and save a seat at the next show. 109 W Stone Ave.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gesso:#F1EEE7;   /* light canvas */
+  --linen:#E4DFD4;   /* alternate band */
+  --night:#15120F;   /* photo bands, footer, owner rail */
+  --ink:#1C1A17;     /* text on light */
+  --paper:#FFFFFF;   /* raised panels only */
+  --cobalt:#2747C9;  /* interactive only */
+  --ease:cubic-bezier(0.16,1,0.3,1);
+  --sans:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;
+  --cameo:"Instrument Serif",Georgia,serif;
+  --pad:clamp(18px,3.2vw,44px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--gesso);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.45;font-weight:400;font-variation-settings:"opsz" 14;letter-spacing:-0.005em;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit;letter-spacing:inherit}
+button{cursor:pointer;background:none;border:0}
+img{display:block;max-width:100%}
+::selection{background:var(--cobalt);color:var(--gesso)}
+
+/* ---------- type ---------- */
+.d{font-weight:300;font-variation-settings:"opsz" 96;text-transform:lowercase}
+.d-xl{font-size:clamp(96px,17vw,260px);line-height:.76;letter-spacing:-0.055em}
+.d-l{font-size:clamp(64px,10.5vw,156px);line-height:.8;letter-spacing:-0.045em}
+.d-m{font-size:clamp(46px,6vw,84px);line-height:.86;letter-spacing:-0.03em}
+.h3{font-weight:400;font-variation-settings:"opsz" 48;font-size:clamp(24px,2.4vw,30px);line-height:1.12;letter-spacing:-0.015em}
+.micro{font-size:11px;text-transform:uppercase;letter-spacing:.18em;font-weight:500;line-height:1.4}
+.lede{font-size:clamp(17px,1.5vw,20px);line-height:1.42;max-width:42ch}
+.small{font-size:14px;line-height:1.4}
+.muted{opacity:.6}
+.cameo{font-family:var(--cameo);font-style:italic;font-weight:400;letter-spacing:-0.01em;text-transform:none}
+
+/* ---------- controls: pill or 0px ---------- */
+.pill{display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:999px;padding:14px 24px;font-size:15px;line-height:1;white-space:nowrap;text-decoration:none;font-weight:450}
+.pill.solid{background:var(--cobalt);color:var(--gesso)}
+.pill.line{border:1px solid currentColor}
+.pill.sm{padding:9px 15px;font-size:13px}
+.pill:disabled{opacity:.35;cursor:not-allowed}
+.chip{border-radius:999px;border:1px solid currentColor;padding:8px 14px;font-size:13px;line-height:1}
+.chip[aria-pressed="true"]{background:var(--cobalt);border-color:var(--cobalt);color:var(--gesso)}
+.field{display:block;width:100%;border:0;border-bottom:1px solid currentColor;background:transparent;border-radius:0;padding:10px 0;font-size:17px;outline:none}
+.field:focus{border-bottom-color:var(--cobalt)}
+select.field{appearance:none;-webkit-appearance:none}
+textarea.field{resize:vertical;min-height:90px}
+.dark{background:var(--night);color:var(--gesso)}
+.band{background:var(--linen)}
+
+/* ---------- views ---------- */
+.view{display:none}.view.on{display:block}
+
+/* ---------- nav ---------- */
+.nav{position:absolute;top:0;left:0;right:0;z-index:30;display:flex;justify-content:space-between;align-items:center;padding:20px var(--pad);color:var(--gesso)}
+.nav.light{color:var(--ink)}
+.wm{font-weight:500;font-variation-settings:"opsz" 96;font-size:26px;letter-spacing:-0.04em;text-decoration:none;line-height:1}
+.nav .links{display:flex;gap:24px;align-items:center}
+.nav .links a{text-decoration:none;font-size:14px}
+.count{font-variant-numeric:tabular-nums;min-width:1ch;display:inline-block}
+.bump{animation:bump .45s var(--ease)}
+@keyframes bump{40%{transform:scale(1.5)}}
+
+/* ---------- HERO: photo full bleed, type anchored bottom left ---------- */
+.hero{position:relative;min-height:100svh;overflow:hidden;display:flex;align-items:flex-end;padding:0 var(--pad) clamp(28px,5vw,60px)}
+.hero .ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:62% 18%;opacity:.92}
+.hero .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(21,18,15,.15) 30%,rgba(21,18,15,.78))}
+.hero .copy{position:relative;z-index:2;width:100%}
+.hero h1 .ln{display:block;overflow:hidden;padding-bottom:.06em;margin-bottom:-.06em}
+.hero h1 .ln > span{display:inline-block}
+.hero .art{font-size:1.06em;letter-spacing:-0.03em}
+.hero .row{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-top:clamp(22px,3vw,40px)}
+.status{display:inline-flex;align-items:center;gap:9px;font-size:14px}
+.status i{width:8px;height:8px;border-radius:999px;background:currentColor;opacity:.5;display:inline-block}
+.status.open i{background:var(--cobalt);opacity:1}
+.credit{position:absolute;right:var(--pad);top:50%;writing-mode:vertical-rl;z-index:2;font-size:11px;letter-spacing:.18em;text-transform:uppercase;opacity:.7}
+
+/* load moment */
+.js .hero h1 .ln > span{transform:translateY(105%)}
+.js .hero .row,.js .hero .credit{opacity:0}
+.js .hero .ph{transform:scale(1.06)}
+.ready .hero h1 .ln > span{transform:none;transition:transform .9s var(--ease)}
+.ready .hero h1 .ln:nth-child(2) > span{transition-delay:.09s}
+.ready .hero .row,.ready .hero .credit{opacity:1;transition:opacity .6s var(--ease) .35s}
+.ready .hero .ph{transform:none;transition:transform 1.6s var(--ease)}
+
+/* scroll reveal, same curve */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .65s var(--ease),transform .65s var(--ease)}
+.rv.in{opacity:1;transform:none}
+
+/* ---------- FRIDAY STRIP ---------- */
+.friday{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px var(--pad);background:var(--cobalt);color:var(--gesso);font-size:14px;flex-wrap:wrap}
+
+/* ---------- THE WALL: rotated label + rail ---------- */
+.wall{padding:110px 0 100px;display:grid;grid-template-columns:clamp(96px,10vw,150px) minmax(0,1fr)}
+.wall .vl .d-l{font-size:clamp(64px,9vw,128px)}
+.vl{writing-mode:vertical-rl;transform:rotate(180deg);justify-self:center;align-self:start;white-space:nowrap}
+.wall-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;padding:0 var(--pad) 44px 0}
+.rail{display:flex;gap:clamp(22px,3vw,48px);overflow-x:auto;scroll-snap-type:x mandatory;padding:0 var(--pad) 10px 0;scrollbar-width:none}
+.rail::-webkit-scrollbar{display:none}
+.piece{scroll-snap-align:start;flex:0 0 clamp(262px,25vw,350px);min-width:0}
+.frame{aspect-ratio:4/5;display:grid;place-items:center;padding:13%}
+.frame img{width:100%;height:100%;object-fit:cover;outline:9px solid var(--paper)}
+.label{background:var(--paper);margin-top:18px;padding:16px 18px 18px;width:86%}
+.label .nm{font-family:var(--cameo);font-style:italic;font-size:28px;line-height:1.02;letter-spacing:-0.01em;margin-top:6px}
+.label p{font-size:14px;line-height:1.4;margin-top:6px}
+.label .foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:14px}
+.was{text-decoration:line-through;opacity:.45;margin-right:6px}
+.sold{font-size:11px;letter-spacing:.18em;text-transform:uppercase}
+.arrows{display:flex;gap:10px}
+
+/* skeletons */
+.sk{background:var(--linen);position:relative;overflow:hidden}
+.band .sk{background:var(--gesso)}
+.sk::after{content:"";position:absolute;inset:0;background:rgba(255,255,255,.5);animation:pulse 1.2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:0}50%{opacity:1}}
+.skl{height:12px;margin-top:10px}
+
+/* ---------- THE CASE: photo one side, list other ---------- */
+.case{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);min-height:92svh}
+.case-ph{position:relative;overflow:hidden;min-height:420px}
+.case-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .5s var(--ease)}
+.case-ph .tag{position:absolute;left:var(--pad);bottom:var(--pad);background:var(--paper);padding:10px 14px;font-size:13px;z-index:2}
+.case-list{padding:90px var(--pad) 70px}
+.case-items{list-style:none;margin-top:34px}
+.case-items li{display:grid;grid-template-columns:1fr auto;gap:6px 18px;padding:16px 0;border-top:1px solid rgba(28,26,23,.2);cursor:default}
+.case-items li:last-child{border-bottom:1px solid rgba(28,26,23,.2)}
+.case-items .n{font-size:19px;line-height:1.2}
+.case-items .ds{font-size:13px;opacity:.62;grid-column:1/-1}
+.left{font-size:13px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.left.out{text-decoration:line-through;opacity:.5}
+.nut{font-size:10px;letter-spacing:.16em;text-transform:uppercase;border:1px solid currentColor;border-radius:999px;padding:3px 7px;margin-left:8px;vertical-align:2px}
+
+/* ---------- ORDER: widget left, type right ---------- */
+.order{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(30px,6vw,100px);padding:120px var(--pad);max-width:1480px;margin:0 auto;align-items:start}
+.order .type{position:sticky;top:40px}
+.panel{background:var(--paper);padding:clamp(20px,2.6vw,34px)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.mlist{list-style:none}
+.mlist li{display:grid;grid-template-columns:1fr auto auto;gap:16px;align-items:center;padding:14px 0;border-top:1px solid rgba(28,26,23,.16)}
+.mlist li:last-child{border-bottom:1px solid rgba(28,26,23,.16)}
+.mlist .n{font-size:17px;line-height:1.2}
+.mlist .ds{font-size:13px;opacity:.6;margin-top:3px}
+.add{width:36px;height:36px;border-radius:999px;border:1px solid var(--ink);font-size:18px;line-height:1;display:grid;place-items:center}
+.add:disabled{opacity:.3;cursor:not-allowed}
+.opts{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding-top:4px}
+.opts .grp{display:flex;gap:6px;flex-wrap:wrap;margin-right:10px}
+.cart{margin-top:26px;border-top:1px solid var(--ink);padding-top:18px}
+.cline{display:flex;justify-content:space-between;gap:12px;font-size:15px;padding:5px 0}
+.cline button{font-size:13px;text-decoration:underline;opacity:.55;margin-left:8px}
+.ctotal{display:flex;justify-content:space-between;font-size:24px;margin-top:12px;letter-spacing:-0.015em}
+.checkout{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+.track{margin-top:8px}
+.track .num{font-size:clamp(56px,7vw,92px);line-height:.82;letter-spacing:-0.04em;font-weight:300;font-variation-settings:"opsz" 96}
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:22px;border-top:1px solid rgba(28,26,23,.2)}
+.steps div{padding-top:10px;font-size:13px;opacity:.38;position:relative}
+.steps div.on{opacity:1}
+.steps div.on::before{content:"";position:absolute;top:-1px;left:0;right:0;height:1px;background:var(--cobalt)}
+
+/* ---------- SUBSCRIBE: dark, cropped off the right edge ---------- */
+.subscribe{padding:120px 0 110px;overflow:hidden;position:relative}
+.crop{white-space:nowrap;padding-left:var(--pad);margin-left:-.04em}
+.subgrid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:clamp(30px,5vw,80px);padding:60px var(--pad) 0;align-items:end}
+.sentence{font-size:clamp(28px,3.4vw,48px);line-height:1.2;letter-spacing:-0.02em;font-weight:300;font-variation-settings:"opsz" 96}
+.sentence select{max-width:100%;font:inherit;letter-spacing:inherit;border:0;border-bottom:1px solid currentColor;color:inherit;background:transparent;border-radius:0;appearance:none;-webkit-appearance:none;padding:0 4px;cursor:pointer;color:#9fb0ff}
+.sentence select option{color:var(--ink)}
+.subfoot{display:flex;gap:26px;align-items:center;flex-wrap:wrap;padding:40px var(--pad) 0}
+.price{font-size:36px;letter-spacing:-0.02em;font-variant-numeric:tabular-nums}
+.bagph{width:100%;aspect-ratio:47/42;object-fit:cover}
+.meter{height:1px;background:rgba(241,238,231,.25);margin-top:10px;position:relative;max-width:260px}
+.meter i{position:absolute;left:0;top:-1px;height:3px;background:#9fb0ff;transition:width .65s var(--ease)}
+
+/* ---------- WALLS: centred stack with paintings scattered ---------- */
+.walls{position:relative;padding:150px var(--pad) 160px;text-align:center;overflow:hidden;min-height:120svh}
+.walls .stack{position:relative;z-index:2;max-width:760px;margin:0 auto;padding-top:22vh}
+.walls .lede{margin:24px auto 0}
+.hang{position:absolute;z-index:1;padding:0;cursor:zoom-in;transition:transform .5s var(--ease)}
+.hang img{width:100%;outline:7px solid var(--paper)}
+.hang:focus-visible{outline:2px solid var(--cobalt);outline-offset:12px}
+.hang .cap{display:block;text-align:left;font-size:12px;margin-top:12px;opacity:.7}
+
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:80;background:rgba(21,18,15,.94);color:var(--gesso);display:none;grid-template-columns:minmax(0,1fr) 340px;gap:40px;padding:6vh 5vw;align-items:center}
+.lb.on{display:grid;animation:fade .45s var(--ease)}
+@keyframes fade{from{opacity:0}}
+.lb img{max-height:84vh;width:auto;max-width:100%;margin:0 auto;outline:10px solid var(--paper)}
+.lb .x{position:absolute;top:22px;right:26px}
+
+/* ---------- EVENTS: three panel ---------- */
+.events{padding:120px var(--pad);display:grid;grid-template-columns:minmax(0,4fr) minmax(0,6fr) 60px;gap:clamp(24px,4vw,64px)}
+.elist{list-style:none}
+.elist li{display:grid;grid-template-columns:110px 1fr auto;gap:18px;padding:20px 0;border-top:1px solid rgba(28,26,23,.2);align-items:start}
+.elist li:last-child{border-bottom:1px solid rgba(28,26,23,.2)}
+.elist .when{font-size:12px;letter-spacing:.12em;text-transform:uppercase;line-height:1.5;padding-top:4px}
+.elist .t{font-size:20px;line-height:1.2}
+.elist .ds{font-size:13px;opacity:.62;margin-top:5px}
+.events .vl{justify-self:end}
+
+/* ---------- JOIN: type one side, form other (inverted from case) ---------- */
+.join{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(30px,6vw,100px);padding:120px var(--pad);align-items:start}
+.roles{list-style:none;margin-top:34px}
+.roles li{padding:18px 0;border-top:1px solid rgba(241,238,231,.25)}
+.roles li:last-child{border-bottom:1px solid rgba(241,238,231,.25)}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.fgrid .full{grid-column:1/-1}
+.dark .field{border-bottom-color:rgba(241,238,231,.6)}
+.dark select.field option{color:var(--ink)}
+
+/* ---------- VISIT: edge to edge ---------- */
+.visit{padding:110px 0 0;overflow:hidden}
+.addr{font-size:clamp(78px,15.8vw,290px);line-height:.76;letter-spacing:-0.06em;white-space:nowrap;text-align:center}
+.vgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--ink);margin-top:56px}
+.vgrid > div{padding:26px var(--pad) 70px;border-right:1px solid var(--ink)}
+.vgrid > div:last-child{border-right:0}
+.hours{list-style:none;font-size:15px;margin-top:12px}
+.hours li{display:flex;justify-content:space-between;gap:10px;padding:3px 0}
+.hours li.today{color:var(--cobalt)}
+
+footer{padding:44px var(--pad);display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;font-size:14px}
+footer nav{display:flex;gap:24px;flex-wrap:wrap}
+footer a{text-decoration:none}
+
+.toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,250%);visibility:hidden;background:var(--ink);color:var(--gesso);border-radius:999px;padding:12px 20px;font-size:14px;z-index:90;transition:transform .45s var(--ease);white-space:nowrap;max-width:92vw;overflow:hidden;text-overflow:ellipsis}
+.toast.on{transform:translate(-50%,0);visibility:visible}
+.fab{position:fixed;right:18px;bottom:18px;z-index:40;display:none}
+
+/* ---------- LEGAL ---------- */
+.legal{max-width:760px;margin:0 auto;padding:150px 22px 120px}
+.legal h1{margin-bottom:40px}
+.legal h2{font-size:24px;font-weight:400;letter-spacing:-0.015em;margin:36px 0 10px}
+.legal p,.legal li{margin-top:10px;max-width:62ch}
+.legal ul{padding-left:20px}
+
+/* ---------- OWNER ---------- */
+.owner{display:grid;grid-template-columns:236px minmax(0,1fr);min-height:100svh}
+.orail{padding:24px 18px;display:flex;flex-direction:column;gap:4px}
+.orail .wm{margin:0 0 30px 12px;display:block}
+.orail button{text-align:left;padding:11px 14px;border-radius:999px;font-size:15px;display:flex;justify-content:space-between;align-items:center}
+.orail button[aria-current="true"]{background:var(--cobalt)}
+.orail .dot{min-width:20px;height:20px;border-radius:999px;background:var(--gesso);color:var(--night);font-size:11px;display:grid;place-items:center;padding:0 6px}
+.orail .back{margin-top:auto;font-size:13px;opacity:.7;text-decoration:none;padding:11px 14px}
+.omain{padding:30px clamp(18px,3vw,48px) 90px;min-width:0}
+.ohead{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;border-bottom:1px solid var(--ink);padding-bottom:20px}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-bottom:1px solid var(--ink)}
+.kpis > div{padding:20px 18px 22px;border-right:1px solid rgba(28,26,23,.18)}
+.kpis > div:first-child{padding-left:0}
+.kpis > div:last-child{border-right:0}
+.kpis .v{font-size:clamp(36px,4.2vw,58px);line-height:.9;letter-spacing:-0.035em;font-weight:300;font-variation-settings:"opsz" 96;margin-top:8px;font-variant-numeric:tabular-nums}
+.ot{width:100%;border-collapse:collapse;margin-top:24px;font-size:15px}
+.ot th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.18em;font-weight:500;padding:10px 12px 10px 0;border-bottom:1px solid var(--ink)}
+.ot td{padding:13px 12px 13px 0;border-bottom:1px solid rgba(28,26,23,.16);vertical-align:middle}
+.ot .sm{font-size:13px;opacity:.6}
+.tw{overflow-x:auto}
+.stage{display:inline-block;border-radius:999px;border:1px solid var(--ink);padding:6px 12px;font-size:12px;white-space:nowrap}
+.stage.new{background:var(--cobalt);border-color:var(--cobalt);color:var(--gesso)}
+.sw{width:46px;height:26px;border-radius:999px;border:1px solid var(--ink);position:relative;display:inline-block;vertical-align:middle}
+.sw::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:999px;background:var(--ink);transition:left .3s var(--ease)}
+.sw[aria-checked="true"]{background:var(--cobalt);border-color:var(--cobalt)}
+.sw[aria-checked="true"]::after{left:23px;background:var(--gesso)}
+.step{display:inline-flex;align-items:center;gap:10px}
+.step button{width:30px;height:30px;border-radius:999px;border:1px solid var(--ink)}
+.note{font-size:13px;opacity:.6;margin-top:14px;max-width:70ch}
+.pm{display:grid;grid-template-columns:minmax(0,360px) minmax(0,1fr);gap:34px;margin-top:26px;align-items:start}
+.pm canvas{width:100%;height:auto;display:block;background:var(--linen)}
+.empty{padding:40px 0;opacity:.6}
+
+/* ---------- responsive ---------- */
+@media (max-width:980px){
+  .nav .links .hs{display:none}
+  .wall{grid-template-columns:minmax(0,1fr);padding-top:80px}
+  .wall .vl{writing-mode:horizontal-tb;transform:none;justify-self:start;padding:0 var(--pad) 18px}
+  .wall-head,.rail{padding-left:var(--pad)}
+  .wall-head{flex-direction:column;align-items:flex-start}
+  .case{grid-template-columns:minmax(0,1fr)}
+  .case-ph{min-height:64vw}
+  .case-list{padding-top:60px}
+  .order,.join{grid-template-columns:minmax(0,1fr);padding-top:90px;padding-bottom:90px}
+  .order .type{position:static;order:-1}
+  .subgrid{grid-template-columns:minmax(0,1fr)}
+  .bagph{max-width:420px}
+  .events{grid-template-columns:minmax(0,1fr);padding-top:90px;padding-bottom:90px}
+  .events .vl{writing-mode:horizontal-tb;transform:none;justify-self:start;order:-1;white-space:normal}
+  .vgrid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .vgrid > div:nth-child(2){border-right:0}
+  .vgrid > div:nth-child(-n+2){border-bottom:1px solid var(--ink)}
+  .owner{grid-template-columns:minmax(0,1fr)}
+  .orail{flex-direction:row;overflow-x:auto;padding:12px;align-items:center}
+  .orail .wm{margin:0 12px 0 6px}
+  .orail button{white-space:nowrap;gap:8px}
+  .orail .back{margin:0 0 0 6px;white-space:nowrap}
+  .kpis{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .kpis > div:nth-child(2){border-right:0}
+  .kpis > div:nth-child(3){padding-left:0}
+  .pm{grid-template-columns:minmax(0,1fr)}
+  .lb{grid-template-columns:minmax(0,1fr);overflow:auto;align-items:start}
+  .lb img{max-height:60vh}
+  .walls{min-height:0;padding-top:110px;padding-bottom:110px}
+  .walls .stack{padding-top:0}
+  .hang{position:static;display:inline-block;width:44%!important;margin:22px 2% 0;transform:none!important;vertical-align:top}
+}
+@media (max-width:600px){
+  body{font-size:16px}
+  .checkout,.fgrid{grid-template-columns:minmax(0,1fr)}
+  .vgrid{grid-template-columns:minmax(0,1fr)}
+  .vgrid > div{border-right:0;border-bottom:1px solid var(--ink);padding-bottom:34px}
+  .elist li{grid-template-columns:minmax(0,1fr) auto}
+  .elist .when{grid-column:1/-1}
+  .label{width:94%}
+  .past .fab{display:inline-flex}
+  .credit{display:none}
+  .hero .ph{object-position:58% 20%}
+  .steps div{font-size:11px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}html{scroll-behavior:auto}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<script>document.body.classList.add('js')</script>
+
+<!-- ======================= HOME ======================= -->
+<div class="view" id="view-home">
+  <header class="nav">
+    <a class="wm" href="#home">canvas</a>
+    <div class="links">
+      <a class="hs" href="#wall">Coffee</a>
+      <a class="hs" href="#case">In the case</a>
+      <a class="hs" href="#walls">On the walls</a>
+      <a class="hs" href="#visit">Visit</a>
+      <a class="pill solid sm" href="#order">Order ahead <span class="count" id="navCount">0</span></a>
+    </div>
+  </header>
+
+  <section class="hero dark" aria-label="Welcome">
+    <img class="ph" src="img/ph-latte.jpg" alt="Paper cranes hanging on red thread above the bar at Canvas, with an iced latte and dried flowers in a white vase">
+    <div class="shade"></div>
+    <span class="credit">Paper cranes over the bar, 109 W Stone Ave</span>
+    <div class="copy">
+      <h1 class="d d-xl"><span class="ln"><span>stay for</span></span><span class="ln"><span>the <span class="cameo art">art.</span></span></span></h1>
+      <div class="row">
+        <p class="lede">Coffee roasted here in Greenville by Arin. Every bag wears one of Genavieve's paintings. Pull up a chair and stay a while.</p>
+        <div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap">
+          <span class="status" id="status"><i></i><span>Checking hours</span></span>
+          <a class="pill solid" href="#order">Order for pickup</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="friday" id="friday" hidden></div>
+
+  <section class="wall" id="wall" aria-label="The Wall: coffees">
+    <div class="vl"><span class="d d-l">the wall</span></div>
+    <div style="min-width:0">
+      <div class="wall-head rv">
+        <div>
+          <p class="micro">Roasted in Greenville on a Diedrich IR-2.5</p>
+          <p class="lede" style="margin-top:14px">Each coffee is hung on its own colour with the painting that wears its bag. Genavieve and Arin make the artwork for every one together.</p>
+        </div>
+        <div class="arrows"><button class="pill line sm" id="prev" aria-label="Previous coffee">Prev</button><button class="pill line sm" id="next" aria-label="Next coffee">Next</button></div>
+      </div>
+      <div class="rail" id="rail" tabindex="0" aria-label="Coffees, scroll sideways"></div>
+    </div>
+  </section>
+
+  <section class="case band" id="case" aria-label="In the case today">
+    <div class="case-ph" id="casePh">
+      <img src="img/ph-crois.jpg" alt="Breakfast croissant with egg souffle and melted cheddar" data-k="crois">
+      <img src="img/ph-onion.jpg" alt="French Onion sandwich on an everything milk bun" data-k="onion" style="opacity:0">
+      <img src="img/ph-cinn.jpg" alt="A tray of frosted cinnamon rolls in the case" data-k="cinn" style="opacity:0">
+      <span class="tag">Made for Canvas by Joy Bird Bakeshop</span>
+    </div>
+    <div class="case-list">
+      <p class="micro">In the case today, from 6am</p>
+      <h2 class="d d-m" style="margin-top:16px">sandwiches, <span class="cameo">finally.</span></h2>
+      <p class="lede" style="margin-top:20px">Hot and ready until they sell out. Counts update live from the bar, so you know before you walk over.</p>
+      <ul class="case-items" id="caseItems"></ul>
+    </div>
+  </section>
+
+  <section class="order" id="order" aria-label="Order ahead">
+    <div class="panel" id="orderPanel">
+      <div class="tabs" id="tabs"></div>
+      <ul class="mlist" id="mlist"></ul>
+      <div class="cart" id="cart"></div>
+    </div>
+    <div class="type">
+      <h2 class="d d-l rv">skip<br>the line.</h2>
+      <p class="lede" style="margin-top:28px">Order from the bar, the slow bar or the case. Pick a time and it is waiting on the marble when you walk in. Oat, almond or coconut milk for a dollar.</p>
+      <p class="micro muted" style="margin-top:26px">Pickup at 109 W Stone Ave, Suite E4</p>
+      <p class="small muted" style="margin-top:10px">Drink and case prices in this mockup are placeholders until Canvas confirms them.</p>
+    </div>
+  </section>
+
+  <section class="subscribe dark" id="subscribe" aria-label="Subscriptions">
+    <div class="crop d d-xl" id="crop">every four weeks</div>
+    <div class="subgrid">
+      <form class="sentence" onsubmit="return false">
+        Send me <select id="sPlan" aria-label="Plan"><option value="regular">The Regular</option><option value="curious" selected>The Curious</option><option value="household">The Household</option></select>,
+        <span id="sWhat">a limited release</span>, every
+        <select id="sEvery" aria-label="Frequency"><option value="2">two</option><option value="4" selected>four</option><option value="6">six</option></select> weeks,
+        <select id="sHow" aria-label="How it reaches you"><option value="pickup">picked up on Stone Ave</option><option value="local">delivered free within 5 miles</option><option value="ship">shipped to my door</option></select>.
+      </form>
+      <figure><img class="bagph" src="img/ph-bag.jpg" alt="A Canvas coffee bag with Genavieve's painting on the label"><figcaption class="small" style="margin-top:10px;opacity:.7" id="sCoffee">This fall: Strawberry Co-Ferment, Huila, Colombia</figcaption></figure>
+    </div>
+    <div class="subfoot">
+      <div><span class="price" id="sPrice">$25</span> <span style="opacity:.7" id="sPer">per bag</span></div>
+      <button class="pill solid" id="sGo">Start my subscription</button>
+      <div><p class="micro" style="opacity:.8"><span id="halfLeft">37</span> of 100 first bags still half off</p><div class="meter"><i id="halfBar" style="width:37%"></i></div></div>
+    </div>
+  </section>
+
+  <section class="walls" id="walls" aria-label="On the walls">
+    <div id="hangs"></div>
+    <div class="stack">
+      <p class="micro">On the walls and on the bags</p>
+      <h2 class="d d-l rv" style="margin-top:18px">every bag is<br>a <span class="cameo">painting.</span></h2>
+      <p class="lede">Genavieve Gilbert paints the work on every Canvas bag, and curates quarterly shows of local artists on the café walls. Tap a painting to see it up close and the coffee it belongs to. Prints are for sale at the bar.</p>
+    </div>
+  </section>
+
+  <section class="events band" id="events" aria-label="Classes and events">
+    <div>
+      <p class="micro">Classes, cuppings, First Fridays</p>
+      <h2 class="d d-m rv" style="margin-top:16px">come <span class="cameo">make</span> something.</h2>
+      <p class="lede" style="margin-top:22px">Latte art on the GB5, Sunday cuppings with guest roasters, and Print Club. Seats are counted live.</p>
+      <p class="small muted" style="margin-top:18px">Dates are samples for this mockup.</p>
+    </div>
+    <ul class="elist" id="elist"></ul>
+    <div class="vl"><span class="micro">Makers Menu: art kits at your table</span></div>
+  </section>
+
+  <section class="join dark" id="join" aria-label="Work with us and show with us">
+    <div>
+      <p class="micro" style="opacity:.8">Now hiring</p>
+      <h2 class="d d-m rv" style="margin-top:16px">come work<br>with us.</h2>
+      <ul class="roles">
+        <li><p class="h3">Experienced barista, part-time</p><p class="small" style="opacity:.7;margin-top:6px">About 15 to 20 hours a week, mornings from 5:30am, paid training, room to grow into a lead role.</p></li>
+        <li><p class="h3">Latte art instructor</p><p class="small" style="opacity:.7;margin-top:6px">Teach our latte art classes on the La Marzocco GB5.</p></li>
+        <li><p class="h3">Show your work</p><p class="small" style="opacity:.7;margin-top:6px">Local and regional artists, apply for a wall in an upcoming quarterly show.</p></li>
+      </ul>
+    </div>
+    <form id="joinForm" class="fgrid" onsubmit="return false" style="padding-top:8px">
+      <label class="full"><span class="micro" style="opacity:.8">I'm applying for</span><select class="field" id="jRole"><option>Experienced barista, part-time</option><option>Latte art instructor</option><option>Show my work</option></select></label>
+      <label><span class="micro" style="opacity:.8">Name</span><input class="field" id="jName" required autocomplete="name"></label>
+      <label><span class="micro" style="opacity:.8">Email</span><input class="field" id="jMail" type="email" required autocomplete="email"></label>
+      <label class="full"><span class="micro" style="opacity:.8">A little about you, or a link to your work</span><textarea class="field" id="jAbout" required></textarea></label>
+      <div class="full"><button class="pill solid" id="jGo">Send it to Arin and Genavieve</button></div>
+    </form>
+  </section>
+
+  <section class="visit" id="visit" aria-label="Visit">
+    <div class="addr d">109 w stone</div>
+    <div class="vgrid">
+      <div><p class="micro">Stone Avenue</p><p style="margin-top:12px">109 W Stone Ave, Suite E4<br>Greenville, SC 29609<br>Just north of downtown</p></div>
+      <div><p class="micro">Hours</p><ul class="hours" id="hours"></ul></div>
+      <div><p class="micro">Abney</p><p style="margin-top:12px">Canvas at GCCA<br>101 Abney St, Greenville<br>Bottled drinks at select events</p></div>
+      <div><p class="micro">Say hello</p><p style="margin-top:12px">hello@wearethecanvas.co<br>(864) 831-6130<br>@canvas.coffee.art</p></div>
+    </div>
+  </section>
+
+  <footer class="dark">
+    <span class="wm">canvas</span>
+    <nav><a href="#terms">Terms</a><a href="#privacy">Privacy</a><a href="#owner">Owner view</a></nav>
+    <span style="font-size:12px;opacity:.6">Website mockup by Studio 1801. Photos and paintings from Canvas.</span>
+  </footer>
+  <a class="pill solid fab" href="#order">Order <span class="count" id="fabCount">0</span></a>
+</div>
+
+<!-- ======================= OWNER ======================= -->
+<div class="view" id="view-owner">
+  <div class="owner">
+    <aside class="orail dark">
+      <span class="wm">canvas</span>
+      <button data-o="today" aria-current="true">Today <span class="dot" id="dotNew">0</span></button>
+      <button data-o="case">The case</button>
+      <button data-o="wall">The wall</button>
+      <button data-o="roast">Roast list</button>
+      <button data-o="events">Events</button>
+      <button data-o="inbox">Inbox <span class="dot" id="dotInbox">0</span></button>
+      <button data-o="post">Post maker</button>
+      <a class="back" href="#home">Back to site</a>
+    </aside>
+    <main class="omain">
+      <div class="ohead">
+        <div><p class="micro" id="oDate">Today</p><h1 class="d d-m" style="margin-top:10px" id="oTitle">today</h1></div>
+        <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><button class="pill line sm" id="chimeBtn">Order chime: on</button><span class="micro muted">Demo data</span></div>
+      </div>
+      <div class="kpis" id="kpis"></div>
+      <div id="oBody"></div>
+    </main>
+  </div>
+</div>
+
+<!-- ======================= LEGAL ======================= -->
+<div class="view" id="view-terms">
+  <header class="nav light"><a class="wm" href="#home">canvas</a><div class="links"><a href="#home">Back to the site</a></div></header>
+  <article class="legal">
+    <h1 class="d d-l">terms</h1>
+    <p class="micro muted">Last updated November 2026</p>
+    <h2>Ordering ahead</h2><p>Orders are made for the pickup time you choose. If the case sells out after you order, we will offer a swap or a refund at the counter. Orders not collected within an hour may be remade at our discretion.</p>
+    <h2>The Friday Takeaway</h2><p>Every Friday, every bag of coffee is 20% off in the shop and online. If a coffee is not on the shelf, order it online at the same price and pick it up once it is roasted.</p>
+    <h2>Subscriptions</h2><p>Subscriptions renew every two, four or six weeks. Skip, pause or cancel any time before the next roast day. The half-off first bag applies once per household while the first 100 spots last.</p>
+    <h2>Art, prints and reservations</h2><p>Work on the walls is sold on behalf of the artist. A reservation holds a piece for 48 hours.</p>
+    <h2>Classes and events</h2><p>Paid classes are refundable up to 72 hours before the start. Free events are first come, first served once seats are full.</p>
+    <h2>Contact</h2><p>hello@wearethecanvas.co or (864) 831-6130.</p>
+  </article>
+</div>
+<div class="view" id="view-privacy">
+  <header class="nav light"><a class="wm" href="#home">canvas</a><div class="links"><a href="#home">Back to the site</a></div></header>
+  <article class="legal">
+    <h1 class="d d-l">privacy</h1>
+    <p class="micro muted">Last updated November 2026</p>
+    <h2>What we collect</h2><p>Your name, email or phone and order details when you order ahead, subscribe, book a seat or apply. A delivery address only if you choose local delivery or shipping.</p>
+    <h2>How we use it</h2><ul><li>To make and hand over your order.</li><li>To roast, pack and send your subscription.</li><li>To hold your seat at a class or show.</li><li>To reply to job and artist applications.</li></ul>
+    <h2>What we never do</h2><p>We do not sell your information. Card payments are handled by our payment provider and never stored on this site.</p>
+    <h2>Your choices</h2><p>Write to hello@wearethecanvas.co to see, correct or delete your details.</p>
+  </article>
+</div>
+
+<div class="lb dark" id="lb" role="dialog" aria-modal="true" aria-label="Painting">
+  <button class="pill line sm x" id="lbX">Close</button>
+  <img id="lbImg" alt="">
+  <div id="lbTxt"></div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+/* ======================= DATA (from Canvas's site and Instagram) ======================= */
+const COFFEES=[
+  {id:'jaguar',no:'01',name:'Jaguar Honey',origin:'Tarrazú, Costa Rica',notes:'Milk chocolate, honey, raspberry',use:'The Regular this fall',price:20,ground:'#fc9e9c',img:'img/art-jaguar.jpg'},
+  {id:'granos',no:'02',name:'Granos al Cielo',origin:'Costa Rica',notes:'Toffee, milk chocolate, mandarin',use:'Everyday filter',price:18,ground:'#a7bbc2',img:'img/art-granos.jpg'},
+  {id:'koke',no:'03',name:'Koke Honey',origin:'Yirgacheffe, Ethiopia',notes:'Blueberry, peach, honey',use:'Pour over, drip',price:20,ground:'#af7c21',img:'img/art-koke.jpg',isNew:true},
+  {id:'nhot',no:'04',name:'Nhot Ou',origin:'Laos',notes:'Cocoa, caramelized sugar, toasted peanut',use:'Drip, cold brew, espresso',price:15,ground:'#a34e25',img:'img/art-nhot.jpg',isNew:true},
+  {id:'elpino',no:'05',name:'El Pino',origin:'Santa Bárbara, Honduras',notes:'Washed. Balanced, sweet, quietly complex',use:'Any brewer',price:18,ground:'#8d7551',img:'img/art-elpino.jpg'},
+  {id:'straw',no:'06',name:'Strawberry Co-Ferment',origin:'Finca Anaya, Huila, Colombia',notes:'Strawberry candy, honeydew, sweet cream',use:'Limited release, The Curious',price:25,ground:'#9f0023',img:'img/art-straw.jpg'}
+];
+const CASE=[
+  {id:'bxc',n:'Breakfast croissant',ds:'Butter croissant, egg soufflé, melted cheddar',p:7.5,ph:'crois',stock:9},
+  {id:'bxs',n:'Breakfast croissant with sausage',ds:'The same, with sausage',p:8.5,ph:'crois',stock:6},
+  {id:'fon',n:'French Onion',ds:'Roast beef, caramelized onion aioli, mozzarella, Gruyère, crispy onions, everything milk bun',p:12,ph:'onion',stock:5},
+  {id:'ctc',n:'Cranberry Turkey Croissant',ds:'Herb roasted turkey, brie cream, house cranberry, greens. Seasonal',p:12,ph:'crois',stock:4},
+  {id:'cin',n:'Cinnamon roll',ds:'Milk bread, cinnamon, butter, molasses, vanilla frosting',p:5,ph:'cinn',stock:8},
+  {id:'pec',n:'Pecan bar',ds:'Pecan pie filling on buttery shortbread',p:4.5,ph:'cinn',stock:7,nut:true},
+  {id:'egs',n:'Earl Grey scone',ds:'Buttermilk, Earl Grey baked in, honey vanilla glaze',p:4.5,ph:'cinn',stock:6}
+];
+const BAR={
+  'Espresso bar':[['Espresso','Double shot',3.5,'d'],['Cortado','Equal parts espresso and milk',4.25,'d'],['Cappuccino','Six ounces',4.75,'d'],['Latte','Hot or iced',5.25,'d'],['Caramel latte','House caramel, hot or iced',6,'d']],
+  'Slow bar':[['Pour over','By hand at the glass bar. Ask for today\'s coffee',5.5,''],['Cold brew','Nhot Ou, steeped overnight',4.75,'d'],['Ceremonial matcha','Nekohama A1 Organic, Kagoshima',6,'d']]
+};
+const EVENTS=[
+  {id:'ff',when:'Fri Dec 4<br>6 pm',t:'First Friday at Canvas',ds:'New work on the walls, meet the artists. Free.',seats:40,price:0},
+  {id:'cup',when:'Sun Dec 6<br>12 pm',t:'Sunday cupping',ds:'The Wall side by side with a guest roaster. Free.',seats:14,price:0},
+  {id:'latte',when:'Sat Dec 12<br>3 pm',t:'Latte art class',ds:'Two hours on the GB5. Milk, cups and pitchers included. $45.',seats:8,price:45},
+  {id:'print',when:'Wed Dec 16<br>6 pm',t:'Print Club',ds:'Lino cuts and coffee, all materials in. $30.',seats:12,price:30}
+];
+const HOURS=[['Sun',8,14],['Mon',6,16],['Tue',6,16],['Wed',6,18],['Thu',6,16],['Fri',6,16],['Sat',8,16]];
+const PLANS={regular:{p:20,name:'The Regular',what:'an everyday single origin, medium roast',coffee:'This fall: Jaguar Honey, Tarrazú, Costa Rica'},curious:{p:25,name:'The Curious',what:'a limited release',coffee:'This fall: Strawberry Co-Ferment, Huila, Colombia'},household:{p:42,name:'The Household',what:'two pounds of The Regular',coffee:'This fall: Jaguar Honey, in bulk'}};
+const STAGES=['New','Making','Ready','Picked up'];
+
+/* ======================= STATE + SYNC ======================= */
+const KEY='canvas-demo-v2';
+const D0=()=>({cart:[],seq:214,orders:[
+  {n:211,name:'Maya',items:'Latte, oat milk / Breakfast croissant',total:13.75,time:'7:40 AM',stage:'Picked up'},
+  {n:212,name:'Jordan',items:'Pour over / Koke Honey 12 oz',total:25.5,time:'8:05 AM',stage:'Ready'},
+  {n:213,name:'Priya',items:'Cortado / Cinnamon roll',total:9.25,time:'8:20 AM',stage:'Making'}],
+  stock:Object.fromEntries(CASE.map(c=>[c.id,c.stock])),off:{},friday:'auto',
+  subs:[{name:'Sam R.',plan:'The Curious',every:4,how:'Pickup',coffee:'straw'},{name:'Elena K.',plan:'The Household',every:2,how:'Local delivery',coffee:'jaguar'},{name:'Theo B.',plan:'The Regular',every:4,how:'Shipped',coffee:'jaguar'},{name:'Ana M.',plan:'The Regular',every:6,how:'Pickup',coffee:'jaguar'},{name:'Chris L.',plan:'The Curious',every:2,how:'Pickup',coffee:'straw'}],
+  bookings:{ff:22,cup:9,latte:6,print:5},half:37,
+  inbox:[{role:'Show my work',name:'Lee Hart',mail:'lee@example.com',about:'Linocut prints, @leehartprints',status:'New'}],
+  mine:null,chime:true});
+let S;try{S=JSON.parse(localStorage.getItem(KEY))||D0()}catch(e){S=D0()}
+let bc=null;try{bc=new BroadcastChannel(KEY);bc.onmessage=m=>{if(m.data&&m.data.state){const was=S.orders.length;S=m.data.state;renderAll();if(S.orders.length>was&&isOwner())chime()}}}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}try{bc&&bc.postMessage({state:S})}catch(e){}}
+
+const $=s=>document.querySelector(s);
+const money=v=>'$'+(Math.round(v*100)/100).toFixed(2);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('on'),2600)}
+function isOwner(){return location.hash==='#owner'}
+
+/* ======================= TIME (Greenville) ======================= */
+function nowET(){const o={};new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',weekday:'short',hour:'numeric',minute:'numeric',hour12:false}).formatToParts(new Date()).forEach(x=>o[x.type]=x.value);return{day:o.weekday,h:(+o.hour%24)+(+o.minute)/60}}
+const fh=h=>{const m=Math.round((h%1)*60);const hh=Math.floor(h);return (hh%12||12)+(m?':'+String(m).padStart(2,'0'):'')+(hh>=12?' pm':' am')};
+function isFriday(){return S.friday==='on'||(S.friday==='auto'&&nowET().day==='Fri')}
+function priceOf(c){return isFriday()?c.price*.8:c.price}
+function statusRender(){const {day,h}=nowET();const i=HOURS.findIndex(x=>x[0]===day),r=HOURS[i];const open=h>=r[1]&&h<r[2];const el=$('#status');
+  el.classList.toggle('open',open);el.querySelector('span').textContent=open?`Open now, until ${fh(r[2])}`:(h<r[1]?`Opens today at ${fh(r[1])}`:`Closed. Opens ${HOURS[(i+1)%7][0]} at ${fh(HOURS[(i+1)%7][1])}`);
+  $('#hours').innerHTML=HOURS.slice(1).concat([HOURS[0]]).map(x=>`<li class="${x[0]===day?'today':''}"><span>${x[0]}</span><span>${fh(x[1])} to ${fh(x[2])}</span></li>`).join('');
+  const f=$('#friday');
+  if(isFriday()){f.hidden=false;f.innerHTML=`<span><b style="font-weight:500">The Friday Takeaway.</b> Every bag of coffee is 20% off today, in the shop and online.</span><a class="pill line sm" href="#wall">Shop the wall</a>`}
+  else{const n=(5-HOURS.findIndex(x=>x[0]===day)+7)%7;f.hidden=false;f.innerHTML=`<span><b style="font-weight:500">The Friday Takeaway</b> is ${n===1?'tomorrow':'in '+n+' days'}: every bag 20% off, every Friday.</span><a class="pill line sm" href="#subscribe">Or subscribe</a>`}}
+function slots(){const {day,h}=nowET();let i=HOURS.findIndex(x=>x[0]===day),r=HOURS[i],start=Math.ceil((h+.25)*4)/4,label='Today';
+  if(start>=r[2]-.25){i=(i+1)%7;r=HOURS[i];start=r[1];label=HOURS[i][0]}else start=Math.max(start,r[1]);
+  const out=[];for(let t=start;t<Math.min(start+2.5,r[2]);t+=.25)out.push(`${label} ${fh(t)}`);return out}
+
+/* ======================= WALL ======================= */
+function wallSk(){$('#rail').innerHTML=COFFEES.map(()=>`<div class="piece"><div class="frame sk"></div><div class="label"><div class="sk skl" style="width:40%"></div><div class="sk" style="height:26px;width:75%;margin-top:10px"></div><div class="sk skl" style="width:90%"></div></div></div>`).join('')}
+function wall(){$('#rail').innerHTML=COFFEES.map(c=>{const off=S.off[c.id];return `<article class="piece">
+  <div class="frame" style="background:${c.ground}"><img src="${c.img}" alt="Genavieve Gilbert's painting for ${esc(c.name)}" loading="lazy"></div>
+  <div class="label"><p class="micro">No. ${c.no} &middot; ${esc(c.origin)}${c.isNew?' &middot; New':''}</p>
+  <p class="nm">${esc(c.name)}</p><p>${esc(c.notes)}</p><p class="muted">${esc(c.use)}. 12 oz whole bean.</p>
+  <div class="foot"><span>${isFriday()?`<span class="was">${money(c.price)}</span>`:''}${money(priceOf(c))}</span>${off?'<span class="sold">Roasting soon</span>':`<button class="pill line sm" data-bag="${c.id}">Add bag</button>`}</div></div></article>`}).join('')}
+function railBy(d){const r=$('#rail'),p=r.querySelector('.piece');r.scrollBy({left:d*(p?p.offsetWidth+40:300),behavior:'smooth'})}
+
+/* ======================= CASE ======================= */
+function caseSk(){$('#caseItems').innerHTML=CASE.map(()=>`<li><div class="sk" style="height:20px;width:60%"></div><div class="sk skl" style="width:30px"></div></li>`).join('')}
+function caseList(){$('#caseItems').innerHTML=CASE.map(c=>{const n=S.stock[c.id];return `<li data-ph="${c.ph}"><span class="n">${esc(c.n)}${c.nut?'<span class="nut">Tree nuts</span>':''}</span><span class="left ${n?'':'out'}">${n?n+' left':'Sold out'}</span><span class="ds">${esc(c.ds)}</span></li>`}).join('')}
+document.addEventListener('pointerover',e=>{const li=e.target.closest('#caseItems li');if(!li)return;document.querySelectorAll('#casePh img').forEach(i=>i.style.opacity=i.dataset.k===li.dataset.ph?1:0)});
+
+/* ======================= ORDER ======================= */
+let tab='Espresso bar',opt={};
+function tabs(){$('#tabs').innerHTML=['Espresso bar','Slow bar','The case','Bags'].map(k=>`<button class="chip" aria-pressed="${k===tab}" data-tab="${k}">${k}</button>`).join('')}
+function rows(){if(tab==='The case')return CASE.map(c=>({k:'c:'+c.id,n:c.n,ds:c.ds,p:c.p,out:!S.stock[c.id]}));
+  if(tab==='Bags')return COFFEES.map(c=>({k:'b:'+c.id,n:c.name+' 12 oz',ds:c.notes,p:priceOf(c),out:S.off[c.id]}));
+  return BAR[tab].map((m,i)=>({k:'d:'+tab+':'+i,n:m[0],ds:m[1],p:m[2],milk:m[3]==='d'}))}
+function menu(){$('#mlist').innerHTML=rows().map(r=>{const o=opt[r.k]||{size:'12 oz',milk:'Whole'};return `<li><div><div class="n">${esc(r.n)}</div><div class="ds">${esc(r.ds)}${r.out?' &middot; sold out':''}</div></div><span>${money(r.p+(r.milk&&o.milk!=='Whole'?1:0))}</span><button class="add" aria-label="Add ${esc(r.n)}" data-add="${r.k}" ${r.out?'disabled':''}>+</button>
+  ${r.milk?`<div class="opts"><div class="grp">${['Whole','Oat','Almond','Coconut'].map(m=>`<button class="chip" style="padding:6px 10px;font-size:12px" aria-pressed="${o.milk===m}" data-milk="${r.k}|${m}">${m}${m==='Whole'?'':' +$1'}</button>`).join('')}</div></div>`:''}</li>`}).join('')}
+function addItem(k){const r=rows().find(x=>x.k===k);if(!r)return;const o=opt[k]||{milk:'Whole'};const milk=r.milk&&o.milk!=='Whole'?o.milk:'';
+  if(k.startsWith('c:')){const id=k.slice(2);const inCart=S.cart.filter(x=>x.k===k).reduce((a,b)=>a+b.q,0);if(inCart>=S.stock[id]){toast('That is the last one in the case');return}}
+  const name=r.n+(milk?', '+milk.toLowerCase()+' milk':''),price=r.p+(milk?1:0);const f=S.cart.find(x=>x.name===name);f?f.q++:S.cart.push({k,name,price,q:1});save();cart();bump();toast(r.n+' added')}
+function bump(){['#navCount','#fabCount'].forEach(s=>{const e=$(s);e.classList.remove('bump');void e.offsetWidth;e.classList.add('bump')})}
+function cart(){const n=S.cart.reduce((a,b)=>a+b.q,0),t=S.cart.reduce((a,b)=>a+b.q*b.price,0);$('#navCount').textContent=n;$('#fabCount').textContent=n;
+  if(S.mine){const o=S.orders.find(x=>x.n===S.mine);if(o){const si=STAGES.indexOf(o.stage);$('#cart').innerHTML=`<div class="track"><p class="micro">Order for ${esc(o.name)}, ${esc(o.time)}</p><p class="num">no. ${o.n}</p>
+    <div class="steps">${STAGES.map((s,i)=>`<div class="${i<=si?'on':''}">${s==='New'?'Received':s}</div>`).join('')}</div>
+    <p class="small muted" style="margin-top:16px">${si>=2?'It is on the marble. See you soon.':'This updates live as the bar works on it. Try it: open the Owner view and move the order along.'}</p>
+    <div style="display:flex;gap:10px;margin-top:18px;flex-wrap:wrap"><a class="pill line sm" href="#owner">Open owner view</a><button class="pill line sm" id="newOrder">Start a new order</button></div></div>`;return}}
+  if(!n){$('#cart').innerHTML='<p class="small muted">Your order is empty. Tap + to add.</p>';return}
+  $('#cart').innerHTML=`<p class="micro">Your order</p>${S.cart.map((c,i)=>`<div class="cline"><span>${c.q} &times; ${esc(c.name)}</span><span>${money(c.q*c.price)}<button data-rm="${i}">remove</button></span></div>`).join('')}
+  <div class="ctotal"><span>Total</span><span>${money(t)}</span></div>
+  <div class="checkout"><label><span class="micro">Name for the cup</span><input class="field" id="coName" autocomplete="given-name"></label><label><span class="micro">Pickup</span><select class="field" id="coTime">${slots().map(s=>`<option>${s}</option>`).join('')}</select></label></div>
+  <button class="pill solid" id="place" style="margin-top:22px">Place order, pay at pickup</button><p class="small muted" style="margin-top:10px">Demo checkout. No card is charged.</p>`}
+function place(){const nm=($('#coName').value||'').trim();if(!nm){$('#coName').focus();toast('Add a name for the cup');return}
+  const n=++S.seq,time=$('#coTime').value,tot=S.cart.reduce((a,b)=>a+b.q*b.price,0);
+  S.cart.forEach(c=>{if(c.k.startsWith('c:'))S.stock[c.k.slice(2)]=Math.max(0,S.stock[c.k.slice(2)]-c.q)});
+  S.orders.unshift({n,name:nm,items:S.cart.map(c=>(c.q>1?c.q+' x ':'')+c.name).join(' / '),total:tot,time,stage:'New'});S.cart=[];S.mine=n;save();renderAll();toast('Order no. '+n+' sent to the bar')}
+
+/* ======================= SUBSCRIBE ======================= */
+function fitSel(){document.querySelectorAll('.sentence select').forEach(sl=>{const m=document.createElement('span');m.style.cssText='position:absolute;visibility:hidden;white-space:pre';m.className='sentence';m.textContent=sl.selectedOptions[0].text;document.body.appendChild(m);sl.style.width=(m.offsetWidth+16)+'px';m.remove()})}
+function sub(){fitSel();const k=$('#sPlan').value,p=PLANS[k];$('#sWhat').textContent=p.what;$('#sPrice').textContent=money(p.p).replace('.00','');$('#sPer').textContent=k==='household'?'per 2 lb delivery':'per bag';$('#sCoffee').textContent=p.coffee;
+  $('#crop').textContent='every '+({2:'two',4:'four',6:'six'}[$('#sEvery').value])+' weeks';$('#halfLeft').textContent=S.half;$('#halfBar').style.width=S.half+'%'}
+
+/* ======================= WALLS (gallery) ======================= */
+const SPOTS=[[4,8,15,-3],[23,3,12,2],[72,5,14,3],[80,58,15,-2],[5,58,13,2]];
+function hangs(){$('#hangs').innerHTML=COFFEES.filter(c=>c.id!=='straw').map((c,i)=>{const s=SPOTS[i];return `<button class="hang" data-art="${i}" style="left:${s[0]}%;top:${s[1]}%;width:${s[2]}%;transform:rotate(${s[3]}deg)" aria-label="View ${esc(c.name)} painting"><img src="${c.img}" alt="" loading="lazy"><span class="cap"><span class="cameo" style="font-size:16px">${esc(c.name)}</span></span></button>`}).join('')}
+function openArt(i){const c=COFFEES[i];$('#lbImg').src=c.img;$('#lbImg').alt="Genavieve Gilbert's painting for "+c.name;
+  $('#lbTxt').innerHTML=`<p class="micro" style="opacity:.7">Genavieve Gilbert &middot; acrylic on canvas</p><p class="cameo" style="font-size:44px;line-height:1;margin-top:12px">${esc(c.name)}</p><p style="margin-top:14px;opacity:.8">Painted for ${esc(c.origin)}: ${esc(c.notes.toLowerCase())}.</p>
+  <div style="display:flex;gap:10px;margin-top:24px;flex-wrap:wrap"><button class="pill solid sm" data-bag="${c.id}">Add the bag, ${money(priceOf(c))}</button><button class="pill line sm" data-print="${c.id}">Reserve a print</button></div>`;$('#lb').classList.add('on');$('#lbX').focus()}
+
+/* ======================= EVENTS ======================= */
+function events(){$('#elist').innerHTML=EVENTS.map(e=>{const l=e.seats-S.bookings[e.id];return `<li><span class="when">${e.when}</span><div><div class="t">${e.t}</div><div class="ds">${e.ds} ${l} of ${e.seats} seats left.</div></div><button class="pill line sm" data-rsvp="${e.id}" ${l<=0?'disabled':''}>${l<=0?'Full':'Save a seat'}</button></li>`}).join('')}
+
+/* ======================= OWNER ======================= */
+let otab='today',ownerReady=false;
+function chime(){if(!S.chime)return;try{const a=new (window.AudioContext||window.webkitAudioContext)();[880,1320].forEach((f,i)=>{const o=a.createOscillator(),g=a.createGain();o.frequency.value=f;o.connect(g);g.connect(a.destination);g.gain.setValueAtTime(.0001,a.currentTime+i*.16);g.gain.exponentialRampToValueAtTime(.18,a.currentTime+i*.16+.02);g.gain.exponentialRampToValueAtTime(.0001,a.currentTime+i*.16+.5);o.start(a.currentTime+i*.16);o.stop(a.currentTime+i*.16+.55)})}catch(e){}}
+function kpis(){const sales=S.orders.reduce((a,b)=>a+b.total,0),left=Object.values(S.stock).reduce((a,b)=>a+b,0),seats=Object.values(S.bookings).reduce((a,b)=>a+b,0);
+  $('#kpis').innerHTML=[['Orders today',S.orders.length],['Sales today',money(sales)],['Left in the case',left],['Seats booked',seats]].map(k=>`<div><p class="micro">${k[0]}</p><p class="v">${k[1]}</p></div>`).join('');
+  $('#dotNew').textContent=S.orders.filter(o=>o.stage==='New').length;$('#dotInbox').textContent=S.inbox.filter(x=>x.status==='New').length}
+function roastList(){const lbs={};const add=(id,oz)=>lbs[id]=(lbs[id]||0)+oz;
+  S.subs.forEach(s=>add(s.coffee,s.plan==='The Household'?32:12));S.orders.forEach(o=>COFFEES.forEach(c=>{const m=o.items.match(new RegExp('(\\d+) x '+c.name+' 12 oz'));if(o.items.includes(c.name+' 12 oz'))add(c.id,12*(m?+m[1]:1))}));
+  return COFFEES.filter(c=>lbs[c.id]).map(c=>({c,oz:lbs[c.id]}))}
+function oBody(){const T={today:'today',case:'the case',wall:'the wall',roast:'roast list',events:'events',inbox:'inbox',post:'post maker'};$('#oTitle').textContent=T[otab];
+  document.querySelectorAll('.orail button').forEach(b=>b.setAttribute('aria-current',b.dataset.o===otab));let h='';
+  if(otab==='today')h=`<div class="tw"><table class="ot"><thead><tr><th>No.</th><th>For</th><th>Items</th><th>Pickup</th><th>Total</th><th>Status</th></tr></thead><tbody>${S.orders.map((o,i)=>`<tr><td>${o.n}</td><td>${esc(o.name)}</td><td>${esc(o.items)}</td><td>${esc(o.time)}</td><td>${money(o.total)}</td><td><button class="stage ${o.stage==='New'?'new':''}" data-stage="${i}">${o.stage}</button></td></tr>`).join('')}</tbody></table></div><p class="note">Tap a status to move it along: New, Making, Ready, Picked up. The customer's order page updates live, and a chime plays when a new order lands.</p>`;
+  if(otab==='case')h=`<div class="tw"><table class="ot"><thead><tr><th>Item</th><th>Price</th><th>Left</th><th></th></tr></thead><tbody>${CASE.map(c=>`<tr><td>${esc(c.n)}${c.nut?' <span class="sm">(tree nuts)</span>':''}</td><td>${money(c.p)}</td><td><span class="step"><button data-st="${c.id}|-1" aria-label="One less">&minus;</button><span style="min-width:2ch;text-align:center">${S.stock[c.id]}</span><button data-st="${c.id}|1" aria-label="One more">+</button></span></td><td><button class="pill line sm" data-st="${c.id}|0">Sold out</button></td></tr>`).join('')}</tbody></table></div><p class="note">Counts show on the website as "4 left" and switch to sold out at zero. Joy Bird drops off at 6am: set the morning numbers here.</p>`;
+  if(otab==='wall')h=`<div style="display:flex;gap:10px;align-items:center;margin-top:24px;flex-wrap:wrap"><span class="micro">Friday Takeaway</span>${['auto','on','off'].map(m=>`<button class="chip" aria-pressed="${S.friday===m}" data-fri="${m}">${m==='auto'?'Every Friday':m==='on'?'On now':'Off'}</button>`).join('')}</div>
+    <div class="tw"><table class="ot"><thead><tr><th>No.</th><th>Coffee</th><th>Price</th><th>On the shelf</th></tr></thead><tbody>${COFFEES.map(c=>`<tr><td>${c.no}</td><td><span class="cameo" style="font-size:20px">${esc(c.name)}</span> <span class="sm">${esc(c.origin)}</span></td><td>${isFriday()?`<span class="was">${money(c.price)}</span>`:''}${money(priceOf(c))}</td><td><button class="sw" role="switch" aria-checked="${!S.off[c.id]}" data-off="${c.id}" aria-label="On the shelf"></button></td></tr>`).join('')}</tbody></table></div><p class="note">Switch a coffee off and the site shows "roasting soon". Friday pricing turns itself on every Friday, or force it here.</p>`;
+  if(otab==='roast'){const r=roastList();const txt=r.map(x=>`${x.c.name}: ${(x.oz/16).toFixed(2)} lb roasted (${(x.oz/16/0.85).toFixed(2)} lb green)`).join('\n');
+    h=`<div class="tw"><table class="ot"><thead><tr><th>Coffee</th><th>Bags and subscriptions</th><th>Roasted lb</th><th>Green lb (15% loss)</th></tr></thead><tbody>${r.map(x=>`<tr><td><span class="cameo" style="font-size:20px">${esc(x.c.name)}</span></td><td>${x.oz} oz</td><td>${(x.oz/16).toFixed(2)}</td><td>${(x.oz/16/.85).toFixed(2)}</td></tr>`).join('')}</tbody></table></div>
+    <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap"><button class="pill solid sm" id="copyRoast">Copy roast list</button></div><textarea id="roastTxt" hidden>${esc(txt)}</textarea>
+    <h3 class="h3" style="margin-top:44px">Subscribers</h3><div class="tw"><table class="ot"><thead><tr><th>Name</th><th>Plan</th><th>Every</th><th>How</th></tr></thead><tbody>${S.subs.map(s=>`<tr><td>${esc(s.name)}</td><td>${esc(s.plan)}</td><td>${s.every} weeks</td><td>${esc(s.how)}</td></tr>`).join('')}</tbody></table></div><p class="note">Adds up this cycle's subscriptions and bag orders so Arin knows exactly what to roast on the Diedrich.</p>`}
+  if(otab==='events')h=`<div class="tw"><table class="ot"><thead><tr><th>When</th><th>Event</th><th>Booked</th><th>Revenue</th></tr></thead><tbody>${EVENTS.map(e=>`<tr><td>${e.when.replace('<br>',', ')}</td><td>${e.t}</td><td>${S.bookings[e.id]} / ${e.seats}</td><td>${e.price?money(e.price*S.bookings[e.id]):'Free'}</td></tr>`).join('')}</tbody></table></div>`;
+  if(otab==='inbox')h=S.inbox.length?`<div class="tw"><table class="ot"><thead><tr><th>For</th><th>Name</th><th>About</th><th>Status</th></tr></thead><tbody>${S.inbox.map((a,i)=>`<tr><td>${esc(a.role)}</td><td>${esc(a.name)}<br><span class="sm">${esc(a.mail)}</span></td><td>${esc(a.about)}</td><td><button class="stage ${a.status==='New'?'new':''}" data-inb="${i}">${a.status}</button></td></tr>`).join('')}</tbody></table></div><p class="note">Barista, instructor and artist applications land here. Tap a status: New, Reviewing, Invited.</p>`:'<p class="empty">Nothing new.</p>';
+  if(otab==='post')h=`<div class="pm"><canvas id="pc" width="1080" height="1350" aria-label="Post preview"></canvas><div>
+    <p class="micro">Template</p><div class="tabs" style="margin-top:10px">${[['friday','Friday Takeaway'],['case','In the case today'],['coffee','New on the wall']].map(t=>`<button class="chip" aria-pressed="${pmT===t[0]}" data-pm="${t[0]}">${t[1]}</button>`).join('')}</div>
+    <label style="display:block;margin-top:14px"><span class="micro">Coffee</span><select class="field" id="pmC">${COFFEES.map(c=>`<option value="${c.id}" ${pmC===c.id?'selected':''}>${esc(c.name)}</option>`).join('')}</select></label>
+    <label style="display:block;margin-top:18px"><span class="micro">Caption</span><textarea class="field" id="pmCap" rows="7"></textarea></label>
+    <div style="display:flex;gap:10px;margin-top:18px;flex-wrap:wrap"><button class="pill solid sm" id="copyCap">Copy caption</button><button class="pill line sm" id="copyImg">Copy image</button></div>
+    <p class="note">Makes an Instagram post in Canvas's own style from what is live on the site: today's case counts, the Friday price, or a coffee and its painting.</p></div></div>`;
+  $('#oBody').innerHTML=h;kpis();if(otab==='post')drawPost()}
+let pmT='friday',pmC='koke';
+function drawPost(){const cv=$('#pc');if(!cv)return;const x=cv.getContext('2d'),c=COFFEES.find(k=>k.id===pmC);const W=1080,H=1350;
+  const F=(w,s)=>`${w} ${s}px "Bricolage Grotesque", Arial, sans-serif`;
+  const img=new Image();img.onload=go;img.onerror=go;img.src=pmT==='case'?'img/ph-crois.jpg':c.img;
+  function go(){x.fillStyle=pmT==='case'?'#15120F':c.ground;x.fillRect(0,0,W,H);
+    if(pmT==='case'){if(img.width){const s=Math.max(W/img.width,800/img.height);x.drawImage(img,(W-img.width*s)/2,0,img.width*s,img.height*s)}x.fillStyle='#15120F';x.fillRect(0,800,W,550);x.fillStyle='#F1EEE7';x.font=F(300,120);x.fillText('in the case',70,960);x.font=F(400,34);let y=1040;CASE.filter(k=>S.stock[k.id]).slice(0,5).forEach(k=>{x.fillText(k.n.toLowerCase(),70,y);x.textAlign='right';x.fillText(S.stock[k.id]+' left',W-70,y);x.textAlign='left';y+=52})}
+    else{if(img.width){const bw=620,bh=bw*img.height/img.width,bx=(W-bw)/2,by=170;x.fillStyle='#fff';x.fillRect(bx-22,by-22,bw+44,Math.min(bh,700)+44);x.drawImage(img,0,0,img.width,Math.min(img.height,img.width*700/bw),bx,by,bw,Math.min(bh,700))}
+      x.fillStyle='#fff';x.font=F(300,pmT==='friday'?150:110);x.fillText(pmT==='friday'?'fridays':c.name.toLowerCase(),70,1080);x.font=F(400,38);x.fillText(pmT==='friday'?'20% off every bag of coffee.':c.notes.toLowerCase(),72,1150)}
+    x.fillStyle=pmT==='case'?'#F1EEE7':'#fff';x.font=F(500,30);x.fillText('canvas',70,90);x.font=F(500,20);x.textAlign='right';x.fillText('COFFEE + ART HOUSE',W-70,88);x.textAlign='left'}
+  const cap={friday:`It's Friday, so every bag of coffee is 20% off.\n\n${c.name} is on the shelf at Stone Avenue right now: ${c.notes.toLowerCase()}. If it's not on the shelf, order it online and pick it up once it's roasted.\n\n#greenvillesc #yeahthatgreenville #specialtycoffee`,
+   case:`In the case this morning, made for us by @hello_joybird:\n\n${CASE.filter(k=>S.stock[k.id]).map(k=>'• '+k.n+' ('+S.stock[k.id]+' left)').join('\n')}\n\nHot and ready until they sell out.\n\n#greenvillesc #gvltoday #greenvillecoffee`,
+   coffee:`New on the wall: ${c.name}, ${c.origin}.\n\n${c.notes}. Genavieve painted this one for the bag.\n\n${money(c.price)} for 12 oz, roasted here in Greenville.\n\n#greenvillesc #specialtycoffee`}[pmT];
+  $('#pmCap').value=cap}
+function owner(){$('#oDate').textContent=new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});$('#chimeBtn').textContent='Order chime: '+(S.chime?'on':'off');
+  if(!ownerReady){$('#kpis').innerHTML=[1,2,3,4].map(()=>`<div><div class="sk skl" style="width:60%"></div><div class="sk" style="height:44px;width:70%;margin-top:12px"></div></div>`).join('');$('#oBody').innerHTML='<div style="margin-top:24px">'+[1,2,3,4,5].map(()=>'<div class="sk" style="height:44px;margin-top:10px"></div>').join('')+'</div>';setTimeout(()=>{ownerReady=true;oBody()},650)}else oBody()}
+
+/* ======================= ROUTING (plain #name) ======================= */
+const SECT=['wall','case','order','subscribe','walls','events','join','visit'];
+function route(){const h=(location.hash||'#home').slice(1);const v=['owner','terms','privacy'].includes(h)?h:'home';
+  document.querySelectorAll('.view').forEach(x=>x.classList.toggle('on',x.id==='view-'+v));
+  if(v==='owner')owner();
+  if(v==='home'&&SECT.includes(h))requestAnimationFrame(()=>document.getElementById(h).scrollIntoView());else window.scrollTo(0,0)}
+function renderAll(){statusRender();if(homeReady){wall();caseList()}cart();menu();sub();events();if(isOwner()&&ownerReady)oBody();else kpis()}
+
+/* ======================= EVENTS WIRING ======================= */
+document.addEventListener('click',e=>{const t=e.target.closest('button');if(!t)return;const d=t.dataset;
+  if(d.tab){tab=d.tab;tabs();menu()}
+  else if(d.add){addItem(d.add)}
+  else if(d.milk){const [k,m]=d.milk.split('|');opt[k]={...(opt[k]||{}),milk:m};menu()}
+  else if(d.bag){const c=COFFEES.find(x=>x.id===d.bag);if(S.off[c.id]){toast(c.name+' is roasting, back soon');return}const f=S.cart.find(x=>x.k==='b:'+c.id);f?f.q++:S.cart.push({k:'b:'+c.id,name:c.name+' 12 oz',price:priceOf(c),q:1});S.mine=null;save();cart();bump();toast(c.name+' added'+(isFriday()?' at 20% off':''))}
+  else if(d.rm!==undefined){S.cart.splice(+d.rm,1);save();cart()}
+  else if(t.id==='place')place();
+  else if(t.id==='newOrder'){S.mine=null;save();cart()}
+  else if(t.id==='prev')railBy(-1);else if(t.id==='next')railBy(1);
+  else if(t.id==='sGo'){const p=PLANS[$('#sPlan').value];S.subs.unshift({name:'You (demo)',plan:p.name,every:+$('#sEvery').value,how:$('#sHow').selectedOptions[0].text.replace(/^./,c=>c.toUpperCase()),coffee:p.name==='The Curious'?'straw':'jaguar'});if(S.half>0)S.half--;save();sub();toast(p.name+' started. First bag half off.')}
+  else if(d.art!==undefined)openArt(+d.art);
+  else if(t.id==='lbX'){$('#lb').classList.remove('on')}
+  else if(d.print){const c=COFFEES.find(x=>x.id===d.print);S.inbox.unshift({role:'Print reservation',name:'Website visitor',mail:'',about:c.name+' print, held 48 hours',status:'New'});save();toast('Print of '+c.name+' held for 48 hours')}
+  else if(d.rsvp){S.bookings[d.rsvp]++;save();events();toast('Seat saved. See you there.')}
+  else if(t.id==='jGo'){const f=$('#joinForm');if(!f.reportValidity())return;S.inbox.unshift({role:$('#jRole').value,name:$('#jName').value.trim(),mail:$('#jMail').value.trim(),about:$('#jAbout').value.trim(),status:'New'});save();f.reset();toast('Sent. Arin and Genavieve will be in touch.')}
+  else if(d.o){otab=d.o;oBody()}
+  else if(d.stage!==undefined){const o=S.orders[+d.stage];o.stage=STAGES[Math.min(STAGES.indexOf(o.stage)+1,3)];save();oBody();cart()}
+  else if(d.st){const [id,v]=d.st.split('|');S.stock[id]=v==='0'?0:Math.max(0,S.stock[id]+ +v);save();oBody();caseList();menu()}
+  else if(d.fri){S.friday=d.fri;save();renderAll();oBody()}
+  else if(d.off){S.off[d.off]=!S.off[d.off];save();oBody();wall();menu()}
+  else if(d.inb!==undefined){const a=S.inbox[+d.inb],st=['New','Reviewing','Invited'];a.status=st[(st.indexOf(a.status)+1)%3];save();oBody()}
+  else if(t.id==='chimeBtn'){S.chime=!S.chime;save();t.textContent='Order chime: '+(S.chime?'on':'off');if(S.chime)chime()}
+  else if(t.id==='copyRoast'){navigator.clipboard.writeText($('#roastTxt').value).then(()=>toast('Roast list copied'),()=>toast('Copy not allowed here'))}
+  else if(d.pm){pmT=d.pm;oBody()}
+  else if(t.id==='copyCap'){navigator.clipboard.writeText($('#pmCap').value).then(()=>toast('Caption copied'),()=>toast('Copy not allowed here'))}
+  else if(t.id==='copyImg'){$('#pc').toBlob(b=>{try{navigator.clipboard.write([new ClipboardItem({'image/png':b})]).then(()=>toast('Image copied, paste it into Instagram'),()=>toast('Image copy not allowed here'))}catch(err){toast('Image copy not allowed here')}})}
+});
+document.addEventListener('change',e=>{if(['sPlan','sEvery','sHow'].includes(e.target.id))sub();if(e.target.id==='pmC'){pmC=e.target.value;drawPost()}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')$('#lb').classList.remove('on')});
+$('#lb').addEventListener('click',e=>{if(e.target.id==='lb')$('#lb').classList.remove('on')});
+$('#rail').addEventListener('keydown',e=>{if(e.key==='ArrowRight'){e.preventDefault();railBy(1)}if(e.key==='ArrowLeft'){e.preventDefault();railBy(-1)}});
+window.addEventListener('hashchange',route);
+
+/* ======================= BOOT ======================= */
+let homeReady=false;
+wallSk();caseSk();tabs();hangs();renderAll();route();setInterval(statusRender,60000);
+setTimeout(()=>{homeReady=true;wall();caseList()},600);
+const io=('IntersectionObserver' in window)?new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target)}}),{threshold:.2}):null;
+document.querySelectorAll('.rv').forEach(el=>io?io.observe(el):el.classList.add('in'));
+const go=()=>requestAnimationFrame(()=>requestAnimationFrame(()=>document.body.classList.add('ready')));
+(document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(()=>{go();fitSel()});
+if(io){new IntersectionObserver(es=>es.forEach(en=>document.body.classList.toggle('past',!en.isIntersecting)),{threshold:0}).observe(document.querySelector('.hero'))}setTimeout(go,1200);
+})();
+</script>
+</body>
+</html>
