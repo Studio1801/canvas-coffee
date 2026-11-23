@@ -7,7 +7,7 @@
 <meta name="description" content="Coffee roasted in Greenville, wearing Genavieve Gilbert's paintings. Order ahead, see what is in the case, subscribe, and save a seat at the next show. 109 W Stone Ave.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@300..800&display=swap" rel="stylesheet">
 <style>
 :root{
   --gesso:#F1EEE7;   /* light canvas */
@@ -17,13 +17,13 @@
   --paper:#FFFFFF;   /* raised panels only */
   --cobalt:#2747C9;  /* interactive only */
   --ease:cubic-bezier(0.16,1,0.3,1);
-  --sans:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;
-  --cameo:"Instrument Serif",Georgia,serif;
+  --sans:"Host Grotesk","Helvetica Neue",Arial,sans-serif;
+  
   --pad:clamp(18px,3.2vw,44px);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:var(--gesso);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.45;font-weight:400;font-variation-settings:"opsz" 14;letter-spacing:-0.005em;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{background:var(--gesso);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.45;font-weight:400;letter-spacing:-0.005em;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 a{color:inherit}
 button,input,select,textarea{font:inherit;color:inherit;letter-spacing:inherit}
 button{cursor:pointer;background:none;border:0}
@@ -31,16 +31,16 @@ img{display:block;max-width:100%}
 ::selection{background:var(--cobalt);color:var(--gesso)}
 
 /* ---------- type ---------- */
-.d{font-weight:300;font-variation-settings:"opsz" 96;text-transform:lowercase}
+.d{font-weight:400}
 .d-xl{font-size:clamp(96px,17vw,260px);line-height:.76;letter-spacing:-0.055em}
 .d-l{font-size:clamp(64px,10.5vw,156px);line-height:.8;letter-spacing:-0.045em}
 .d-m{font-size:clamp(46px,6vw,84px);line-height:.86;letter-spacing:-0.03em}
-.h3{font-weight:400;font-variation-settings:"opsz" 48;font-size:clamp(24px,2.4vw,30px);line-height:1.12;letter-spacing:-0.015em}
+.h3{font-weight:400;font-size:clamp(24px,2.4vw,30px);line-height:1.12;letter-spacing:-0.015em}
 .micro{font-size:11px;text-transform:uppercase;letter-spacing:.18em;font-weight:500;line-height:1.4}
 .lede{font-size:clamp(17px,1.5vw,20px);line-height:1.42;max-width:42ch}
 .small{font-size:14px;line-height:1.4}
 .muted{opacity:.6}
-.cameo{font-family:var(--cameo);font-style:italic;font-weight:400;letter-spacing:-0.01em;text-transform:none}
+.cameo{font-style:normal}
 
 /* ---------- controls: pill or 0px ---------- */
 .pill{display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:999px;padding:14px 24px;font-size:15px;line-height:1;white-space:nowrap;text-decoration:none;font-weight:450}
@@ -63,7 +63,7 @@ textarea.field{resize:vertical;min-height:90px}
 /* ---------- nav ---------- */
 .nav{position:absolute;top:0;left:0;right:0;z-index:30;display:flex;justify-content:space-between;align-items:center;padding:20px var(--pad);color:var(--gesso)}
 .nav.light{color:var(--ink)}
-.wm{font-weight:500;font-variation-settings:"opsz" 96;font-size:26px;letter-spacing:-0.04em;text-decoration:none;line-height:1}
+.wm{font-weight:500;font-size:26px;letter-spacing:-0.04em;text-decoration:none;line-height:1}
 .nav .links{display:flex;gap:24px;align-items:center}
 .nav .links a{text-decoration:none;font-size:14px}
 .count{font-variant-numeric:tabular-nums;min-width:1ch;display:inline-block}
@@ -111,7 +111,7 @@ textarea.field{resize:vertical;min-height:90px}
 .frame{aspect-ratio:4/5;display:grid;place-items:center;padding:13%}
 .frame img{width:100%;height:100%;object-fit:cover;outline:9px solid var(--paper)}
 .label{background:var(--paper);margin-top:18px;padding:16px 18px 18px;width:86%}
-.label .nm{font-family:var(--cameo);font-style:italic;font-size:28px;line-height:1.02;letter-spacing:-0.01em;margin-top:6px}
+.label .nm{font-size:24px;line-height:1.1;letter-spacing:-0.02em;margin-top:8px}
 .label p{font-size:14px;line-height:1.4;margin-top:6px}
 .label .foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:14px}
 .was{text-decoration:line-through;opacity:.45;margin-right:6px}
@@ -160,7 +160,7 @@ textarea.field{resize:vertical;min-height:90px}
 .ctotal{display:flex;justify-content:space-between;font-size:24px;margin-top:12px;letter-spacing:-0.015em}
 .checkout{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
 .track{margin-top:8px}
-.track .num{font-size:clamp(56px,7vw,92px);line-height:.82;letter-spacing:-0.04em;font-weight:300;font-variation-settings:"opsz" 96}
+.track .num{font-size:clamp(56px,7vw,92px);line-height:.82;letter-spacing:-0.04em;font-weight:400}
 .steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-top:22px;border-top:1px solid rgba(28,26,23,.2)}
 .steps div{padding-top:10px;font-size:13px;opacity:.38;position:relative}
 .steps div.on{opacity:1}
@@ -170,7 +170,7 @@ textarea.field{resize:vertical;min-height:90px}
 .subscribe{padding:120px 0 110px;overflow:hidden;position:relative}
 .crop{white-space:nowrap;padding-left:var(--pad);margin-left:-.04em}
 .subgrid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:clamp(30px,5vw,80px);padding:60px var(--pad) 0;align-items:end}
-.sentence{font-size:clamp(28px,3.4vw,48px);line-height:1.2;letter-spacing:-0.02em;font-weight:300;font-variation-settings:"opsz" 96}
+.sentence{font-size:clamp(28px,3.4vw,48px);line-height:1.2;letter-spacing:-0.02em;font-weight:400}
 .sentence select{max-width:100%;font:inherit;letter-spacing:inherit;border:0;border-bottom:1px solid currentColor;color:inherit;background:transparent;border-radius:0;appearance:none;-webkit-appearance:none;padding:0 4px;cursor:pointer;color:#9fb0ff}
 .sentence select option{color:var(--ink)}
 .subfoot{display:flex;gap:26px;align-items:center;flex-wrap:wrap;padding:40px var(--pad) 0}
@@ -254,7 +254,7 @@ footer a{text-decoration:none}
 .kpis > div{padding:20px 18px 22px;border-right:1px solid rgba(28,26,23,.18)}
 .kpis > div:first-child{padding-left:0}
 .kpis > div:last-child{border-right:0}
-.kpis .v{font-size:clamp(36px,4.2vw,58px);line-height:.9;letter-spacing:-0.035em;font-weight:300;font-variation-settings:"opsz" 96;margin-top:8px;font-variant-numeric:tabular-nums}
+.kpis .v{font-size:clamp(36px,4.2vw,58px);line-height:.9;letter-spacing:-0.035em;font-weight:400;margin-top:8px;font-variant-numeric:tabular-nums}
 .ot{width:100%;border-collapse:collapse;margin-top:24px;font-size:15px}
 .ot th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.18em;font-weight:500;padding:10px 12px 10px 0;border-bottom:1px solid var(--ink)}
 .ot td{padding:13px 12px 13px 0;border-bottom:1px solid rgba(28,26,23,.16);vertical-align:middle}
@@ -344,7 +344,7 @@ footer a{text-decoration:none}
     <div class="shade"></div>
     <span class="credit">Paper cranes over the bar, 109 W Stone Ave</span>
     <div class="copy">
-      <h1 class="d d-xl"><span class="ln"><span>stay for</span></span><span class="ln"><span>the <span class="cameo art">art.</span></span></span></h1>
+      <h1 class="d d-xl"><span class="ln"><span>Stay for</span></span><span class="ln"><span>the art.</span></span></h1>
       <div class="row">
         <p class="lede">Coffee roasted here in Greenville by Arin. Every bag wears one of Genavieve's paintings. Pull up a chair and stay a while.</p>
         <div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap">
@@ -358,7 +358,7 @@ footer a{text-decoration:none}
   <div class="friday" id="friday" hidden></div>
 
   <section class="wall" id="wall" aria-label="The Wall: coffees">
-    <div class="vl"><span class="d d-l">the wall</span></div>
+    <div class="vl"><span class="d d-l">The Wall</span></div>
     <div style="min-width:0">
       <div class="wall-head rv">
         <div>
@@ -380,7 +380,7 @@ footer a{text-decoration:none}
     </div>
     <div class="case-list">
       <p class="micro">In the case today, from 6am</p>
-      <h2 class="d d-m" style="margin-top:16px">sandwiches, <span class="cameo">finally.</span></h2>
+      <h2 class="d d-m" style="margin-top:16px">Sandwiches, finally.</h2>
       <p class="lede" style="margin-top:20px">Hot and ready until they sell out. Counts update live from the bar, so you know before you walk over.</p>
       <ul class="case-items" id="caseItems"></ul>
     </div>
@@ -393,7 +393,7 @@ footer a{text-decoration:none}
       <div class="cart" id="cart"></div>
     </div>
     <div class="type">
-      <h2 class="d d-l rv">skip<br>the line.</h2>
+      <h2 class="d d-l rv">Skip<br>the line.</h2>
       <p class="lede" style="margin-top:28px">Order from the bar, the slow bar or the case. Pick a time and it is waiting on the marble when you walk in. Oat, almond or coconut milk for a dollar.</p>
       <p class="micro muted" style="margin-top:26px">Pickup at 109 W Stone Ave, Suite E4</p>
       <p class="small muted" style="margin-top:10px">Drink and case prices in this mockup are placeholders until Canvas confirms them.</p>
@@ -401,7 +401,7 @@ footer a{text-decoration:none}
   </section>
 
   <section class="subscribe dark" id="subscribe" aria-label="Subscriptions">
-    <div class="crop d d-xl" id="crop">every four weeks</div>
+    <div class="crop d d-xl" id="crop">Every four weeks</div>
     <div class="subgrid">
       <form class="sentence" onsubmit="return false">
         Send me <select id="sPlan" aria-label="Plan"><option value="regular">The Regular</option><option value="curious" selected>The Curious</option><option value="household">The Household</option></select>,
@@ -422,7 +422,7 @@ footer a{text-decoration:none}
     <div id="hangs"></div>
     <div class="stack">
       <p class="micro">On the walls and on the bags</p>
-      <h2 class="d d-l rv" style="margin-top:18px">every bag is<br>a <span class="cameo">painting.</span></h2>
+      <h2 class="d d-l rv" style="margin-top:18px">Every bag is<br>a painting.</h2>
       <p class="lede">Genavieve Gilbert paints the work on every Canvas bag, and curates quarterly shows of local artists on the café walls. Tap a painting to see it up close and the coffee it belongs to. Prints are for sale at the bar.</p>
     </div>
   </section>
@@ -430,7 +430,7 @@ footer a{text-decoration:none}
   <section class="events band" id="events" aria-label="Classes and events">
     <div>
       <p class="micro">Classes, cuppings, First Fridays</p>
-      <h2 class="d d-m rv" style="margin-top:16px">come <span class="cameo">make</span> something.</h2>
+      <h2 class="d d-m rv" style="margin-top:16px">Come make something.</h2>
       <p class="lede" style="margin-top:22px">Latte art on the GB5, Sunday cuppings with guest roasters, and Print Club. Seats are counted live.</p>
       <p class="small muted" style="margin-top:18px">Dates are samples for this mockup.</p>
     </div>
@@ -441,7 +441,7 @@ footer a{text-decoration:none}
   <section class="join dark" id="join" aria-label="Work with us and show with us">
     <div>
       <p class="micro" style="opacity:.8">Now hiring</p>
-      <h2 class="d d-m rv" style="margin-top:16px">come work<br>with us.</h2>
+      <h2 class="d d-m rv" style="margin-top:16px">Come work<br>with us.</h2>
       <ul class="roles">
         <li><p class="h3">Experienced barista, part-time</p><p class="small" style="opacity:.7;margin-top:6px">About 15 to 20 hours a week, mornings from 5:30am, paid training, room to grow into a lead role.</p></li>
         <li><p class="h3">Latte art instructor</p><p class="small" style="opacity:.7;margin-top:6px">Teach our latte art classes on the La Marzocco GB5.</p></li>
@@ -458,7 +458,7 @@ footer a{text-decoration:none}
   </section>
 
   <section class="visit" id="visit" aria-label="Visit">
-    <div class="addr d">109 w stone</div>
+    <div class="addr d">109 W Stone</div>
     <div class="vgrid">
       <div><p class="micro">Stone Avenue</p><p style="margin-top:12px">109 W Stone Ave, Suite E4<br>Greenville, SC 29609<br>Just north of downtown</p></div>
       <div><p class="micro">Hours</p><ul class="hours" id="hours"></ul></div>
@@ -491,7 +491,7 @@ footer a{text-decoration:none}
     </aside>
     <main class="omain">
       <div class="ohead">
-        <div><p class="micro" id="oDate">Today</p><h1 class="d d-m" style="margin-top:10px" id="oTitle">today</h1></div>
+        <div><p class="micro" id="oDate">Today</p><h1 class="d d-m" style="margin-top:10px" id="oTitle">Today</h1></div>
         <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap"><button class="pill line sm" id="chimeBtn">Order chime: on</button><span class="micro muted">Demo data</span></div>
       </div>
       <div class="kpis" id="kpis"></div>
@@ -504,7 +504,7 @@ footer a{text-decoration:none}
 <div class="view" id="view-terms">
   <header class="nav light"><a class="wm" href="#home">canvas</a><div class="links"><a href="#home">Back to the site</a></div></header>
   <article class="legal">
-    <h1 class="d d-l">terms</h1>
+    <h1 class="d d-l">Terms</h1>
     <p class="micro muted">Last updated November 2026</p>
     <h2>Ordering ahead</h2><p>Orders are made for the pickup time you choose. If the case sells out after you order, we will offer a swap or a refund at the counter. Orders not collected within an hour may be remade at our discretion.</p>
     <h2>The Friday Takeaway</h2><p>Every Friday, every bag of coffee is 20% off in the shop and online. If a coffee is not on the shelf, order it online at the same price and pick it up once it is roasted.</p>
@@ -517,7 +517,7 @@ footer a{text-decoration:none}
 <div class="view" id="view-privacy">
   <header class="nav light"><a class="wm" href="#home">canvas</a><div class="links"><a href="#home">Back to the site</a></div></header>
   <article class="legal">
-    <h1 class="d d-l">privacy</h1>
+    <h1 class="d d-l">Privacy</h1>
     <p class="micro muted">Last updated November 2026</p>
     <h2>What we collect</h2><p>Your name, email or phone and order details when you order ahead, subscribe, book a seat or apply. A delivery address only if you choose local delivery or shipping.</p>
     <h2>How we use it</h2><ul><li>To make and hand over your order.</li><li>To roast, pack and send your subscription.</li><li>To hold your seat at a class or show.</li><li>To reply to job and artist applications.</li></ul>
@@ -647,13 +647,13 @@ function place(){const nm=($('#coName').value||'').trim();if(!nm){$('#coName').f
 /* ======================= SUBSCRIBE ======================= */
 function fitSel(){document.querySelectorAll('.sentence select').forEach(sl=>{const m=document.createElement('span');m.style.cssText='position:absolute;visibility:hidden;white-space:pre';m.className='sentence';m.textContent=sl.selectedOptions[0].text;document.body.appendChild(m);sl.style.width=(m.offsetWidth+16)+'px';m.remove()})}
 function sub(){fitSel();const k=$('#sPlan').value,p=PLANS[k];$('#sWhat').textContent=p.what;$('#sPrice').textContent=money(p.p).replace('.00','');$('#sPer').textContent=k==='household'?'per 2 lb delivery':'per bag';$('#sCoffee').textContent=p.coffee;
-  $('#crop').textContent='every '+({2:'two',4:'four',6:'six'}[$('#sEvery').value])+' weeks';$('#halfLeft').textContent=S.half;$('#halfBar').style.width=S.half+'%'}
+  $('#crop').textContent='Every '+({2:'two',4:'four',6:'six'}[$('#sEvery').value])+' weeks';$('#halfLeft').textContent=S.half;$('#halfBar').style.width=S.half+'%'}
 
 /* ======================= WALLS (gallery) ======================= */
 const SPOTS=[[4,8,15,-3],[23,3,12,2],[72,5,14,3],[80,58,15,-2],[5,58,13,2]];
-function hangs(){$('#hangs').innerHTML=COFFEES.filter(c=>c.id!=='straw').map((c,i)=>{const s=SPOTS[i];return `<button class="hang" data-art="${i}" style="left:${s[0]}%;top:${s[1]}%;width:${s[2]}%;transform:rotate(${s[3]}deg)" aria-label="View ${esc(c.name)} painting"><img src="${c.img}" alt="" loading="lazy"><span class="cap"><span class="cameo" style="font-size:16px">${esc(c.name)}</span></span></button>`}).join('')}
+function hangs(){$('#hangs').innerHTML=COFFEES.filter(c=>c.id!=='straw').map((c,i)=>{const s=SPOTS[i];return `<button class="hang" data-art="${i}" style="left:${s[0]}%;top:${s[1]}%;width:${s[2]}%;transform:rotate(${s[3]}deg)" aria-label="View ${esc(c.name)} painting"><img src="${c.img}" alt="" loading="lazy"><span class="cap"><span style="font-size:13px">${esc(c.name)}</span></span></button>`}).join('')}
 function openArt(i){const c=COFFEES[i];$('#lbImg').src=c.img;$('#lbImg').alt="Genavieve Gilbert's painting for "+c.name;
-  $('#lbTxt').innerHTML=`<p class="micro" style="opacity:.7">Genavieve Gilbert &middot; acrylic on canvas</p><p class="cameo" style="font-size:44px;line-height:1;margin-top:12px">${esc(c.name)}</p><p style="margin-top:14px;opacity:.8">Painted for ${esc(c.origin)}: ${esc(c.notes.toLowerCase())}.</p>
+  $('#lbTxt').innerHTML=`<p class="micro" style="opacity:.7">Genavieve Gilbert &middot; acrylic on canvas</p><p style="font-size:40px;line-height:1;letter-spacing:-0.03em;margin-top:12px">${esc(c.name)}</p><p style="margin-top:14px;opacity:.8">Painted for ${esc(c.origin)}: ${esc(c.notes.toLowerCase())}.</p>
   <div style="display:flex;gap:10px;margin-top:24px;flex-wrap:wrap"><button class="pill solid sm" data-bag="${c.id}">Add the bag, ${money(priceOf(c))}</button><button class="pill line sm" data-print="${c.id}">Reserve a print</button></div>`;$('#lb').classList.add('on');$('#lbX').focus()}
 
 /* ======================= EVENTS ======================= */
@@ -668,14 +668,14 @@ function kpis(){const sales=S.orders.reduce((a,b)=>a+b.total,0),left=Object.valu
 function roastList(){const lbs={};const add=(id,oz)=>lbs[id]=(lbs[id]||0)+oz;
   S.subs.forEach(s=>add(s.coffee,s.plan==='The Household'?32:12));S.orders.forEach(o=>COFFEES.forEach(c=>{const m=o.items.match(new RegExp('(\\d+) x '+c.name+' 12 oz'));if(o.items.includes(c.name+' 12 oz'))add(c.id,12*(m?+m[1]:1))}));
   return COFFEES.filter(c=>lbs[c.id]).map(c=>({c,oz:lbs[c.id]}))}
-function oBody(){const T={today:'today',case:'the case',wall:'the wall',roast:'roast list',events:'events',inbox:'inbox',post:'post maker'};$('#oTitle').textContent=T[otab];
+function oBody(){const T={today:'Today',case:'The case',wall:'The wall',roast:'Roast list',events:'Events',inbox:'Inbox',post:'Post maker'};$('#oTitle').textContent=T[otab];
   document.querySelectorAll('.orail button').forEach(b=>b.setAttribute('aria-current',b.dataset.o===otab));let h='';
   if(otab==='today')h=`<div class="tw"><table class="ot"><thead><tr><th>No.</th><th>For</th><th>Items</th><th>Pickup</th><th>Total</th><th>Status</th></tr></thead><tbody>${S.orders.map((o,i)=>`<tr><td>${o.n}</td><td>${esc(o.name)}</td><td>${esc(o.items)}</td><td>${esc(o.time)}</td><td>${money(o.total)}</td><td><button class="stage ${o.stage==='New'?'new':''}" data-stage="${i}">${o.stage}</button></td></tr>`).join('')}</tbody></table></div><p class="note">Tap a status to move it along: New, Making, Ready, Picked up. The customer's order page updates live, and a chime plays when a new order lands.</p>`;
   if(otab==='case')h=`<div class="tw"><table class="ot"><thead><tr><th>Item</th><th>Price</th><th>Left</th><th></th></tr></thead><tbody>${CASE.map(c=>`<tr><td>${esc(c.n)}${c.nut?' <span class="sm">(tree nuts)</span>':''}</td><td>${money(c.p)}</td><td><span class="step"><button data-st="${c.id}|-1" aria-label="One less">&minus;</button><span style="min-width:2ch;text-align:center">${S.stock[c.id]}</span><button data-st="${c.id}|1" aria-label="One more">+</button></span></td><td><button class="pill line sm" data-st="${c.id}|0">Sold out</button></td></tr>`).join('')}</tbody></table></div><p class="note">Counts show on the website as "4 left" and switch to sold out at zero. Joy Bird drops off at 6am: set the morning numbers here.</p>`;
   if(otab==='wall')h=`<div style="display:flex;gap:10px;align-items:center;margin-top:24px;flex-wrap:wrap"><span class="micro">Friday Takeaway</span>${['auto','on','off'].map(m=>`<button class="chip" aria-pressed="${S.friday===m}" data-fri="${m}">${m==='auto'?'Every Friday':m==='on'?'On now':'Off'}</button>`).join('')}</div>
-    <div class="tw"><table class="ot"><thead><tr><th>No.</th><th>Coffee</th><th>Price</th><th>On the shelf</th></tr></thead><tbody>${COFFEES.map(c=>`<tr><td>${c.no}</td><td><span class="cameo" style="font-size:20px">${esc(c.name)}</span> <span class="sm">${esc(c.origin)}</span></td><td>${isFriday()?`<span class="was">${money(c.price)}</span>`:''}${money(priceOf(c))}</td><td><button class="sw" role="switch" aria-checked="${!S.off[c.id]}" data-off="${c.id}" aria-label="On the shelf"></button></td></tr>`).join('')}</tbody></table></div><p class="note">Switch a coffee off and the site shows "roasting soon". Friday pricing turns itself on every Friday, or force it here.</p>`;
+    <div class="tw"><table class="ot"><thead><tr><th>No.</th><th>Coffee</th><th>Price</th><th>On the shelf</th></tr></thead><tbody>${COFFEES.map(c=>`<tr><td>${c.no}</td><td><span>${esc(c.name)}</span> <span class="sm">${esc(c.origin)}</span></td><td>${isFriday()?`<span class="was">${money(c.price)}</span>`:''}${money(priceOf(c))}</td><td><button class="sw" role="switch" aria-checked="${!S.off[c.id]}" data-off="${c.id}" aria-label="On the shelf"></button></td></tr>`).join('')}</tbody></table></div><p class="note">Switch a coffee off and the site shows "roasting soon". Friday pricing turns itself on every Friday, or force it here.</p>`;
   if(otab==='roast'){const r=roastList();const txt=r.map(x=>`${x.c.name}: ${(x.oz/16).toFixed(2)} lb roasted (${(x.oz/16/0.85).toFixed(2)} lb green)`).join('\n');
-    h=`<div class="tw"><table class="ot"><thead><tr><th>Coffee</th><th>Bags and subscriptions</th><th>Roasted lb</th><th>Green lb (15% loss)</th></tr></thead><tbody>${r.map(x=>`<tr><td><span class="cameo" style="font-size:20px">${esc(x.c.name)}</span></td><td>${x.oz} oz</td><td>${(x.oz/16).toFixed(2)}</td><td>${(x.oz/16/.85).toFixed(2)}</td></tr>`).join('')}</tbody></table></div>
+    h=`<div class="tw"><table class="ot"><thead><tr><th>Coffee</th><th>Bags and subscriptions</th><th>Roasted lb</th><th>Green lb (15% loss)</th></tr></thead><tbody>${r.map(x=>`<tr><td><span>${esc(x.c.name)}</span></td><td>${x.oz} oz</td><td>${(x.oz/16).toFixed(2)}</td><td>${(x.oz/16/.85).toFixed(2)}</td></tr>`).join('')}</tbody></table></div>
     <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap"><button class="pill solid sm" id="copyRoast">Copy roast list</button></div><textarea id="roastTxt" hidden>${esc(txt)}</textarea>
     <h3 class="h3" style="margin-top:44px">Subscribers</h3><div class="tw"><table class="ot"><thead><tr><th>Name</th><th>Plan</th><th>Every</th><th>How</th></tr></thead><tbody>${S.subs.map(s=>`<tr><td>${esc(s.name)}</td><td>${esc(s.plan)}</td><td>${s.every} weeks</td><td>${esc(s.how)}</td></tr>`).join('')}</tbody></table></div><p class="note">Adds up this cycle's subscriptions and bag orders so Arin knows exactly what to roast on the Diedrich.</p>`}
   if(otab==='events')h=`<div class="tw"><table class="ot"><thead><tr><th>When</th><th>Event</th><th>Booked</th><th>Revenue</th></tr></thead><tbody>${EVENTS.map(e=>`<tr><td>${e.when.replace('<br>',', ')}</td><td>${e.t}</td><td>${S.bookings[e.id]} / ${e.seats}</td><td>${e.price?money(e.price*S.bookings[e.id]):'Free'}</td></tr>`).join('')}</tbody></table></div>`;
@@ -689,12 +689,12 @@ function oBody(){const T={today:'today',case:'the case',wall:'the wall',roast:'r
   $('#oBody').innerHTML=h;kpis();if(otab==='post')drawPost()}
 let pmT='friday',pmC='koke';
 function drawPost(){const cv=$('#pc');if(!cv)return;const x=cv.getContext('2d'),c=COFFEES.find(k=>k.id===pmC);const W=1080,H=1350;
-  const F=(w,s)=>`${w} ${s}px "Bricolage Grotesque", Arial, sans-serif`;
+  const F=(w,s)=>`${w} ${s}px "Host Grotesk", Arial, sans-serif`;
   const img=new Image();img.onload=go;img.onerror=go;img.src=pmT==='case'?'img/ph-crois.jpg':c.img;
   function go(){x.fillStyle=pmT==='case'?'#15120F':c.ground;x.fillRect(0,0,W,H);
-    if(pmT==='case'){if(img.width){const s=Math.max(W/img.width,800/img.height);x.drawImage(img,(W-img.width*s)/2,0,img.width*s,img.height*s)}x.fillStyle='#15120F';x.fillRect(0,800,W,550);x.fillStyle='#F1EEE7';x.font=F(300,120);x.fillText('in the case',70,960);x.font=F(400,34);let y=1040;CASE.filter(k=>S.stock[k.id]).slice(0,5).forEach(k=>{x.fillText(k.n.toLowerCase(),70,y);x.textAlign='right';x.fillText(S.stock[k.id]+' left',W-70,y);x.textAlign='left';y+=52})}
+    if(pmT==='case'){if(img.width){const s=Math.max(W/img.width,800/img.height);x.drawImage(img,(W-img.width*s)/2,0,img.width*s,img.height*s)}x.fillStyle='#15120F';x.fillRect(0,800,W,550);x.fillStyle='#F1EEE7';x.font=F(400,120);x.fillText('in the case',70,960);x.font=F(400,34);let y=1040;CASE.filter(k=>S.stock[k.id]).slice(0,5).forEach(k=>{x.fillText(k.n.toLowerCase(),70,y);x.textAlign='right';x.fillText(S.stock[k.id]+' left',W-70,y);x.textAlign='left';y+=52})}
     else{if(img.width){const bw=620,bh=bw*img.height/img.width,bx=(W-bw)/2,by=170;x.fillStyle='#fff';x.fillRect(bx-22,by-22,bw+44,Math.min(bh,700)+44);x.drawImage(img,0,0,img.width,Math.min(img.height,img.width*700/bw),bx,by,bw,Math.min(bh,700))}
-      x.fillStyle='#fff';x.font=F(300,pmT==='friday'?150:110);x.fillText(pmT==='friday'?'fridays':c.name.toLowerCase(),70,1080);x.font=F(400,38);x.fillText(pmT==='friday'?'20% off every bag of coffee.':c.notes.toLowerCase(),72,1150)}
+      x.fillStyle='#fff';x.font=F(400,pmT==='friday'?150:110);x.fillText(pmT==='friday'?'fridays':c.name.toLowerCase(),70,1080);x.font=F(400,38);x.fillText(pmT==='friday'?'20% off every bag of coffee.':c.notes.toLowerCase(),72,1150)}
     x.fillStyle=pmT==='case'?'#F1EEE7':'#fff';x.font=F(500,30);x.fillText('canvas',70,90);x.font=F(500,20);x.textAlign='right';x.fillText('COFFEE + ART HOUSE',W-70,88);x.textAlign='left'}
   const cap={friday:`It's Friday, so every bag of coffee is 20% off.\n\n${c.name} is on the shelf at Stone Avenue right now: ${c.notes.toLowerCase()}. If it's not on the shelf, order it online and pick it up once it's roasted.\n\n#greenvillesc #yeahthatgreenville #specialtycoffee`,
    case:`In the case this morning, made for us by @hello_joybird:\n\n${CASE.filter(k=>S.stock[k.id]).map(k=>'• '+k.n+' ('+S.stock[k.id]+' left)').join('\n')}\n\nHot and ready until they sell out.\n\n#greenvillesc #gvltoday #greenvillecoffee`,
