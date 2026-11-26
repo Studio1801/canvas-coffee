@@ -5,6 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Canvas Coffee + Art House | Greenville, SC</title>
 <meta name="description" content="Come for the coffee, stay for the art, leave inspired. Specialty coffee roasted in Greenville, in a bright room full of local art and paper cranes. 109 W Stone Ave.">
+<meta property="og:title" content="Canvas Coffee + Art House, Greenville SC">
+<meta property="og:description" content="Come for the coffee, stay for the art, leave inspired. Specialty coffee roasted in Greenville at 109 W Stone Ave.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#F2EFE8">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%2317130F'/%3E%3Ctext x='32' y='43' font-family='Arial' font-size='34' text-anchor='middle' fill='%23F2EFE8'%3Ec%3C/text%3E%3C/svg%3E">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"CafeOrCoffeeShop","name":"Canvas Coffee + Art House","url":"https://www.wearethecanvas.co","telephone":"+1-864-831-6130","email":"hello@wearethecanvas.co","servesCuisine":"Coffee","address":{"@type":"PostalAddress","streetAddress":"109 W Stone Ave, Suite E4","addressLocality":"Greenville","addressRegion":"SC","postalCode":"29609","addressCountry":"US"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Thursday","Friday"],"opens":"06:00","closes":"16:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Wednesday","opens":"06:00","closes":"18:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"08:00","closes":"16:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Sunday","opens":"08:00","closes":"14:00"}],"sameAs":["https://www.instagram.com/canvas.coffee.art/","https://www.facebook.com/canvas.coffee.art"]}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
@@ -234,6 +240,27 @@ textarea.field{resize:vertical;min-height:84px}
 .dark .field{border-bottom-color:rgba(242,239,232,.6)}
 .dark select.field option{color:var(--ink)}
 
+/* STORY + REVIEWS */
+.story{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(30px,6vw,100px);padding:120px var(--pad);align-items:start}
+.story .ph{width:100%;aspect-ratio:4/5;object-fit:cover}
+.rating{display:flex;align-items:flex-end;gap:22px;margin-top:56px;border-top:1px solid var(--ink);padding-top:26px}
+.rating .v{font-size:clamp(96px,12vw,180px);line-height:.78;letter-spacing:-0.06em}
+.quote{font-size:clamp(24px,2.4vw,34px);line-height:1.22;letter-spacing:-0.02em;margin-top:30px;min-height:5.4em;transition:opacity .45s var(--ease)}
+.qnav{display:flex;gap:10px;align-items:center;margin-top:18px}
+/* FAQ + NEWSLETTER */
+.faq{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(30px,6vw,100px);padding:120px var(--pad)}
+.qa{list-style:none;border-top:1px solid var(--ink)}
+.qa li{border-bottom:1px solid var(--ink)}
+.qa button{width:100%;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:22px 0;text-align:left;font-size:clamp(19px,1.7vw,24px);letter-spacing:-0.015em;min-height:44px}
+.qa .pm2{font-size:22px;transition:transform .5s var(--ease)}
+.qa .ans{display:grid;grid-template-rows:0fr;transition:grid-template-rows .55s var(--ease)}
+.qa .ans > div{overflow:hidden}
+.qa .ans p{padding:0 0 22px;max-width:60ch;opacity:.75}
+.qa li.open .ans{grid-template-rows:1fr}
+.qa li.open .pm2{transform:rotate(45deg)}
+.news{margin-top:44px;padding-top:24px;border-top:1px solid var(--ink)}
+.news form{display:flex;gap:12px;align-items:flex-end;margin-top:16px;flex-wrap:wrap}
+.news .field{flex:1;min-width:200px}
 /* VISIT */
 .visit{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr)}
 .visit .ph{object-fit:cover;width:100%;height:100%;min-height:560px}
@@ -305,7 +332,9 @@ footer a{text-decoration:none}
   .wall .vl{writing-mode:horizontal-tb;transform:none;justify-self:start;padding:0 var(--pad) 18px}
   .wall-head,.rail{padding-left:var(--pad)}
   .wall-head{flex-direction:column;align-items:flex-start}
-  .case,.make,.visit{grid-template-columns:minmax(0,1fr)}
+  .case,.make,.visit,.story,.faq{grid-template-columns:minmax(0,1fr)}
+  .story,.faq{padding-top:90px;padding-bottom:90px}
+  .story .ph{max-width:460px}
   .case-ph,.make .ph{min-height:70vw}
   .visit .ph{min-height:0;aspect-ratio:4/3}
   .subgrid{grid-template-columns:minmax(0,1fr)}
@@ -326,6 +355,12 @@ footer a{text-decoration:none}
   .wl{display:none}
 }
 @media (max-width:600px){
+  .chip{padding:12px 14px;font-size:13px;min-height:42px}
+  .tabs .chip{padding:12px 14px}
+  .add{width:44px;height:44px}
+  .pill.sm{padding:13px 16px}
+  .mrow{grid-template-columns:1fr auto 44px}
+  .wm{padding:8px 0}
   body{font-size:16px}
   .checkout,.fgrid,.vgrid{grid-template-columns:minmax(0,1fr)}
   .pig li{grid-template-columns:52px minmax(0,1fr)}
@@ -334,7 +369,7 @@ footer a{text-decoration:none}
   .pig .buy{grid-column:2/3;flex-direction:row;align-items:center;justify-content:space-between}
   .facts .v{font-size:30px}
   .label{width:94%}
-  .past .fab{display:inline-flex}
+  .past:not(.inorder) .fab{display:inline-flex}
   .steps div{font-size:11px}
   .come{top:13vh}
 }
@@ -362,7 +397,7 @@ footer a{text-decoration:none}
   <section class="stage" id="stage" aria-label="Welcome">
     <div class="stick">
       <div class="mat" id="mat"></div>
-      <div class="photo" id="photo"><img id="pimg" src="img/ph-room.jpg" alt="The Canvas café at golden hour: paper cranes hanging from the ceiling, white tables along the windows and the espresso machine in the sun"><div class="veil" id="veil"></div></div>
+      <div class="photo" id="photo"><img id="pimg" fetchpriority="high" src="img/ph-room.jpg" alt="The Canvas café at golden hour: paper cranes hanging from the ceiling, white tables along the windows and the espresso machine in the sun"><div class="veil" id="veil"></div></div>
       <h1 class="come d d-xl" id="come">Come for<br>the coffee.</h1>
       <p class="stay d d-xl" id="stay">Stay for<br>the art.</p>
       <p class="wl" id="wl"><b>Canvas Coffee + Art House</b>Golden hour on Stone Avenue, paper cranes overhead.<br><span class="muted">Photograph, 109 W Stone Ave</span></p>
@@ -487,12 +522,38 @@ footer a{text-decoration:none}
     </div>
   </section>
 
+  <section class="story" id="story" aria-label="Our story and reviews">
+    <div>
+      <p class="micro">Arin and Genavieve Gilbert</p>
+      <h2 class="d d-m rv" style="margin-top:16px">Two makers,<br>one room.</h2>
+      <p class="lede" style="margin-top:22px">Canvas is a husband and wife team. Arin roasts the coffee and brings a background in community and events. Genavieve is a fine artist, author and teacher. Together they built a place that gives makers of all kinds a platform to show and share their work.</p>
+      <div class="rating"><p class="v">4.8</p><div><p class="h3">on Google</p><p class="small muted">from 201 reviews</p></div></div>
+      <p class="quote" id="quote"></p>
+      <div class="qnav"><button class="pill line sm" id="qPrev" aria-label="Previous review">Prev</button><button class="pill line sm" id="qNext" aria-label="Next review">Next</button><span class="small muted" id="qWho"></span></div>
+      <p class="small muted" style="margin-top:14px">Excerpts from Google reviews, as shown on wearethecanvas.co.</p>
+    </div>
+    <img class="ph" src="img/ph-arin.jpg" alt="Arin Gilbert behind the Canvas coffee cart, grinder and specials board beside him" loading="lazy">
+  </section>
+
+  <section class="faq band" id="faq" aria-label="Good to know">
+    <div>
+      <p class="micro">Good to know</p>
+      <h2 class="d d-m rv" style="margin-top:16px">Before you<br>come in.</h2>
+      <div class="news">
+        <p class="h3">Stay in the loop.</p>
+        <p class="small muted" style="margin-top:6px">New coffees, art shows and café news, about once a month.</p>
+        <form id="newsForm" onsubmit="return false"><label style="flex:1;min-width:200px"><span class="micro">Email</span><input class="field" id="newsMail" type="email" required autocomplete="email"></label><button class="pill solid" id="newsGo">Sign up</button></form>
+      </div>
+    </div>
+    <ul class="qa" id="qa"></ul>
+  </section>
+
   <section class="visit" id="visit" aria-label="Visit">
     <img class="ph" src="img/ph-store.jpg" alt="The Canvas storefront at 109 W Stone Ave with a Welcome sign in the window: come for the coffee, stay for the art, leave inspired" loading="lazy">
     <div class="body">
       <div><p class="micro">Coffee + Art House @ Westone</p><p class="addr d" style="margin-top:18px">109 W<br>Stone Ave</p></div>
       <div class="vgrid">
-        <div><p class="micro">Find us</p><p style="margin-top:12px">Suite E4<br>Greenville, SC 29609<br>Just north of downtown</p></div>
+        <div><p class="micro">Find us</p><p style="margin-top:12px">Suite E4<br>Greenville, SC 29609<br>Just north of downtown</p><a class="pill line sm" style="margin-top:16px" href="https://www.google.com/maps/search/?api=1&amp;query=109+W+Stone+Ave+Suite+E4+Greenville+SC+29609">Get directions</a></div>
         <div><p class="micro">Hours</p><ul class="hours" id="hours"></ul></div>
         <div><p class="micro">Say hello</p><p style="margin-top:12px">hello@wearethecanvas.co<br>(864) 831-6130<br>@canvas.coffee.art</p><p class="small muted" style="margin-top:12px">Bottled Canvas drinks at select GCCA events, 101 Abney St.</p></div>
       </div>
@@ -501,7 +562,7 @@ footer a{text-decoration:none}
 
   <footer class="dark">
     <span class="wm">canvas</span>
-    <nav><a href="#terms">Terms</a><a href="#privacy">Privacy</a><a href="#owner">Owner view</a></nav>
+    <nav><a href="#order" data-gift="1">Gift cards</a><a href="#faq">FAQ</a><a href="https://www.instagram.com/canvas.coffee.art/">Instagram</a><a href="https://www.facebook.com/canvas.coffee.art">Facebook</a><a href="#terms">Terms</a><a href="#privacy">Privacy</a><a href="#owner">Owner view</a></nav>
     <span style="font-size:12px;opacity:.6">Website mockup by Studio 1801. Photos, paintings and menu from Canvas.</span>
   </footer>
   <a class="pill solid fab" href="#order">Order <span class="count" id="fabCount">0</span></a>
@@ -603,6 +664,8 @@ const STAGES=['New','Making','Ready','Picked up'];
 const HANGS=[['jaguar','1 / span 3',0],['granos','5 / span 2',80],['peony','8 / span 3',30],['koke','11 / span 2',140],['elpino','2 / span 3',40],['nhot','6 / span 3',-20],['still','10 / span 3',60]];
 
 /* ======================= STATE + SYNC ======================= */
+const REVIEWS=[['Kendall H.','It\'s cozy and inviting\u2026 the coffee is absolutely delicious. Maybe the best-tasting latte in the city.'],['Plants Over Animals','Loved the inside, lots of art, local merchandise and books\u2026 Staff was super friendly.'],['Abigail A.','It was great for working because of the community-focused environment, people, art, and great food and drinks.']];
+const FAQ=[['Can I order ahead?','Yes. Order from the menu above, pick a pickup time and pay at the counter. Your name is on the cup when you walk in.'],['What milks do you have?','Whole milk, plus oat, almond and coconut for $1. Matcha drinks already come with oat milk.'],['Can I buy beans to take home?','Every coffee on The Wall comes in 12 oz bags, whole bean, on the shelf at Stone Ave or online. Fridays, every bag is 20% off.'],['Can I make art at the café?','Yes. Order an art kit from the Makers Menu with your drink. Mats and aprons are free to borrow and there is no table fee.'],['Do you sell gift cards?','Yes, e-gift cards in any amount from $25. Add one from the Gift cards tab in the order menu.'],['How do I show my art at Canvas?','Our walls change with local and regional artists. Join the Weekend Collection list above and we will tell you when applications reopen for spring 2027.']];
 const KEY='canvas-demo-v4';
 const D0=()=>({cart:[],seq:214,orders:[
   {n:211,name:'Maya',items:'Gilded Hour (iced, oat milk) / Cinnamon Roll',total:14.75,time:'7:40 AM',stage:'Picked up'},
@@ -683,8 +746,9 @@ function railBy(d){const r=$('#rail'),p=r.querySelector('.piece');r.scrollBy({le
 
 /* ======================= ORDER ======================= */
 let tab='Fall Collection',openKey=null;const dopt={};
-function tabs(){$('#tabs').innerHTML=Object.keys(MENU).concat(['The case','Bags']).map(k=>`<button class="chip" aria-pressed="${k===tab}" data-tab="${k}">${k}</button>`).join('')}
+function tabs(){$('#tabs').innerHTML=Object.keys(MENU).concat(['The case','Bags','Gift cards']).map(k=>`<button class="chip" aria-pressed="${k===tab}" data-tab="${k}">${k}</button>`).join('')}
 function rows(){if(tab==='The case')return CASE.map(c=>({k:'c:'+c.id,n:c.n,ds:c.ds,p:c.p,kind:'h',out:!S.stock[c.id],left:S.stock[c.id]}));
+  if(tab==='Gift cards')return [25,50,75,100].map(v=>({k:'g:'+v,n:'E-gift card, $'+v,ds:'Sent by email, good for drinks, bags and art kits at Stone Ave.',p:v,kind:'h'}));
   if(tab==='Bags')return COFFEES.map(c=>({k:'b:'+c.id,n:c.name+' 12 oz',ds:c.notes,p:priceOf(c),kind:'h',out:S.off[c.id]}));
   return MENU[tab].map((m,i)=>({k:'d:'+tab+':'+i,n:m[0],ds:m[1],p:m[2],kind:m[3],fid:m[4],out:S.menuOff[m[0]]}))}
 function optsOf(r){return dopt[r.k]||(dopt[r.k]={temp:r.kind==='i'?'Iced':'Hot',milk:'Whole',shot:false,foam:false})}
@@ -692,7 +756,7 @@ const oatOnly=r=>r.fid==='verte';
 function rowPrice(r){const o=optsOf(r);return r.p+(r.kind==='m'&&!oatOnly(r)&&o.milk!=='Whole'?1:0)+(o.shot?2:0)+(o.foam?1:0)}
 function menu(){$('#mlist').innerHTML=rows().map(r=>{const o=optsOf(r);const has=r.kind!=='h';const op=openKey===r.k;
   const g=(lab,key,vals)=>`<div class="grp"><span>${lab}</span>${vals.map(v=>`<button class="chip" aria-pressed="${o[key]===v[0]}" data-op="${r.k}|${key}|${v[0]}">${v[1]}</button>`).join('')}</div>`;
-  return `<li class="${op?'open':''}"><div class="mrow"><button style="text-align:left" data-open="${has?r.k:''}"><div class="n">${esc(r.n)}${r.left!==undefined?` <span class="left ${r.out?'out':''}">${r.out?'Sold out':r.left+' left'}</span>`:''}${r.out&&r.left===undefined?' <span class="left out">Sold out</span>':''}</div>${r.ds?`<div class="ds">${esc(r.ds)}</div>`:''}${has&&!op?'<div class="ds" style="opacity:.45">Tap for hot or iced, milk and extras</div>':''}</button><span>${money(rowPrice(r))}</span><button class="add" aria-label="Add ${esc(r.n)}" data-add="${r.k}" ${r.out?'disabled':''}>+</button></div>
+  return `<li class="${op?'open':''}"><div class="mrow"><button style="text-align:left" data-open="${has?r.k:''}"><div class="n">${esc(r.n)}${r.left!==undefined?` <span class="left ${r.out?'out':''}">${r.out?'Sold out':r.left+' left'}</span>`:''}${r.out&&r.left===undefined?' <span class="left out">Sold out</span>':''}</div>${r.ds?`<div class="ds">${esc(r.ds)}</div>`:''}${has&&!op?'<div class="ds" style="opacity:.45">Options</div>':''}</button><span>${money(rowPrice(r))}</span><button class="add" aria-label="Add ${esc(r.n)}" data-add="${r.k}" ${r.out?'disabled':''}>+</button></div>
   ${has?`<div class="cfg"><div>${r.kind!=='i'?g('Temp','temp',[['Hot','Hot'],['Iced','Iced']]):''}${r.kind==='m'&&!oatOnly(r)?g('Milk','milk',[['Whole','Whole'],['Oat','Oat +$1'],['Almond','Almond +$1'],['Coconut','Coconut +$1']]):''}<div class="grp"><span>Extras</span><button class="chip" aria-pressed="${o.shot}" data-op="${r.k}|shot|t">Extra shot +$2</button><button class="chip" aria-pressed="${o.foam}" data-op="${r.k}|foam|t">Cold foam +$1</button></div></div></div>`:''}</li>`}).join('')}
 function describe(r){if(r.kind==='h')return'';const o=optsOf(r);const a=[];if(r.kind!=='i')a.push(o.temp.toLowerCase());if(r.kind==='m'&&!oatOnly(r)&&o.milk!=='Whole')a.push(o.milk.toLowerCase()+' milk');if(o.shot)a.push('extra shot');if(o.foam)a.push('cold foam');return a.join(', ')}
 function pushCart(k,name,opt,price){const f=S.cart.find(x=>x.name===name&&x.opt===opt);f?f.q++:S.cart.push({k,name,opt,price,q:1});S.mine=null;save();cart();bump();toast(name+' added')}
@@ -739,6 +803,7 @@ let ftab='kit';
 const FORMS={kit:{label:'Art kit at your table'},
   workshop:{label:'Private workshop',btn:'Request a workshop',fields:[['Name','name','text'],['Email','mail','email'],['Group size','size','number'],['Preferred date','date','date'],['What would you like to make?','about','area']]},
   job:{label:'Work with us',btn:'Send my application',fields:[['Role','role','role'],['Name','name','text'],['Email','mail','email'],['A little about your coffee experience','about','area']]},
+  catering:{label:'Catering',btn:'Request catering',fields:[['Name or company','name','text'],['Email','mail','email'],['Guests','size','number'],['Event date','date','date'],['Tell us about the event','about','area']]},
   wholesale:{label:'Wholesale',btn:'Request a wholesale account',fields:[['Business name','name','text'],['Email','mail','email'],['Your espresso machine and grinder','about','area']]}};
 function mk(){$('#ftabs').innerHTML=Object.entries(FORMS).map(([k,v])=>`<button class="chip" aria-pressed="${k===ftab}" data-ftab="${k}">${v.label}</button>`).join('');const F=FORMS[ftab];
   if(ftab==='kit'){$('#mkForm').innerHTML=`<p class="full" style="opacity:.85">Watercolor or sketch kits from the Makers Menu. Mats and aprons are free to borrow and there is no table fee. Your kit is waiting with your drink.</p><div class="full" style="display:flex;gap:10px;flex-wrap:wrap"><button class="pill solid" data-kit="Watercolor kit">Add watercolor kit</button><button class="pill line" data-kit="Sketch kit">Add sketch kit</button></div><p class="full small" style="opacity:.6">Kit prices are placeholders until Canvas confirms them.</p>`;return}
@@ -762,7 +827,7 @@ function oBody(){const T={today:'Today',menu:'Menu',case:'The case',wall:'The wa
   if(otab==='roast'){const r=roastList();const txt=r.map(x=>`${x.c.name}: ${(x.oz/16).toFixed(2)} lb roasted (${(x.oz/16/.85).toFixed(2)} lb green)`).join('\n');
     h=`<div class="tw"><table class="ot"><thead><tr><th>Coffee</th><th>Bags and subscriptions</th><th>Roasted lb</th><th>Green lb (15% loss)</th></tr></thead><tbody>${r.map(x=>`<tr><td>${esc(x.c.name)}</td><td>${x.oz} oz</td><td>${(x.oz/16).toFixed(2)}</td><td>${(x.oz/16/.85).toFixed(2)}</td></tr>`).join('')}</tbody></table></div><div style="margin-top:20px"><button class="pill solid sm" id="copyRoast">Copy roast list</button></div><textarea id="roastTxt" hidden>${esc(txt)}</textarea>
     <h3 class="h3" style="margin-top:44px">Subscribers</h3><div class="tw"><table class="ot"><thead><tr><th>Name</th><th>Plan</th><th>Every</th><th>How</th></tr></thead><tbody>${S.subs.map(s=>`<tr><td>${esc(s.name)}</td><td>${esc(s.plan)}</td><td>${s.every} weeks</td><td>${esc(s.how)}</td></tr>`).join('')}</tbody></table></div><p class="note">Adds up subscriptions and bag orders so Arin knows exactly what to roast on the Diedrich.</p>`}
-  if(otab==='inbox')h=S.inbox.length?`<div class="tw"><table class="ot"><thead><tr><th>Type</th><th>From</th><th>Details</th><th>Status</th></tr></thead><tbody>${S.inbox.map((a,i)=>`<tr><td>${esc(a.type)}</td><td>${esc(a.name)}<br><span class="sm">${esc(a.mail)}</span></td><td>${esc(a.about)}</td><td><button class="stage-b ${a.status==='New'?'new':''}" data-inb="${i}">${a.status}</button></td></tr>`).join('')}</tbody></table></div><p class="note">Workshop requests, Weekend Collection sign-ups, job applications, wholesale and art enquiries all land here. Tap a status: New, Replied, Done.</p>`:'<p class="empty">Nothing new.</p>';
+  if(otab==='inbox')h=S.inbox.length?`<div class="tw"><table class="ot"><thead><tr><th>Type</th><th>From</th><th>Details</th><th>Status</th></tr></thead><tbody>${S.inbox.map((a,i)=>`<tr><td>${esc(a.type)}</td><td>${esc(a.name)}<br><span class="sm">${esc(a.mail)}</span></td><td>${esc(a.about)}</td><td><button class="stage-b ${a.status==='New'?'new':''}" data-inb="${i}">${a.status}</button></td></tr>`).join('')}</tbody></table></div><p class="note">Workshop and catering requests, Weekend Collection and newsletter sign-ups, job applications, wholesale and art enquiries all land here. Tap a status: New, Replied, Done.</p>`:'<p class="empty">Nothing new.</p>';
   if(otab==='post')h=`<div class="pm"><canvas id="pc" width="1080" height="1350" aria-label="Post preview"></canvas><div><p class="micro">Template</p><div class="tabs" style="margin-top:10px">${[['fall','Fall Collection'],['friday','Friday Takeaway'],['case','In the case today'],['coffee','New on the wall']].map(t=>`<button class="chip" aria-pressed="${pmT===t[0]}" data-pm="${t[0]}">${t[1]}</button>`).join('')}</div>
     ${pmT==='case'?'':`<label style="display:block;margin-top:14px"><span class="micro">${pmT==='fall'?'Drink':'Coffee'}</span><select class="field" id="pmC">${pmT==='fall'?FALL.map(f=>`<option value="${f.id}" ${pmF===f.id?'selected':''}>${f.n}</option>`).join(''):COFFEES.map(c=>`<option value="${c.id}" ${pmC===c.id?'selected':''}>${esc(c.name)}</option>`).join('')}</select></label>`}
     <label style="display:block;margin-top:18px"><span class="micro">Caption</span><textarea class="field" id="pmCap" rows="7"></textarea></label><div style="display:flex;gap:10px;margin-top:18px;flex-wrap:wrap"><button class="pill solid sm" id="copyCap">Copy caption</button><button class="pill line sm" id="copyImg">Copy image</button></div><p class="note">Makes an Instagram post in Canvas's style from what is live on the site.</p></div></div>`;
@@ -784,7 +849,7 @@ function owner(){$('#oDate').textContent=new Date().toLocaleDateString('en-US',{
   if(!ownerReady){$('#kpis').innerHTML=[1,2,3,4].map(()=>`<div><div class="sk skl" style="width:60%"></div><div class="sk" style="height:44px;width:70%;margin-top:12px"></div></div>`).join('');$('#oBody').innerHTML='<div style="margin-top:24px">'+[1,2,3,4,5].map(()=>'<div class="sk" style="height:44px;margin-top:10px"></div>').join('')+'</div>';setTimeout(()=>{ownerReady=true;oBody()},650)}else oBody()}
 
 /* ======================= ROUTING ======================= */
-const SECT=['ways','menu','wall','order','case','subscribe','arthouse','make','visit'];
+const SECT=['ways','menu','wall','order','case','subscribe','arthouse','make','story','faq','visit'];
 function route(){const h=(location.hash||'#home').slice(1);const v=['owner','terms','privacy'].includes(h)?h:'home';
   document.querySelectorAll('.view').forEach(x=>x.classList.toggle('on',x.id==='view-'+v));
   if(v==='owner')owner();
@@ -808,12 +873,15 @@ document.addEventListener('click',e=>{const t=e.target.closest('button');if(!t)r
   else if(t.id==='prev')railBy(-1);else if(t.id==='next')railBy(1);
   else if(t.id==='sGo'){const p=PLANS[$('#sPlan').value];S.subs.unshift({name:'You (demo)',plan:p.name,every:+$('#sEvery').value,how:$('#sHow').selectedOptions[0].text.replace(/^./,c=>c.toUpperCase()),coffee:p.name==='The Curious'?'straw':'jaguar'});if(S.half>0)S.half--;save();sub();toast(p.name+' started. First bag half off.')}
   else if(d.art){openArt(d.art)}
+  else if(t.id==='qNext')quote(1);else if(t.id==='qPrev')quote(-1);
+  else if(d.qa!==undefined){const li=t.closest('li');const o=li.classList.toggle('open');t.setAttribute('aria-expanded',o)}
+  else if(t.id==='newsGo'){const f=$('#newsForm');if(!f.reportValidity())return;S.inbox.unshift({type:'Newsletter',name:'Subscriber',mail:$('#newsMail').value,about:'Monthly news',status:'New'});save();f.reset();toast('Thank you. See you in your inbox once a month.')}
   else if(t.id==='lbX'){$('#lb').classList.remove('on')}
   else if(d.print){S.inbox.unshift({type:'Art enquiry',name:'Website visitor',mail:'',about:(COFFEES.find(x=>x.id===d.print)||{name:(extraArt[d.print]||[0,d.print])[1]}).name+', print or original',status:'New'});save();toast('Sent to Genavieve. She will be in touch.')}
   else if(t.id==='wcGo'){const f=$('#wcForm');if(!f.reportValidity())return;S.inbox.unshift({type:'Weekend Collection',name:$('#wcWho').value,mail:$('#wcMail').value,about:'Waitlist for spring 2027',status:'New'});save();f.reset();toast('You are on the list for the Weekend Collection')}
   else if(d.ftab){ftab=d.ftab;mk()}
   else if(t.id==='mkGo'){const f=$('#mkForm');if(!f.reportValidity())return;const v={};f.querySelectorAll('[data-f]').forEach(i=>v[i.dataset.f]=i.value.trim());
-    const type={workshop:'Private workshop',job:'Job application',wholesale:'Wholesale'}[ftab];S.inbox.unshift({type,name:v.name,mail:v.mail,about:[v.role,v.size&&v.size+' people',v.date,v.about].filter(Boolean).join(', '),status:'New'});save();f.reset();toast('Sent. Arin and Genavieve will reply by email.')}
+    const type={workshop:'Private workshop',job:'Job application',wholesale:'Wholesale',catering:'Catering'}[ftab];S.inbox.unshift({type,name:v.name,mail:v.mail,about:[v.role,v.size&&v.size+' people',v.date,v.about].filter(Boolean).join(', '),status:'New'});save();f.reset();toast('Sent. Arin and Genavieve will reply by email.')}
   else if(d.o){otab=d.o;oBody()}
   else if(d.stage!==undefined){const o=S.orders[+d.stage];o.stage=STAGES[Math.min(STAGES.indexOf(o.stage)+1,3)];save();oBody();cart()}
   else if(d.st){const [id,v]=d.st.split('|');S.stock[id]=v==='0'?0:Math.max(0,S.stock[id]+ +v);save();oBody();caseList();menu()}
@@ -832,12 +900,16 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')$('#lb').classList.r
 $('#lb').addEventListener('click',e=>{if(e.target.id==='lb')$('#lb').classList.remove('on')});
 $('#rail').addEventListener('keydown',e=>{if(e.key==='ArrowRight'){e.preventDefault();railBy(1)}if(e.key==='ArrowLeft'){e.preventDefault();railBy(-1)}});
 addEventListener('hashchange',route);
+document.addEventListener('click',e=>{const a=e.target.closest('[data-gift]');if(a){tab='Gift cards';openKey=null;tabs();menu()}});
 
 /* ======================= BOOT + INTRO ======================= */
-wallSk();caseSk();tabs();hangs();mk();renderAll();route();setInterval(statusRender,60000);
+let qi=0;function quote(d){qi=(qi+d+REVIEWS.length)%REVIEWS.length;const q=$('#quote');q.style.opacity=0;setTimeout(()=>{q.textContent='\u201C'+REVIEWS[qi][1]+'\u201D';$('#qWho').textContent=REVIEWS[qi][0]+', Google';q.style.opacity=1},d?250:0)}
+function faq(){$('#qa').innerHTML=FAQ.map((f,i)=>`<li><button data-qa="${i}" aria-expanded="false"><span>${f[0]}</span><span class="pm2" aria-hidden="true">+</span></button><div class="ans"><div><p>${f[1]}</p></div></div></li>`).join('')}
+wallSk();caseSk();tabs();hangs();mk();faq();quote(0);renderAll();route();setInterval(statusRender,60000);
 setTimeout(()=>{homeReady=true;wall();caseList()},600);
 const io=('IntersectionObserver' in window)?new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target)}}),{threshold:.2}):null;
 document.querySelectorAll('.rv').forEach(el=>io?io.observe(el):el.classList.add('in'));
+if(io){new IntersectionObserver(es=>es.forEach(en=>document.body.classList.toggle('inorder',en.isIntersecting)),{threshold:0}).observe(document.getElementById('order'))}
 (function intro(){const el=$('#intro'),bar=$('#ibar'),ct=$('#ict');let seen=false;try{seen=sessionStorage.getItem('cv-intro')}catch(e){}
   const done=()=>{el.classList.add('out');document.body.classList.remove('locked');setTimeout(()=>el.remove(),1100);try{sessionStorage.setItem('cv-intro','1')}catch(e){}fitSel();measure();stage()};
   if(seen||matchMedia('(prefers-reduced-motion: reduce)').matches||(location.hash&&location.hash!=='#home')){el.remove();document.body.classList.remove('locked');return}
