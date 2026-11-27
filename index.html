@@ -310,14 +310,45 @@ footer{padding:60px var(--pad) 40px}
 .legal ul{padding-left:20px}
 
 /* ============== OWNER: unified ops ============== */
-.owner{display:grid;grid-template-columns:240px minmax(0,1fr);min-height:100svh}
-.orail{padding:22px 16px;display:flex;flex-direction:column;gap:4px;position:sticky;top:0;height:100svh}
-.orail .wm{margin:0 0 6px 12px;display:block}
-.orail .sub{margin:0 0 24px 12px;font-size:12px;opacity:.6}
-.orail button{text-align:left;padding:11px 14px;border-radius:999px;font-size:15px;display:flex;justify-content:space-between;align-items:center;gap:8px;min-height:42px}
-.orail button[aria-current="true"]{background:var(--cobalt)}
-.orail .dot{min-width:20px;height:20px;border-radius:999px;background:var(--gesso);color:var(--night);font-size:11px;display:grid;place-items:center;padding:0 6px}
-.orail .back{margin-top:auto;font-size:13px;opacity:.7;text-decoration:none;padding:11px 14px}
+.owner{display:grid;grid-template-columns:250px minmax(0,1fr);min-height:100svh}
+.orail{background:var(--linen);padding:26px 24px;display:flex;flex-direction:column;gap:2px;position:sticky;top:0;height:100svh}
+.orail .wm{display:block}
+.orail .sub{margin:6px 0 34px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.6}
+.orail button{text-align:left;padding:10px 0;font-size:16px;display:grid;grid-template-columns:30px minmax(0,1fr) auto;align-items:baseline;gap:4px;min-height:42px;border-bottom:1px solid rgba(28,26,23,.14);letter-spacing:-0.01em}
+.orail button .no{font-size:11px;letter-spacing:.12em;opacity:.5}
+.orail button[aria-current="true"] .lbl{text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:1px}
+.orail button[aria-current="true"] .no{opacity:1}
+.orail .dot{font-size:12px;font-variant-numeric:tabular-nums;color:var(--cobalt)}
+.orail .dot:empty{display:none}
+.orail .foot{margin-top:auto;display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.orail .back{font-size:13px;text-decoration:none;opacity:.7;padding:6px 0}
+.orail .reset{display:block;white-space:nowrap;border:0;font-size:13px;text-decoration:underline;text-underline-offset:4px;opacity:.7;padding:6px 0;min-height:32px}
+.brief{font-size:clamp(30px,3.6vw,54px);line-height:1.08;letter-spacing:-0.025em;max-width:24ch;margin-top:34px}
+.brief button{font:inherit;letter-spacing:inherit;color:var(--cobalt);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.12em}
+.flow{margin-top:44px}
+.flowbar{display:flex;height:10px;margin-top:14px;gap:2px}
+.flowbar i{display:block;height:100%}
+.flowleg{display:flex;flex-wrap:wrap;gap:8px 26px;margin-top:14px;font-size:13px}
+.flowleg span{display:inline-flex;align-items:center;gap:8px}
+.flowleg b{width:10px;height:10px;display:inline-block;font-weight:400}
+.mini{display:flex;gap:22px;overflow-x:auto;padding:10px 4px 6px;scrollbar-width:none}
+.mini::-webkit-scrollbar{display:none}
+.mini figure{flex:0 0 96px;margin:0}
+.mini .fr{aspect-ratio:4/5;display:grid;place-items:center;padding:12%}
+.mini img{width:100%;height:100%;object-fit:cover;outline:4px solid var(--paper)}
+.mini figcaption{font-size:12px;margin-top:8px;line-height:1.35}
+.mini .lbv{font-size:26px;letter-spacing:-0.03em;line-height:1;display:block;font-variant-numeric:tabular-nums}
+.attn li .num{font-size:11px;letter-spacing:.12em;opacity:.55}
+.cat{display:grid;grid-template-columns:86px minmax(0,3fr) minmax(0,2fr) minmax(0,3fr) auto;gap:22px;align-items:center;padding:18px 0;border-bottom:1px solid rgba(28,26,23,.16)}
+.cat .fr{aspect-ratio:4/5;display:grid;place-items:center;padding:13%}
+.cat .fr img{width:100%;height:100%;object-fit:cover;outline:4px solid var(--paper)}
+.cat .nm{font-size:21px;letter-spacing:-0.015em;line-height:1.15}
+.cat .lb2{font-size:clamp(34px,3.2vw,48px);letter-spacing:-0.035em;line-height:.9;font-variant-numeric:tabular-nums}
+.cat .bar{height:3px;background:rgba(28,26,23,.1);margin-top:12px;position:relative}
+.cat .bar i{position:absolute;left:0;top:0;bottom:0}
+.cat.done{opacity:.4}
+.cat.done .nm{text-decoration:line-through}
+.ot tr.done td{opacity:.4}
 .omain{padding:28px clamp(18px,3vw,44px) 90px;min-width:0}
 .ohead{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;border-bottom:1px solid var(--ink);padding-bottom:18px}
 .kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-bottom:1px solid var(--ink)}
@@ -341,18 +372,18 @@ footer{padding:60px var(--pad) 40px}
 .batch .lb2{font-size:clamp(28px,2.6vw,40px);letter-spacing:-0.03em;line-height:1;font-variant-numeric:tabular-nums}
 .swatch{display:inline-block;width:14px;height:18px;vertical-align:-3px;margin-right:10px;outline:2px solid var(--paper)}
 .kanban{display:grid;grid-template-columns:repeat(4,minmax(240px,1fr));gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px}
-.col{background:var(--linen);padding:12px;min-height:340px;scroll-snap-align:start}
-.col h4{font-weight:500;font-size:12px;letter-spacing:.16em;text-transform:uppercase;display:flex;justify-content:space-between;padding:4px 4px 12px}
-.card{background:var(--paper);padding:14px;margin-bottom:10px}
+.col{border-top:1px solid var(--ink);padding:0 0 12px;min-height:340px;scroll-snap-align:start}
+.col h4{font-weight:500;font-size:11px;letter-spacing:.18em;text-transform:uppercase;display:flex;justify-content:space-between;padding:12px 0 14px}
+.card{background:var(--paper);padding:16px;margin-bottom:12px}
 .card .t{font-size:16px;line-height:1.25}
 .card .m{font-size:13px;opacity:.65;margin-top:4px}
 .card .nx{font-size:13px;margin-top:8px}
 .card .mv{display:flex;justify-content:space-between;gap:8px;margin-top:10px}
 .card .mv button{border:1px solid var(--ink);border-radius:999px;padding:6px 10px;font-size:12px;min-height:32px}
 .attn{list-style:none}
-.attn li{display:grid;grid-template-columns:120px minmax(0,1fr) auto;gap:16px;align-items:center;padding:14px 0;border-bottom:1px solid rgba(28,26,23,.16)}
+.attn li{display:grid;grid-template-columns:34px 110px minmax(0,1fr) auto;gap:16px;align-items:center;padding:14px 0;border-bottom:1px solid rgba(28,26,23,.16)}
 .filters{display:flex;gap:6px;flex-wrap:wrap}
-.toastnote{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;background:var(--linen);padding:14px 16px;margin-top:22px;font-size:14px}
+.toastnote{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;border-top:1px solid rgba(28,26,23,.2);border-bottom:1px solid rgba(28,26,23,.2);padding:14px 0;margin-top:30px;font-size:14px}
 .pm{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:30px;margin-top:20px;align-items:start}
 .pm canvas{width:100%;height:auto;display:block;background:var(--linen)}
 .note{font-size:13px;opacity:.6;margin-top:12px;max-width:72ch}
@@ -398,19 +429,27 @@ footer{padding:60px var(--pad) 40px}
   .fcols{grid-template-columns:repeat(2,minmax(0,1fr))}
   .fcols > :first-child{grid-column:1/-1}
   .owner{grid-template-columns:minmax(0,1fr)}
-  .orail{flex-direction:row;overflow-x:auto;padding:10px;align-items:center;height:auto;position:sticky;z-index:5}
-  .orail .wm{margin:0 10px 0 6px}
+  .orail{flex-direction:row;overflow-x:auto;padding:10px 16px;align-items:center;height:auto;position:sticky;z-index:5;gap:18px;scrollbar-width:none}
+  .orail::-webkit-scrollbar{display:none}
+  .orail .wm{margin-right:6px}
   .orail .sub{display:none}
-  .orail button{white-space:nowrap}
-  .orail .back{margin:0 0 0 6px;white-space:nowrap}
+  .orail button{white-space:nowrap;border-bottom:0;grid-template-columns:auto auto auto;gap:6px}
+  .orail .foot{margin:0;flex-direction:row;gap:14px}
+  .orail .back,.orail .reset{white-space:nowrap}
+  .cat{grid-template-columns:64px minmax(0,1fr) auto;gap:14px}
+  .cat > :nth-child(4){grid-column:2/-1}
+  .cat > :nth-child(5){grid-column:2/-1}
+  .attn li{grid-template-columns:minmax(0,1fr) auto}
+  .attn li > .num{display:none}
+  .attn li .tag{grid-column:1/-1;justify-self:start}
+  .cat > button{justify-self:start}
   .kpis{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
   .kpis > div:nth-child(2){border-right:0}
   .kpis > div:nth-child(3){padding-left:0}
   .ov2,.pm{grid-template-columns:minmax(0,1fr)}
   .batch{grid-template-columns:minmax(0,1fr) auto}
   .batch > :nth-child(3),.batch > :nth-child(4){grid-column:1/-1}
-  .attn li{grid-template-columns:minmax(0,1fr) auto}
-  .attn li > :first-child{grid-column:1/-1;justify-self:start}
+
   .lb{grid-template-columns:minmax(0,1fr);overflow:auto;align-items:start}
   .lb img{max-height:60vh}
 }
@@ -756,19 +795,19 @@ footer{padding:60px var(--pad) 40px}
 <!-- =========================== OWNER: unified ops =========================== -->
 <div class="view" id="view-owner">
   <div class="owner">
-    <aside class="orail dark">
-      <span class="wm">canvas</span><span class="sub">Operations</span>
-      <button data-o="overview" aria-current="true">Overview <span class="dot" id="dotAttn">0</span></button>
-      <button data-o="roast">Roast + fulfill <span class="dot" id="dotRoast">0</span></button>
-      <button data-o="pipeline">Pipeline <span class="dot" id="dotLeads">0</span></button>
-      <button data-o="events">Workshops + artists</button>
-      <button data-o="subs">Subscribers</button>
-      <button data-o="case">Café board</button>
-      <button data-o="post">Post maker</button>
-      <a class="back" href="#home">Back to site</a>
+    <aside class="orail">
+      <span class="wm">canvas</span><span class="sub">Back of house</span>
+      <button data-o="overview" aria-current="true"><span class="no">01</span><span class="lbl">Today</span><span class="dot" id="dotAttn"></span></button>
+      <button data-o="roast"><span class="no">02</span><span class="lbl">Roast + fulfill</span><span class="dot" id="dotRoast"></span></button>
+      <button data-o="pipeline"><span class="no">03</span><span class="lbl">Pipeline</span><span class="dot" id="dotLeads"></span></button>
+      <button data-o="events"><span class="no">04</span><span class="lbl">Workshops + artists</span><span class="dot" id="dotEv"></span></button>
+      <button data-o="subs"><span class="no">05</span><span class="lbl">Subscribers</span><span class="dot"></span></button>
+      <button data-o="case"><span class="no">06</span><span class="lbl">Café board</span><span class="dot"></span></button>
+      <button data-o="post"><span class="no">07</span><span class="lbl">Post maker</span><span class="dot"></span></button>
+      <div class="foot"><button class="reset" id="resetDemo">Reset demo data</button><a class="back" href="#home">Back to site</a></div>
     </aside>
     <main class="omain">
-      <div class="ohead"><div><p class="micro" id="oDate">Today</p><h1 class="d d-m" style="margin-top:10px" id="oTitle">Overview</h1></div><span class="micro muted">Sample data</span></div>
+      <div class="ohead"><div><p class="micro" id="oDate">Today</p><h1 class="d d-m" style="margin-top:10px" id="oTitle">Overview</h1></div><span class="micro muted">Sample data for the demo</span></div>
       <div id="oBody"></div>
     </main>
   </div>
@@ -850,7 +889,7 @@ const HANGS=[['jaguar','1 / span 3',0],['granos','5 / span 2',80],['peony','8 / 
 const extraArt={peony:['img/ph-peony-hd.jpg','Peonies','Oil on canvas, Genavieve Gilbert'],still:['img/ph-still.jpg','Still life','Pencil, from the sketchbook on the café table']};
 
 /* =============== STATE (sample data) + SYNC =============== */
-const KEY='canvas-ops-v1';
+const KEY='canvas-ops-v2';
 const O=(n,src,name,items,method,status,total,extra)=>({n,src,name,items,method,status,total,extra:extra||''});
 const D0=()=>({cart:[],seq:1052,half:37,friday:'auto',off:{},menuOff:{},stock:Object.fromEntries(CASE.map(c=>[c.id,c.stock])),
  orders:[
@@ -866,7 +905,7 @@ const D0=()=>({cart:[],seq:1052,half:37,friday:'auto',off:{},menuOff:{},stock:Ob
   {name:'Chris L.',plan:'curious',every:4,method:'Shipping',due:true},{name:'Priya N.',plan:'regular',dir:'round',every:2,method:'Local delivery',due:true},
   {name:'Jordan W.',plan:'bulk',dir:'round',every:4,method:'Local delivery',due:true},{name:'Maya L.',plan:'regular',dir:'round',every:6,method:'Pickup',due:false},
   {name:'Kevin O.',plan:'household',dir:'round',every:4,method:'Shipping',due:true},{name:'Grace H.',plan:'curious',every:2,method:'Local delivery',due:true}],
- subStatus:{},
+ 
  pipeline:[
   {id:1,type:'Wholesale',name:'Bookshop café, Greer',meta:'Café, ~8 lb a week',next:'Reply within 2 business days',stage:0},
   {id:2,type:'Catering',name:'Office holiday party',meta:'60 guests, Dec 12, drip boxes',next:'Send a quote',stage:0},
@@ -884,8 +923,9 @@ const D0=()=>({cart:[],seq:1052,half:37,friday:'auto',off:{},menuOff:{},stock:Ob
  bookings:[],
  privateReq:[{name:'Furman Art Club',size:12,date:'Sat Jan 17',about:'Watercolor night',status:'New'}],
  artists:[{name:'Lee Hart',medium:'Linocut prints',link:'@leehartprints',status:'Reviewing'},{name:'R. Alvarez',medium:'Oil on panel',link:'ralvarez.art',status:'Received'},{name:'June Park',medium:'Textile, wall pieces',link:'@junepark.studio',status:'Shortlisted'}],
- printclub:48,news:[],mineOrder:null});
+ printclub:48,news:[],mineOrder:null,roasted:{}});
 let S;try{S=JSON.parse(localStorage.getItem(KEY))||D0()}catch(e){S=D0()}
+S.roasted=S.roasted||{};
 let bc=null;try{bc=new BroadcastChannel(KEY);bc.onmessage=m=>{if(m.data&&m.data.state){S=m.data.state;renderAll()}}}catch(e){}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}try{bc&&bc.postMessage({state:S})}catch(e){}}
 
@@ -962,7 +1002,7 @@ function checkout(){const nm=($('#coName').value||'').trim(),ml=($('#coMail').va
     else if(c.kind==='seat'){const s=S.sessions.find(x=>x.id===c.sid);const q=c.seatsQ||c.q;if(s)s.booked=Math.min(s.seats,s.booked+q);S.bookings.unshift({sid:c.sid,name:nm,q})}
     else if(c.kind==='club'){S.printclub++}
     else extra.push((c.q>1?c.q+' x ':'')+c.name+(c.opt?' ('+c.opt+')':''))});
-  const total=S.cart.reduce((a,b)=>a+b.q*b.price,0)+shipCost();
+  const total=S.cart.reduce((a,b)=>a+b.q*b.price,0)-S.cart.filter(c=>c.kind==='sub').reduce((a,c)=>a+c.price/2*c.q,0)+shipCost();
   if(items.length||extra.length)S.orders.unshift(O(n,'Shop',nm,items,method,items.length?'To roast':'Packed',total,[extra.join(', '),ad].filter(Boolean).join(' / ')));
   S.cart=[];S.mineOrder=n;save();renderAll();toast('Order No. '+n+' placed')}
 
@@ -999,9 +1039,9 @@ function lead(type,name,meta,next){S.pipeline.unshift({id:Date.now(),type,name,m
 /* =============== OWNER: unified ops =============== */
 let otab='overview',ftag='All',ptype='All',ownerReady=false;
 function roastQueue(){const g={};const add=(id,size,q,src,method)=>{const k=id;g[k]=g[k]||{id,oz:0,sizes:{},src:{},tags:{}};g[k].oz+=OZ[size]*q;g[k].sizes[size]=(g[k].sizes[size]||0)+q;g[k].src[src]=(g[k].src[src]||0)+q;g[k].tags[method]=1};
-  S.subs.forEach((s,i)=>{if(!s.due||(S.subStatus[i]&&S.subStatus[i]!=='To roast'))return;const P=PLANS[s.plan];const id=P.dir?DIRS[s.dir||'round'].coffee:'straw';add(id,P.size,1,'Subscription',s.method)});
+  S.subs.forEach(s=>{if(!s.due||(s.st&&s.st!=='To roast'))return;const P=PLANS[s.plan];const id=P.dir?DIRS[s.dir||'round'].coffee:'straw';add(id,P.size,1,'Subscription',s.method)});
   S.orders.forEach(o=>{if(o.status!=='To roast')return;o.items.forEach(([id,size,q])=>add(id,size,q,o.src,o.method))});
-  return Object.values(g).sort((a,b)=>b.oz-a.oz)}
+  return Object.values(g).sort((a,b)=>(!!S.roasted[a.id])-(!!S.roasted[b.id])||b.oz-a.oz)}
 function attention(){const a=[];const newLeads=S.pipeline.filter(p=>p.stage===0).length,reorder=S.pipeline.filter(p=>p.stage===3);
   if(newLeads)a.push(['Pipeline',`${newLeads} new ${newLeads>1?'inquiries':'inquiry'} waiting for a reply`,'pipeline']);
   reorder.forEach(r=>a.push(['Reorder due',`${r.name}: ${r.next}`,'pipeline']));
@@ -1011,20 +1051,22 @@ function attention(){const a=[];const newLeads=S.pipeline.filter(p=>p.stage===0)
   const ready=S.orders.filter(o=>o.status==='Ready').length;if(ready)a.push(['Fulfillment',`${ready} ${ready>1?'orders':'order'} ready, waiting for pickup or courier`,'roast']);
   return a}
 function kpiRow(items){return `<div class="kpis">${items.map(k=>`<div><p class="micro">${k[0]}</p><p class="v">${k[1]}</p></div>`).join('')}</div>`}
-function oBody(){const T={overview:'Overview',roast:'Roast + fulfill',pipeline:'Pipeline',events:'Workshops + artists',subs:'Subscribers',case:'Café board',post:'Post maker'};$('#oTitle').textContent=T[otab];
+function oBody(){const T={overview:'Today',roast:'Roast + fulfill',pipeline:'Pipeline',events:'Workshops + artists',subs:'Subscribers',case:'Café board',post:'Post maker'};$('#oTitle').textContent=T[otab];
   $$('.orail button').forEach(b=>b.setAttribute('aria-current',b.dataset.o===otab));
-  const q=roastQueue(),lb=q.reduce((a,b)=>a+b.oz,0)/16,open=S.orders.filter(o=>o.status!=='Done').length,leads=S.pipeline.filter(p=>p.stage<2).length,seats=S.sessions.reduce((a,s)=>a+s.booked,0);let h='';
-  if(otab==='overview'){const at=attention();
-    h=kpiRow([['To roast this week',lb.toFixed(1)+' lb'],['Orders to fulfill',open],['Open leads',leads],['Workshop seats sold',seats]])+
-    `<div class="toastnote"><span>Café counter, pickup tickets and loyalty stay on Toast. Everything off the counter is here.</span><a class="pill line sm" href="${TOAST}" target="_blank" rel="noopener">Open Toast</a></div>
-    <div class="ov2"><div class="osec"><div class="hd"><p class="h3">Needs attention</p></div><ul class="attn">${at.map(x=>`<li><span class="tag">${x[0]}</span><span>${esc(x[1])}</span><button class="pill line sm" data-o="${x[2]}">Open</button></li>`).join('')||'<li><span>All clear.</span></li>'}</ul></div>
-    <div class="osec"><div class="hd"><p class="h3">This roast day</p><button class="pill line sm" data-o="roast">Roast list</button></div><table class="ot"><tbody>${q.map(b=>{const c=cof(b.id);return `<tr><td><span class="swatch" style="background:${c.ground}"></span>${esc(c.name)}</td><td style="text-align:right">${(b.oz/16).toFixed(1)} lb</td></tr>`}).join('')}</tbody></table>
-    <div class="hd" style="margin-top:26px"><p class="h3">Pipeline</p><button class="pill line sm" data-o="pipeline">Board</button></div><table class="ot"><tbody>${STAGES.map((s,i)=>`<tr><td>${s}</td><td style="text-align:right">${S.pipeline.filter(p=>p.stage===i).length}</td></tr>`).join('')}</tbody></table></div></div>`}
+  const q=roastQueue(),lb=q.filter(b=>!S.roasted[b.id]).reduce((a,b)=>a+b.oz,0)/16,open=S.orders.filter(o=>o.status!=='Done').length,leads=S.pipeline.filter(p=>p.stage<2).length,seats=S.sessions.reduce((a,s)=>a+s.booked,0);let h='';
+  if(otab==='overview'){const at=attention(),sold=S.sessions.reduce((a,s)=>a+s.seats-s.booked,0),newL=S.pipeline.filter(p=>p.stage===0).length,ready=S.orders.filter(o=>o.status==='Ready').length;
+    const ch=[['Subscriptions',S.subs.filter(x=>x.due&&x.st!=='Done').length,'#1C1A17'],['Online shop',S.orders.filter(o=>o.src==='Shop'&&o.status!=='Done').length,'#8d7551'],['Wholesale',S.orders.filter(o=>o.src==='Wholesale'&&o.status!=='Done').length+S.pipeline.filter(p=>p.type==='Wholesale'&&p.stage!==2).length,'#a7bbc2'],['Catering + fundraising',S.pipeline.filter(p=>p.type!=='Wholesale'&&p.stage<2).length,'#af7c21'],['Workshops + artists',S.privateReq.filter(r=>r.status==='New').length+S.artists.filter(a=>a.status==='Received'||a.status==='Reviewing').length+S.sessions.length,'#a34e25']];const tot=ch.reduce((a,b)=>a+b[1],0)||1;
+    h=`<p class="brief">Roast <button data-o="roast">${lb.toFixed(1)} lb</button> across ${q.filter(b=>!S.roasted[b.id]).length} coffees, pack <button data-o="roast">${open} ${open===1?'order':'orders'}</button>, answer <button data-o="pipeline">${newL} new ${newL===1?'lead':'leads'}</button> and fill <button data-o="events">${sold} workshop seats</button>.</p>
+    <div class="flow"><p class="micro">Everything off the counter, in one place</p><div class="flowbar">${ch.map(c=>`<i style="flex:${c[1]};background:${c[2]}" title="${c[0]}"></i>`).join('')}</div><div class="flowleg">${ch.map(c=>`<span><b style="background:${c[2]}"></b>${c[0]} <span class="muted">${c[1]}</span></span>`).join('')}</div></div>
+    <div class="toastnote"><span>Café counter, pickup tickets and loyalty stay on Toast, untouched.</span><a class="pill line sm" href="${TOAST}" target="_blank" rel="noopener">Open Toast</a></div>
+    <div class="ov2"><div class="osec"><div class="hd"><p class="h3">Needs attention</p><span class="micro muted">${at.length} items</span></div><ul class="attn">${at.map((x,i)=>`<li><span class="num">${String(i+1).padStart(2,'0')}</span><span class="tag">${x[0]}</span><span>${esc(x[1])}</span><button class="pill line sm" data-o="${x[2]}">Open</button></li>`).join('')||'<li><span>All clear.</span></li>'}</ul></div>
+    <div class="osec"><div class="hd"><p class="h3">On the roaster</p><button class="pill line sm" data-o="roast">Roast list</button></div><div class="mini">${q.map(b=>{const c=cof(b.id);return `<figure${S.roasted[b.id]?' style="opacity:.4"':''}><div class="fr" style="background:${c.ground}">${c.img?`<img src="${c.img}" alt="" loading="lazy">`:''}</div><figcaption><span class="lbv">${(b.oz/16).toFixed(1)}</span>lb ${esc(c.name)}</figcaption></figure>`}).join('')}</div>
+    <div class="hd" style="margin-top:30px"><p class="h3">Pipeline</p><button class="pill line sm" data-o="pipeline">Board</button></div><table class="ot"><tbody>${STAGES.map((s,i)=>`<tr><td>${s}</td><td style="text-align:right;font-variant-numeric:tabular-nums">${S.pipeline.filter(p=>p.stage===i).length}</td></tr>`).join('')}</tbody></table></div></div>`}
   if(otab==='roast'){const tags=['All','Pickup','Local delivery','Shipping'];
-    h=kpiRow([['Total to roast',lb.toFixed(1)+' lb'],['Green coffee (15% loss)',(lb/.85).toFixed(1)+' lb'],['Coffees in the roast',q.length],['Orders open',open]])+
+    h=kpiRow([['Total to roast',(q.filter(b=>!S.roasted[b.id]).reduce((a,b)=>a+b.oz,0)/16).toFixed(1)+' lb'],['Green coffee needed',(lb/.85).toFixed(1)+' lb'],['Coffees left to roast',q.filter(b=>!S.roasted[b.id]).length],['Orders open',open]])+
     `<div class="osec"><div class="hd"><p class="h3">Roast queue, grouped by coffee</p><button class="pill solid sm" id="copyRoast">Copy roast list</button></div>
-    ${q.map(b=>{const c=cof(b.id);return `<div class="batch"><div><span class="swatch" style="background:${c.ground}"></span><span style="font-size:18px">${esc(c.name)}</span></div><p class="lb2">${(b.oz/16).toFixed(1)}<span class="small"> lb</span></p><div>${Object.entries(b.sizes).map(([s,n])=>`<span class="tag">${n} &times; ${s}</span>`).join('')}</div><div>${Object.entries(b.src).map(([s,n])=>`<span class="tag">${s} ${n}</span>`).join('')}</div></div>`}).join('')||'<p class="note">Nothing waiting to be roasted.</p>'}
-    <p class="note">Subscriptions due this week, shop bag orders and wholesale reorders, added up per coffee and bag size so Arin roasts each coffee once.</p></div>
+    ${(()=>{const mx=Math.max(1,...q.map(b=>b.oz));return q.map(b=>{const c=cof(b.id),dn=!!S.roasted[b.id];return `<div class="cat${dn?' done':''}"><div class="fr" style="background:${c.ground}">${c.img?`<img src="${c.img}" alt="" loading="lazy">`:''}</div><div><p class="nm">${esc(c.name)}</p><p class="small muted">${esc(c.origin||'House roast')}</p><div class="bar"><i style="width:${b.oz/mx*100}%;background:${c.ground}"></i></div></div><p class="lb2">${(b.oz/16).toFixed(1)}<span class="small"> lb</span></p><div>${Object.entries(b.sizes).map(([s,n])=>`<span class="tag">${n} &times; ${s}</span>`).join('')}<br>${Object.entries(b.src).map(([s,n])=>`<span class="tag" style="border-style:dashed">${s} ${n}</span>`).join('')}${Object.keys(b.tags).map(t=>`<span class="tag ${t.split(' ')[0]}">${t}</span>`).join('')}</div><button class="stage-b ${dn?'':'go'}" data-rb="${b.id}">${dn?'Roasted':'Mark roasted'}</button></div>`}).join('')})()||'<p class="note">Nothing waiting to be roasted.</p>'}
+    <p class="note">Subscriptions due this week, shop bag orders and wholesale reorders, added up per coffee and bag size so Arin roasts each coffee once. Green coffee allows for about 15% weight lost in roasting.</p></div>
     <div class="osec"><div class="hd"><p class="h3">Fulfillment</p><div class="filters">${tags.map(t=>`<button class="chip" aria-pressed="${ftag===t}" data-ftag="${t}">${t}</button>`).join('')}</div></div>
     <div class="tw"><table class="ot"><thead><tr><th>No.</th><th>From</th><th>Items</th><th>How</th><th>Status</th></tr></thead><tbody>${fulfillRows()}</tbody></table></div>
     <p class="note">Tap a status to move it along: To roast, Roasted, Packed, Ready, Done.</p></div>`}
@@ -1039,14 +1081,14 @@ function oBody(){const T={overview:'Overview',roast:'Roast + fulfill',pipeline:'
     <div class="osec"><div class="hd"><p class="h3">Weekend Collection submissions</p></div><div class="tw"><table class="ot"><thead><tr><th>Artist</th><th>Medium</th><th>Link</th><th>Status</th></tr></thead><tbody>${S.artists.map((a,i)=>`<tr><td>${esc(a.name)}${a.isNew?' <span class="tag">From the website</span>':''}</td><td>${esc(a.medium)}</td><td>${esc(a.link)}</td><td><button class="stage-b ${a.status==='Received'?'go':''}" data-as="${i}">${a.status}</button></td></tr>`).join('')}</tbody></table></div><p class="note">Tap a status to move it along: Received, Reviewing, Shortlisted, Accepted, Declined.</p></div>`}
   if(otab==='subs'){const mrr=S.subs.reduce((a,s)=>{const P=PLANS[s.plan];return a+P.p*(4.33/(s.every||P.every||2))/(s.plan==='bulk'?1:1)},0);
     h=kpiRow([['Active subscribers',S.subs.length],['Monthly bag revenue',money(mrr)],['Due this week',S.subs.filter(s=>s.due).length],['NEXT100 spots left',S.half]])+
-    `<div class="osec"><div class="tw"><table class="ot"><thead><tr><th>Name</th><th>Plan</th><th>Coffee</th><th>Every</th><th>How</th><th>This week</th></tr></thead><tbody>${S.subs.map((s,i)=>{const P=PLANS[s.plan];const c=P.dir?cof(DIRS[s.dir||'round'].coffee):cof('straw');const stt=S.subStatus[i]||'To roast';return `<tr><td>${esc(s.name)}${s.isNew?' <span class="tag">New</span>':''}</td><td>${P.name}</td><td>${esc(c.name)}</td><td>${P.every||s.every} wks</td><td><span class="tag ${s.method.split(' ')[0]}">${s.method}</span></td><td>${s.due?`<button class="stage-b ${stt==='To roast'?'go':''}" data-ss="${i}">${stt}</button>`:'<span class="sm">Next cycle</span>'}</td></tr>`}).join('')}</tbody></table></div></div>`}
+    `<div class="osec"><div class="tw"><table class="ot"><thead><tr><th>Name</th><th>Plan</th><th>Coffee</th><th>Every</th><th>How</th><th>This week</th></tr></thead><tbody>${S.subs.map((s,i)=>{const P=PLANS[s.plan];const c=P.dir?cof(DIRS[s.dir||'round'].coffee):cof('straw');const stt=s.st||'To roast';return `<tr><td>${esc(s.name)}${s.isNew?' <span class="tag">New</span>':''}</td><td>${P.name}</td><td>${esc(c.name)}</td><td>${P.every||s.every} wks</td><td><span class="tag ${s.method.split(' ')[0]}">${s.method}</span></td><td>${s.due?`<button class="stage-b ${stt==='To roast'?'go':''}" data-ss="${i}">${stt}</button>`:'<span class="sm">Next cycle</span>'}</td></tr>`}).join('')}</tbody></table></div></div>`}
   if(otab==='case'){h=`<div class="toastnote"><span>Drinks and pastry sales run through Toast. Use this board to set what the website shows: case counts and sold-out drinks.</span></div>
     <div class="osec"><div class="hd"><p class="h3">In the case</p></div><div class="tw"><table class="ot"><tbody>${CASE.map(c=>`<tr><td>${esc(c.n)}</td><td><span style="display:inline-flex;gap:10px;align-items:center"><button class="stage-b" data-st="${c.id}|-1" aria-label="One less">&minus;</button><span style="min-width:2ch;text-align:center">${S.stock[c.id]}</span><button class="stage-b" data-st="${c.id}|1" aria-label="One more">+</button></span></td><td><button class="pill line sm" data-st="${c.id}|0">Sold out</button></td></tr>`).join('')}</tbody></table></div></div>
     <div class="osec"><div class="hd"><p class="h3">Fall Collection and The Wall</p><div class="filters"><span class="micro" style="align-self:center">Friday Takeaway</span>${['auto','on','off'].map(m=>`<button class="chip" aria-pressed="${S.friday===m}" data-fri="${m}">${m==='auto'?'Every Friday':m==='on'?'On now':'Off'}</button>`).join('')}</div></div><div class="tw"><table class="ot"><tbody>${FALL.map(f=>`<tr><td>${f.n}</td><td>${money(f.p)}</td><td style="text-align:right"><button class="pill line sm" data-moff="${f.n}">${S.menuOff[f.n]?'Back on':'Sold out today'}</button></td></tr>`).join('')}${COFFEES.map(c=>`<tr><td>${esc(c.name)} <span class="sm">12 oz bag</span></td><td>${money(priceOf(c))}</td><td style="text-align:right"><button class="pill line sm" data-off="${c.id}">${S.off[c.id]?'Back on the shelf':'Roasting soon'}</button></td></tr>`).join('')}</tbody></table></div></div>`}
   if(otab==='post')h=`<div class="pm"><canvas id="pc" width="1080" height="1350" aria-label="Post preview"></canvas><div><p class="micro">Template</p><div class="filters" style="margin-top:10px">${[['fall','Fall Collection'],['friday','Friday Takeaway'],['workshop','Workshop'],['coffee','New on the wall']].map(t=>`<button class="chip" aria-pressed="${pmT===t[0]}" data-pm="${t[0]}">${t[1]}</button>`).join('')}</div><label style="display:block;margin-top:16px"><span class="micro">Caption</span><textarea class="field" id="pmCap" rows="7"></textarea></label><div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap"><button class="pill solid sm" id="copyCap">Copy caption</button></div><p class="note">Builds a post in Canvas's style from what is live on the site.</p></div></div>`;
   $('#oBody').innerHTML=h;dots();if(otab==='post')drawPost()}
-function fulfillRows(){return S.orders.filter(o=>ftag==='All'||o.method===ftag).map(o=>{const i=S.orders.indexOf(o);const it=o.items.map(([id,s,q])=>`${q} &times; ${esc(cof(id).name)} ${s}`).join('<br>');return `<tr><td>${o.n}</td><td>${esc(o.name)}<br><span class="sm">${o.src}</span></td><td>${it}${o.extra?`<br><span class="sm">${esc(o.extra)}</span>`:''}</td><td><span class="tag ${o.method.split(' ')[0]}">${o.method}</span></td><td><button class="stage-b ${o.status==='To roast'?'go':''}" data-os="${i}">${o.status}</button></td></tr>`}).join('')}
-function dots(){$('#dotAttn').textContent=attention().length;$('#dotRoast').textContent=S.orders.filter(o=>o.status==='To roast').length+S.subs.filter((s,i)=>s.due&&(!S.subStatus[i]||S.subStatus[i]==='To roast')).length;$('#dotLeads').textContent=S.pipeline.filter(p=>p.stage===0).length}
+function fulfillRows(){return S.orders.filter(o=>ftag==='All'||o.method===ftag).map(o=>{const i=S.orders.indexOf(o);const it=o.items.map(([id,s,q])=>`${q} &times; ${esc(cof(id).name)} ${s}`).join('<br>');return `<tr class="${o.status==='Done'?'done':''}"><td>${o.n}</td><td>${esc(o.name)}<br><span class="sm">${o.src}</span></td><td>${it}${o.extra?`<br><span class="sm">${esc(o.extra)}</span>`:''}</td><td><span class="tag ${o.method.split(' ')[0]}">${o.method}</span></td><td><button class="stage-b ${o.status==='To roast'?'go':''}" data-os="${i}">${o.status}</button></td></tr>`}).join('')}
+function dots(){const set=(id,v)=>{const e=$(id);if(e)e.textContent=v||''};set('#dotAttn',attention().length);set('#dotRoast',S.orders.filter(o=>o.status==='To roast').length+S.subs.filter(x=>x.due&&(!x.st||x.st==='To roast')).length);set('#dotLeads',S.pipeline.filter(p=>p.stage===0).length);set('#dotEv',S.artists.filter(a=>a.status==='Received').length+S.privateReq.filter(r=>r.status==='New').length)}
 let pmT='fall';
 function drawPost(){const cv=$('#pc');if(!cv)return;const x=cv.getContext('2d'),W=1080,H=1350,F=(w,s)=>`${w} ${s}px "Host Grotesk", Arial, sans-serif`;const f=FALL[1],c=cof('koke'),s=S.sessions[1];
   const img=new Image();img.onload=go;img.onerror=go;img.src=pmT==='workshop'?'img/ph-table.jpg':pmT==='fall'?'img/ph-sofa.jpg':c.img;
@@ -1103,7 +1145,9 @@ document.addEventListener('click',e=>{const t=e.target.closest('button,a[data-cl
   else if(d.o){otab=d.o;oBody();window.scrollTo(0,0)}
   else if(d.ftag){ftag=d.ftag;oBody()}else if(d.ptype){ptype=d.ptype;oBody()}
   else if(d.os!==undefined){const o=S.orders[+d.os];o.status=STEPS[Math.min(STEPS.indexOf(o.status)+1,4)];save();oBody()}
-  else if(d.ss!==undefined){const i=+d.ss,cur=S.subStatus[i]||'To roast';S.subStatus[i]=STEPS[Math.min(STEPS.indexOf(cur)+1,4)];save();oBody()}
+  else if(d.ss!==undefined){const x=S.subs[+d.ss],cur=x.st||'To roast';x.st=STEPS[Math.min(STEPS.indexOf(cur)+1,4)];save();oBody()}
+  else if(d.rb){S.roasted[d.rb]=!S.roasted[d.rb];save();oBody()}
+  else if(t.id==='resetDemo'){const keep=S.half;S=D0();save();ownerReady=true;method='Pickup';renderAll();oBody();toast('Demo data reset')}
   else if(d.mv){const [id,dir]=d.mv.split('|');const c=S.pipeline.find(p=>String(p.id)===id);c.stage=clamp(c.stage+ +dir,0,3);c.isNew=false;c.next=['Reply within 2 business days','Book a tasting or send a quote','Active: '+(c.type==='Wholesale'?'weekly reorders':'scheduled'),'Check in for a reorder'][c.stage];save();oBody()}
   else if(d.as!==undefined){const a=S.artists[+d.as];a.status=ASTAT[(ASTAT.indexOf(a.status)+1)%ASTAT.length];a.isNew=false;save();oBody()}
   else if(d.pr!==undefined){const r=S.privateReq[+d.pr],L=['New','Quoted','Booked'];r.status=L[(L.indexOf(r.status)+1)%3];save();oBody()}
