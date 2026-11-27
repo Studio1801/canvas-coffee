@@ -82,7 +82,8 @@ textarea.field{resize:vertical;min-height:84px}
 /* STAGE: step into the painting */
 .stage{position:relative;height:260vh}
 .stick{position:sticky;top:0;height:100svh;overflow:hidden}
-.photo{position:absolute;inset:0;will-change:clip-path;z-index:1}
+.photo{position:absolute;left:0;top:0;width:100%;height:100%;overflow:hidden;z-index:1}
+.photo #pimg2{position:absolute;inset:0;object-position:50% 40%}
 .photo img{width:100%;height:100%;object-fit:cover;object-position:50% 45%;will-change:transform}
 .photo .veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(23,19,15,.1) 30%,rgba(23,19,15,.66))}
 .mat{position:absolute;background:var(--paper);z-index:0}
@@ -397,7 +398,7 @@ footer a{text-decoration:none}
   <section class="stage" id="stage" aria-label="Welcome">
     <div class="stick">
       <div class="mat" id="mat"></div>
-      <div class="photo" id="photo"><img id="pimg" fetchpriority="high" src="img/ph-room.jpg" alt="The Canvas café at golden hour: paper cranes hanging from the ceiling, white tables along the windows and the espresso machine in the sun"><div class="veil" id="veil"></div></div>
+      <div class="photo" id="photo"><img id="pimg" fetchpriority="high" src="img/ph-room-hd.jpg" alt="The Canvas café at golden hour: paper cranes hanging from the ceiling, white tables along the windows and the espresso machine in the sun"><img id="pimg2" fetchpriority="high" src="img/ph-sofa-hd.jpg" alt=""><div class="veil" id="veil"></div></div>
       <h1 class="come d d-xl" id="come">Come for<br>the coffee.</h1>
       <p class="stay d d-xl" id="stay">Stay for<br>the art.</p>
       <p class="wl" id="wl"><b>Canvas Coffee + Art House</b>Golden hour on Stone Avenue, paper cranes overhead.<br><span class="muted">Photograph, 109 W Stone Ave</span></p>
@@ -708,9 +709,9 @@ function measure(){const W=innerWidth,H=innerHeight,mob=W<700;const fw=mob?W*.6:
   st={W,H,fw,fh:fhh,x:(W-fw)/2,y:(H-fhh)/2+(mob?H*.03:0),top:sg.offsetTop,len:Math.max(1,sg.offsetHeight-H),mob}}
 function stage(){if(!st.W)measure();const p=clamp((scrollY-st.top)/(st.len*.85));const e=1-Math.pow(1-p,3);
   const x=lerp(st.x,0,e),y=lerp(st.y,0,e),w=lerp(st.fw,st.W,e),h=lerp(st.fh,st.H,e);
-  $('#photo').style.clipPath=`inset(${y}px ${st.W-x-w}px ${st.H-y-h}px ${x}px)`;
+  const ph=$('#photo').style;ph.left=x+'px';ph.top=y+'px';ph.width=w+'px';ph.height=h+'px';$('#pimg2').style.opacity=1-clamp((e-.25)/.35);
   const mo=1-clamp(e*1.8),m=14*mo;const mat=$('#mat');mat.style.cssText=`left:${x-m}px;top:${y-m}px;width:${w+2*m}px;height:${h+2*m}px;opacity:${mo}`;
-  $('#pimg').style.transform=`scale(${lerp(1.16,1,e)})`;$('#veil').style.opacity=clamp((e-.55)/.45);
+  $('#pimg').style.transform=`scale(${lerp(1.04,1,e)})`;$('#veil').style.opacity=clamp((e-.55)/.45);
   const fo=1-clamp(p/.32);['#come','#stay'].forEach((s,i)=>{const el=$(s);el.style.opacity=fo;el.style.transform=`translateX(${(i?1:-1)*p*140}px)`});
   const wl=$('#wl');wl.style.opacity=1-clamp(p/.12);wl.style.left=Math.max(16,st.x-224)+'px';wl.style.top=(st.y+st.fh-70)+'px';wl.style.textAlign='right';
   $('#hint').style.opacity=.7*(1-clamp(p/.08));
@@ -913,7 +914,7 @@ if(io){new IntersectionObserver(es=>es.forEach(en=>document.body.classList.toggl
 (function intro(){const el=$('#intro'),bar=$('#ibar'),ct=$('#ict');let seen=false;try{seen=sessionStorage.getItem('cv-intro')}catch(e){}
   const done=()=>{el.classList.add('out');document.body.classList.remove('locked');setTimeout(()=>el.remove(),1100);try{sessionStorage.setItem('cv-intro','1')}catch(e){}fitSel();measure();stage()};
   if(seen||matchMedia('(prefers-reduced-motion: reduce)').matches||(location.hash&&location.hash!=='#home')){el.remove();document.body.classList.remove('locked');return}
-  const img=new Image();let loaded=false;img.onload=img.onerror=()=>loaded=true;img.src='img/ph-room.jpg';
+  const img=new Image();let loaded=false;img.onload=img.onerror=()=>loaded=true;img.src='img/ph-room-hd.jpg';
   let fontsDone=false;(document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(()=>fontsDone=true);
   const t0=performance.now();(function tick(t){const el2=t-t0;const target=(loaded&&fontsDone)?1:.86;const v=Math.min(target,el2/1400);bar.style.transform=`scaleX(${v})`;ct.textContent=Math.round(v*100);
     if(v>=1||el2>4500){bar.style.transform='scaleX(1)';ct.textContent='100';setTimeout(done,260)}else requestAnimationFrame(tick)})(t0)})();
