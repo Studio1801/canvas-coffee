@@ -82,21 +82,20 @@ textarea.field{resize:vertical;min-height:84px}
 /* STAGE: step into the painting */
 .stage{position:relative;height:260vh}
 .stick{position:sticky;top:0;height:100svh;overflow:hidden}
-.photo{position:absolute;left:0;top:0;width:100%;height:100%;overflow:hidden;z-index:1}
-.photo #pimg2{position:absolute;inset:0;object-position:50% 40%}
-.photo img{width:100%;height:100%;object-fit:cover;object-position:50% 45%;will-change:transform}
-.photo .veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(23,19,15,.1) 30%,rgba(23,19,15,.66))}
-.mat{position:absolute;background:var(--paper);z-index:0}
+.gwall{position:absolute;inset:0;z-index:1}
+.gp{position:absolute;margin:0;will-change:transform,opacity}
+.gp img{width:100%;display:block;outline:clamp(6px,.7vw,11px) solid var(--paper)}
+.gp.hero{z-index:2}
 .come,.stay{position:absolute;z-index:3;pointer-events:none;will-change:transform,opacity}
 .come{left:var(--pad);top:15vh}
 .stay{right:var(--pad);bottom:11vh;text-align:right}
 .wl{position:absolute;z-index:3;font-size:12px;line-height:1.45;max-width:190px}
 .wl b{font-weight:500;display:block;font-size:13px}
 .hint{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:3;font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.7;white-space:nowrap}
-.leave{position:absolute;left:var(--pad);right:var(--pad);bottom:clamp(26px,5vw,56px);z-index:4;color:var(--gesso);opacity:0;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.leave{position:absolute;left:var(--pad);right:var(--pad);bottom:clamp(26px,5vw,56px);z-index:4;color:var(--ink);opacity:0;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
 .status{display:inline-flex;align-items:center;gap:9px;font-size:14px}
 .status i{width:8px;height:8px;border-radius:999px;background:currentColor;opacity:.5;display:inline-block}
-.status.open i{background:#8fa2ff;opacity:1}
+.status.open i{background:var(--cobalt);opacity:1}
 .rv{opacity:0;transform:translateY(26px);transition:opacity .65s var(--ease),transform .65s var(--ease)}
 .rv.in{opacity:1;transform:none}
 .friday{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px var(--pad);background:var(--cobalt);color:var(--gesso);font-size:14px;flex-wrap:wrap;position:relative;z-index:2}
@@ -190,7 +189,7 @@ textarea.field{resize:vertical;min-height:84px}
 /* CASE */
 .case{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);min-height:86svh}
 .case-ph{position:relative;overflow:hidden;min-height:420px}
-.case-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .5s var(--ease)}
+.case-ph img{position:absolute;left:50%;top:50%;width:min(440px,74%);aspect-ratio:4/5;height:auto;object-fit:cover;transform:translate(-50%,-50%);outline:10px solid var(--paper);transition:opacity .5s var(--ease)}
 .case-ph .tag{position:absolute;left:var(--pad);bottom:var(--pad);background:var(--paper);padding:10px 14px;font-size:13px;z-index:2}
 .case-list{padding:90px var(--pad) 70px}
 .case-items{list-style:none;margin-top:30px}
@@ -209,13 +208,13 @@ textarea.field{resize:vertical;min-height:84px}
 .sentence select option{color:var(--ink)}
 .subfoot{display:flex;gap:26px;align-items:center;flex-wrap:wrap;padding:40px var(--pad) 0}
 .price{font-size:36px;letter-spacing:-0.02em;font-variant-numeric:tabular-nums}
-.bagph{width:100%;aspect-ratio:47/42;object-fit:cover}
+.bagph{width:100%;max-width:340px;aspect-ratio:47/42;object-fit:cover;outline:8px solid var(--paper)}
 .meter{height:1px;background:rgba(242,239,232,.25);margin-top:10px;position:relative;max-width:260px}
 .meter i{position:absolute;left:0;top:-1px;height:3px;background:#9fb0ff;transition:width .65s var(--ease)}
 
 /* ART HOUSE */
 .art{padding:120px var(--pad) 60px;display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr) 56px;gap:clamp(24px,4vw,64px);align-items:start}
-.art .ph{aspect-ratio:4/5;object-fit:cover;width:100%}
+.art .ph{aspect-ratio:4/5;object-fit:cover;width:100%;max-width:460px;outline:10px solid var(--paper)}
 .art .vl{justify-self:end}
 .facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--ink);margin-top:34px}
 .facts div{padding:16px 14px 0 0}
@@ -233,7 +232,7 @@ textarea.field{resize:vertical;min-height:84px}
 /* MAKE */
 .make{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);min-height:90svh}
 .make .ph{position:relative;overflow:hidden;min-height:420px}
-.make .ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.make .ph img{position:absolute;left:50%;top:50%;width:min(440px,74%);aspect-ratio:4/5;height:auto;object-fit:cover;transform:translate(-50%,-50%);outline:10px solid var(--paper)}
 .make .body{padding:100px var(--pad) 80px}
 .ftabs{display:flex;gap:8px;flex-wrap:wrap;margin:30px 0 26px}
 .fgrid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
@@ -243,7 +242,7 @@ textarea.field{resize:vertical;min-height:84px}
 
 /* STORY + REVIEWS */
 .story{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(30px,6vw,100px);padding:120px var(--pad);align-items:start}
-.story .ph{width:100%;aspect-ratio:4/5;object-fit:cover}
+.story .ph{width:100%;max-width:440px;justify-self:end;aspect-ratio:4/5;object-fit:cover;outline:10px solid var(--paper)}
 .rating{display:flex;align-items:flex-end;gap:22px;margin-top:56px;border-top:1px solid var(--ink);padding-top:26px}
 .rating .v{font-size:clamp(96px,12vw,180px);line-height:.78;letter-spacing:-0.06em}
 .quote{font-size:clamp(24px,2.4vw,34px);line-height:1.22;letter-spacing:-0.02em;margin-top:30px;min-height:5.4em;transition:opacity .45s var(--ease)}
@@ -264,7 +263,8 @@ textarea.field{resize:vertical;min-height:84px}
 .news .field{flex:1;min-width:200px}
 /* VISIT */
 .visit{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr)}
-.visit .ph{object-fit:cover;width:100%;height:100%;min-height:560px}
+.visit .phw{position:relative;min-height:600px;background:var(--linen)}
+.visit .ph{position:absolute;left:50%;top:50%;width:min(440px,74%);aspect-ratio:4/5;object-fit:cover;transform:translate(-50%,-50%);outline:10px solid var(--paper)}
 .visit .body{padding:90px var(--pad) 60px;display:flex;flex-direction:column;justify-content:space-between;gap:40px}
 .addr{font-size:clamp(60px,8.5vw,140px);line-height:.82;letter-spacing:-0.055em}
 .vgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
@@ -336,8 +336,8 @@ footer a{text-decoration:none}
   .case,.make,.visit,.story,.faq{grid-template-columns:minmax(0,1fr)}
   .story,.faq{padding-top:90px;padding-bottom:90px}
   .story .ph{max-width:460px}
-  .case-ph,.make .ph{min-height:70vw}
-  .visit .ph{min-height:0;aspect-ratio:4/3}
+  .case-ph,.make .ph{min-height:118vw}
+  .visit .phw{min-height:118vw}
   .subgrid{grid-template-columns:minmax(0,1fr)}
   .bagph{max-width:420px}
   .hangs{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -397,12 +397,11 @@ footer a{text-decoration:none}
 
   <section class="stage" id="stage" aria-label="Welcome">
     <div class="stick">
-      <div class="mat" id="mat"></div>
-      <div class="photo" id="photo"><img id="pimg" fetchpriority="high" src="img/ph-room-hd.jpg" alt="The Canvas café at golden hour: paper cranes hanging from the ceiling, white tables along the windows and the espresso machine in the sun"><img id="pimg2" fetchpriority="high" src="img/ph-sofa-hd.jpg" alt=""><div class="veil" id="veil"></div></div>
+      <div class="gwall" id="gwall"></div>
       <h1 class="come d d-xl" id="come">Come for<br>the coffee.</h1>
       <p class="stay d d-xl" id="stay">Stay for<br>the art.</p>
-      <p class="wl" id="wl"><b>Canvas Coffee + Art House</b>Golden hour on Stone Avenue, paper cranes overhead.<br><span class="muted">Photograph, 109 W Stone Ave</span></p>
-      <span class="hint" id="hint">Scroll to step inside</span>
+      <p class="wl" id="wl"><b>Genavieve Gilbert</b>Peonies, oil on canvas.<br><span class="muted">On the walls at Canvas, 109 W Stone Ave</span></p>
+      <span class="hint" id="hint">Scroll to walk the wall</span>
       <div class="leave" id="leave">
         <div><p class="d d-l">Leave inspired.</p><p class="lede" style="margin-top:18px">Coffee roasted here in Greenville, served in a bright room full of local art and paper cranes. Pull up a chair and stay a while.</p></div>
         <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap"><span class="status" id="status"><i></i><span>Checking hours</span></span><a class="pill solid" href="#order">Order ahead</a><a class="pill line" href="#menu">See the menu</a></div>
@@ -550,7 +549,7 @@ footer a{text-decoration:none}
   </section>
 
   <section class="visit" id="visit" aria-label="Visit">
-    <img class="ph" src="img/ph-store.jpg" alt="The Canvas storefront at 109 W Stone Ave with a Welcome sign in the window: come for the coffee, stay for the art, leave inspired" loading="lazy">
+    <div class="phw"><img class="ph" src="img/ph-store.jpg" alt="The Canvas storefront at 109 W Stone Ave with a Welcome sign in the window: come for the coffee, stay for the art, leave inspired" loading="lazy"></div>
     <div class="body">
       <div><p class="micro">Coffee + Art House @ Westone</p><p class="addr d" style="margin-top:18px">109 W<br>Stone Ave</p></div>
       <div class="vgrid">
@@ -705,19 +704,27 @@ function slots(){const {day,h}=nowET();let i=HOURS.findIndex(x=>x[0]===day),r=HO
 
 /* ======================= STAGE: step into the painting ======================= */
 let st={};
-function measure(){const W=innerWidth,H=innerHeight,mob=W<700;const fw=mob?W*.6:Math.min(W*.28,420),fhh=fw*1.24;const sg=$('#stage');
-  st={W,H,fw,fh:fhh,x:(W-fw)/2,y:(H-fhh)/2+(mob?H*.03:0),top:sg.offsetTop,len:Math.max(1,sg.offsetHeight-H),mob}}
+const GW=[ /* id, src, left%, top%, width vw (desk), speed, mobile [left%,top%,widthvw] or null */
+ ['peony','img/ph-peony-hd.jpg',50,50,24,.08,[50,46,60]],
+ ['elpino','img/art-elpino-hd.jpg',4,7,10,1.25,null],
+ ['koke','img/art-koke-hd.jpg',76,7,10.5,1.4,[66,12,30]],
+ ['jaguar','img/art-jaguar-hd.jpg',8,57,11,1.05,[-6,66,32]],
+ ['granos','img/art-granos-hd.jpg',27,77,7.5,1.6,null],
+ ['nhot','img/art-nhot-hd.jpg',86,64,10,1.2,null]];
+function gwall(){$('#gwall').innerHTML=GW.map(g=>`<figure class="gp${g[0]==='peony'?' hero':''}" data-id="${g[0]}"><img src="${g[1]}" alt="${g[0]==='peony'?'Peonies, a painting by Genavieve Gilbert in pink, gold and violet':''}" ${g[0]==='peony'?'fetchpriority="high"':'loading="eager"'}></figure>`).join('')}
+function measure(){const W=innerWidth,H=innerHeight,mob=W<700;const sg=$('#stage');st={W,H,mob,top:sg.offsetTop,len:Math.max(1,sg.offsetHeight-H)};
+  document.querySelectorAll('.gp').forEach((f,i)=>{const g=GW[i];const m=mob?g[6]:[g[2],g[3],g[4]];if(!m){f.style.display='none';return}f.style.display='';
+    const w=g[0]==='peony'&&!mob?Math.min(W*m[2]/100,420):W*m[2]/100;f.style.width=w+'px';
+    if(g[0]==='peony'){f.style.left=(W-w)/2+'px';f.style.top=(H-w*1.144)/2+(mob?H*.02:0)+'px'}else{f.style.left=m[0]+'%';f.style.top=m[1]+'%'}})
+  const pe=document.querySelector('.gp.hero').getBoundingClientRect();st.pe={x:parseFloat(document.querySelector('.gp.hero').style.left),y:parseFloat(document.querySelector('.gp.hero').style.top),w:pe.width,h:pe.height}}
 function stage(){if(!st.W)measure();const p=clamp((scrollY-st.top)/(st.len*.85));const e=1-Math.pow(1-p,3);
-  const x=lerp(st.x,0,e),y=lerp(st.y,0,e),w=lerp(st.fw,st.W,e),h=lerp(st.fh,st.H,e);
-  const ph=$('#photo').style;ph.left=x+'px';ph.top=y+'px';ph.width=w+'px';ph.height=h+'px';$('#pimg2').style.opacity=1-clamp((e-.25)/.35);
-  const mo=1-clamp(e*1.8),m=14*mo;const mat=$('#mat');mat.style.cssText=`left:${x-m}px;top:${y-m}px;width:${w+2*m}px;height:${h+2*m}px;opacity:${mo}`;
-  $('#pimg').style.transform=`scale(${lerp(1.04,1,e)})`;$('#veil').style.opacity=clamp((e-.55)/.45);
+  document.querySelectorAll('.gp').forEach((f,i)=>{const g=GW[i];if(g[0]==='peony'){const sc=st.mob?lerp(1,.82,e):lerp(1,1.12,e);f.style.transform=`translateY(${-e*st.H*(st.mob?.2:.09)}px) scale(${sc})`;return}
+    f.style.transform=`translateY(${-e*st.H*g[5]*1.15}px)`;f.style.opacity=1-clamp((p-.55)/.35)});
   const fo=1-clamp(p/.32);['#come','#stay'].forEach((s,i)=>{const el=$(s);el.style.opacity=fo;el.style.transform=`translateX(${(i?1:-1)*p*140}px)`});
-  const wl=$('#wl');wl.style.opacity=1-clamp(p/.12);wl.style.left=Math.max(16,st.x-224)+'px';wl.style.top=(st.y+st.fh-70)+'px';wl.style.textAlign='right';
+  const wl=$('#wl');wl.style.opacity=1-clamp(p/.15);wl.style.left=Math.max(16,st.pe.x-214)+'px';wl.style.top=(st.pe.y+st.pe.h-70)+'px';wl.style.textAlign='right';
   $('#hint').style.opacity=.7*(1-clamp(p/.08));
-  const lv=clamp((p-.7)/.26);const L=$('#leave');L.style.opacity=lv;L.style.transform=`translateY(${(1-lv)*24}px)`;L.style.pointerEvents=lv>.5?'auto':'none';
-  const r=$('#stage').getBoundingClientRect();$('#nav').classList.toggle('onphoto',e>.5&&r.bottom>60);
-  document.body.classList.toggle('past',r.bottom<0)}
+  const lv=clamp((p-.68)/.26);const L=$('#leave');L.style.opacity=lv;L.style.transform=`translateY(${(1-lv)*24}px)`;L.style.pointerEvents=lv>.5?'auto':'none';
+  const r=$('#stage').getBoundingClientRect();document.body.classList.toggle('past',r.bottom<0)}
 let ticking=false;addEventListener('scroll',()=>{if(!ticking){ticking=true;requestAnimationFrame(()=>{ticking=false;if($('#view-home').classList.contains('on'))stage()})}},{passive:true});
 addEventListener('resize',()=>{measure();stage()});
 
@@ -906,7 +913,7 @@ document.addEventListener('click',e=>{const a=e.target.closest('[data-gift]');if
 /* ======================= BOOT + INTRO ======================= */
 let qi=0;function quote(d){qi=(qi+d+REVIEWS.length)%REVIEWS.length;const q=$('#quote');q.style.opacity=0;setTimeout(()=>{q.textContent='\u201C'+REVIEWS[qi][1]+'\u201D';$('#qWho').textContent=REVIEWS[qi][0]+', Google';q.style.opacity=1},d?250:0)}
 function faq(){$('#qa').innerHTML=FAQ.map((f,i)=>`<li><button data-qa="${i}" aria-expanded="false"><span>${f[0]}</span><span class="pm2" aria-hidden="true">+</span></button><div class="ans"><div><p>${f[1]}</p></div></div></li>`).join('')}
-wallSk();caseSk();tabs();hangs();mk();faq();quote(0);renderAll();route();setInterval(statusRender,60000);
+gwall();wallSk();caseSk();tabs();hangs();mk();faq();quote(0);renderAll();route();setInterval(statusRender,60000);
 setTimeout(()=>{homeReady=true;wall();caseList()},600);
 const io=('IntersectionObserver' in window)?new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target)}}),{threshold:.2}):null;
 document.querySelectorAll('.rv').forEach(el=>io?io.observe(el):el.classList.add('in'));
@@ -914,7 +921,7 @@ if(io){new IntersectionObserver(es=>es.forEach(en=>document.body.classList.toggl
 (function intro(){const el=$('#intro'),bar=$('#ibar'),ct=$('#ict');let seen=false;try{seen=sessionStorage.getItem('cv-intro')}catch(e){}
   const done=()=>{el.classList.add('out');document.body.classList.remove('locked');setTimeout(()=>el.remove(),1100);try{sessionStorage.setItem('cv-intro','1')}catch(e){}fitSel();measure();stage()};
   if(seen||matchMedia('(prefers-reduced-motion: reduce)').matches||(location.hash&&location.hash!=='#home')){el.remove();document.body.classList.remove('locked');return}
-  const img=new Image();let loaded=false;img.onload=img.onerror=()=>loaded=true;img.src='img/ph-room-hd.jpg';
+  const img=new Image();let loaded=false;img.onload=img.onerror=()=>loaded=true;img.src='img/ph-peony-hd.jpg';
   let fontsDone=false;(document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(()=>fontsDone=true);
   const t0=performance.now();(function tick(t){const el2=t-t0;const target=(loaded&&fontsDone)?1:.86;const v=Math.min(target,el2/1400);bar.style.transform=`scaleX(${v})`;ct.textContent=Math.round(v*100);
     if(v>=1||el2>4500){bar.style.transform='scaleX(1)';ct.textContent='100';setTimeout(done,260)}else requestAnimationFrame(tick)})(t0)})();
