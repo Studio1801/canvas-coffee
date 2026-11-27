@@ -467,6 +467,25 @@ footer{padding:60px var(--pad) 40px}
   .nav .act .hide-s{display:none}
   .card .mv button{min-height:40px}
 }
+@media (orientation:landscape) and (max-height:540px){
+  .stage{height:240vh}
+  .stick{grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:none;padding:66px var(--pad) 14px;gap:28px}
+  .room{order:0}
+  .gp{top:56%}
+  .gp img{height:48svh;max-width:100%}
+  .gp figcaption .muted{display:none}
+  .gp figcaption{margin-top:10px;font-size:11px;line-height:1.4}
+  .phrases > *{font-size:clamp(34px,6vw,56px)}
+  .hact{margin-top:12px;gap:8px}
+  .hact .lede{display:none}
+  .phead{padding-top:90px}
+}
+@media (pointer:coarse){
+  .chip,.pill.sm,.stage-b,.card .mv button,.orail .reset,.qnav .pill{min-height:44px}
+  .chip{padding:12px 15px}
+  .brief button{padding:2px 0}
+  .sentence select{padding:5px 4px}
+}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}html{scroll-behavior:auto}.rv{opacity:1;transform:none}#intro{display:none}}
 </style>
 </head>
@@ -959,7 +978,8 @@ function navState(){const home=$('#view-home').classList.contains('on');const r=
 let tick=false;addEventListener('scroll',()=>{if(!tick){tick=true;requestAnimationFrame(()=>{tick=false;stage();navState()})}},{passive:true});
 addEventListener('resize',()=>{measure();stage()});
 const peek=$('#peek');let px=0,py=0,tx=0,ty=0,peekOn=false;
-$$('#ix a').forEach(a=>{a.addEventListener('mouseenter',()=>{if(innerWidth<980)return;peek.querySelector('img').src=a.dataset.peek;px=tx;py=ty;peek.classList.add('on');peekOn=true});a.addEventListener('mouseleave',()=>{peek.classList.remove('on');peekOn=false})});
+const canHover=matchMedia('(hover:hover) and (pointer:fine)').matches;
+$$('#ix a').forEach(a=>{a.addEventListener('mouseenter',()=>{if(innerWidth<980||!canHover)return;peek.querySelector('img').src=a.dataset.peek;px=tx;py=ty;peek.classList.add('on');peekOn=true});a.addEventListener('mouseleave',()=>{peek.classList.remove('on');peekOn=false})});
 addEventListener('mousemove',e=>{tx=e.clientX;ty=e.clientY});
 (function loop(){px+=(tx-px)*.14;py+=(ty-py)*.14;if(peekOn){peek.style.left=px+'px';peek.style.top=py+'px'}requestAnimationFrame(loop)})();
 
@@ -1104,7 +1124,7 @@ function owner(){$('#oDate').textContent=new Date().toLocaleDateString('en-US',{
 
 /* =============== ROUTER =============== */
 const PAGES=['home','menu','coffee','subscribe','art','events','wholesale','catering','visit','owner','terms','privacy'];
-function route(){let h=(location.hash||'#home').slice(1);if(!PAGES.includes(h))h='home';
+function route(){peek.classList.remove('on');peekOn=false;let h=(location.hash||'#home').slice(1);if(!PAGES.includes(h))h='home';
   $$('.view').forEach(v=>v.classList.toggle('on',v.id==='view-'+h));$('#footer').style.display=h==='owner'?'none':'';$('#nav').style.display=h==='owner'?'none':'';
   $$('.nav .links a').forEach(a=>a.toggleAttribute('aria-current',a.getAttribute('href')==='#'+h));if($$('.nav .links a[aria-current]').length)$$('.nav .links a[aria-current]').forEach(a=>a.setAttribute('aria-current','page'));
   $('#overlay').classList.remove('on');$('#idxBtn').setAttribute('aria-expanded','false');openBag(false);window.scrollTo(0,0);
