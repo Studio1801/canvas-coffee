@@ -93,7 +93,7 @@ label > .micro{display:block}
 .nav .links{display:flex;gap:22px;align-items:center}
 .nav .links a{text-decoration:none;font-size:14px}
 .nav .links a[aria-current="page"]{text-decoration:underline;text-underline-offset:6px}
-.nav .act{display:flex;gap:10px;align-items:center}
+.nav .act{display:flex;gap:10px;align-items:center;flex-wrap:nowrap;flex-shrink:0}
 .count{font-variant-numeric:tabular-nums;display:inline-block}
 .bump{animation:bump .45s var(--ease)}
 @keyframes bump{40%{transform:scale(1.5)}}
@@ -111,25 +111,27 @@ label > .micro{display:block}
 .phead .meta{display:flex;flex-direction:column;gap:18px}
 .crumb{font-size:12px;letter-spacing:.15em;text-transform:uppercase}
 
-/* HOME STAGE: gallery wall */
-.stage{position:relative;height:250vh}
-.stick{position:sticky;top:0;height:100svh;overflow:hidden}
-.gwall{position:absolute;inset:0;z-index:1}
-.gp{position:absolute;margin:0;will-change:transform,opacity}
-.gp img{width:100%;display:block;outline:clamp(6px,.7vw,11px) solid var(--paper)}
-.gp.hero{z-index:2}
-.come,.stay{position:absolute;z-index:3;pointer-events:none;will-change:transform,opacity}
-.come{left:var(--pad);top:15vh}
-.stay{right:var(--pad);bottom:11vh;text-align:right}
-.wl{position:absolute;z-index:3;font-size:12px;line-height:1.45;max-width:190px;text-align:right}
-.wl b{font-weight:500;display:block;font-size:13px}
-.hint{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:3;font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.7;white-space:nowrap}
-.leave{position:absolute;left:var(--pad);right:var(--pad);bottom:clamp(26px,5vw,56px);z-index:4;opacity:0;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+/* HOME STAGE: one painting at a time, white-cube room */
+.stage{position:relative;height:300vh}
+.stick{position:sticky;top:0;height:100svh;overflow:hidden;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(24px,5vw,90px);padding:120px var(--pad) clamp(30px,4vw,52px)}
+.words{display:flex;flex-direction:column;justify-content:flex-end;min-width:0}
+.phrases{display:grid}
+.phrases > *{grid-area:1/1;font-size:clamp(56px,7.6vw,126px);line-height:.84;letter-spacing:-0.045em;opacity:0;transform:translateY(22px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.phrases > .on{opacity:1;transform:none}
+.hact{margin-top:30px;display:flex;flex-direction:column;gap:18px;align-items:flex-start}
+.hact .row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.room{position:relative;min-width:0}
+.gp{position:absolute;left:50%;top:47%;margin:0;transform:translate(-50%,-48%);opacity:0;transition:opacity .65s var(--ease),transform .65s var(--ease);pointer-events:none}
+.gp.on{opacity:1;transform:translate(-50%,-50%)}
+.gp img{height:min(54vh,500px);width:auto;max-width:min(100%,520px);object-fit:cover;outline:clamp(7px,.7vw,10px) solid var(--paper)}
+.gp figcaption{margin-top:26px;font-size:12px;line-height:1.5;max-width:30ch}
+.gp figcaption b{font-weight:500;display:block;font-size:13px}
+.cnt{position:absolute;right:0;bottom:0;font-size:11px;letter-spacing:.2em;font-variant-numeric:tabular-nums}
+.hint{position:absolute;left:50%;transform:translateX(-50%);bottom:clamp(30px,4vw,52px);font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.6;white-space:nowrap;transition:opacity .4s var(--ease)}
 .status{display:inline-flex;align-items:center;gap:9px;font-size:14px}
 .status i{width:8px;height:8px;border-radius:999px;background:currentColor;opacity:.5;display:inline-block}
 .status.open i{background:var(--cobalt);opacity:1}
 .friday{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px var(--pad);background:var(--cobalt);color:var(--gesso);font-size:14px;flex-wrap:wrap;position:relative;z-index:2}
-
 /* INDEX rows with floating peek */
 .index{padding:110px var(--pad) 120px}
 .ix{list-style:none;margin-top:40px;border-top:1px solid var(--ink)}
@@ -361,7 +363,16 @@ footer{padding:60px var(--pad) 40px}
   #idxBtn{display:inline-flex}
 }
 @media (max-width:980px){
-  .stage{height:210vh}
+  .stage{height:270vh}
+  .stick{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) auto;padding-top:86px;gap:22px}
+  .room{order:-1}
+  .cnt{display:none}
+  .gp img{height:min(40svh,400px);max-width:78vw}
+  .gp figcaption{margin-top:16px}
+  .phrases > *{font-size:clamp(46px,12.5vw,80px)}
+  .hact{margin-top:18px;gap:12px}
+  .hact .lede{display:none}
+  .hint{display:none}
   .phead,.phead.flip{grid-template-columns:minmax(0,1fr);padding-top:120px;padding-bottom:50px}
   .phead.flip > :first-child{order:0;text-align:left}
   .ix a{grid-template-columns:44px minmax(0,1fr) 30px}
@@ -402,7 +413,6 @@ footer{padding:60px var(--pad) 40px}
   .attn li > :first-child{grid-column:1/-1;justify-self:start}
   .lb{grid-template-columns:minmax(0,1fr);overflow:auto;align-items:start}
   .lb img{max-height:60vh}
-  .wl{display:none}
 }
 @media (max-width:600px){
   body{font-size:16px}
@@ -415,7 +425,6 @@ footer{padding:60px var(--pad) 40px}
   .pig .buy{grid-column:2/3;text-align:left}
   .facts .v{font-size:30px}
   .label{width:94%}
-  .come{top:14vh}
   .nav .act .hide-s{display:none}
   .card .mv button{min-height:40px}
 }
@@ -447,15 +456,16 @@ footer{padding:60px var(--pad) 40px}
 <main class="view" id="view-home">
   <section class="stage" id="stage" aria-label="Welcome">
     <div class="stick">
-      <div class="gwall" id="gwall"></div>
-      <h1 class="come d d-xl" id="come">Come for<br>the coffee.</h1>
-      <p class="stay d d-xl" id="stay">Stay for<br>the art.</p>
-      <p class="wl" id="wl"><b>Genavieve Gilbert</b>Peonies, oil on canvas.<br><span class="muted">On the walls at Canvas, 109 W Stone Ave</span></p>
-      <span class="hint" id="hint">Scroll to walk the wall</span>
-      <div class="leave" id="leave">
-        <div><p class="d d-l">Leave inspired.</p><p class="lede" style="margin-top:18px">Coffee roasted here in Greenville, served in a bright room full of local art and paper cranes. Pull up a chair and stay a while.</p></div>
-        <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap"><span class="status" id="status"><i></i><span>Checking hours</span></span><a class="pill solid" href="https://order.toasttab.com/online/canvas-stone-ave-109-west-stone-avenue-suite-e4" target="_blank" rel="noopener">Order café pickup</a><a class="pill line" href="#coffee">Shop coffee</a></div>
+      <div class="words">
+        <h1 class="phrases d" id="phrases"><span class="on">Come for<br>the coffee.</span><span>Stay for<br>the art.</span><span>Leave<br>inspired.</span></h1>
+        <div class="hact">
+          <p class="lede">Coffee roasted here in Greenville, served in a bright room full of local art. Pull up a chair and stay a while.</p>
+          <div class="row"><a class="pill solid" href="https://order.toasttab.com/online/canvas-stone-ave-109-west-stone-avenue-suite-e4" target="_blank" rel="noopener">Order café pickup</a><a class="pill line" href="#coffee">Shop coffee</a></div>
+          <span class="status" id="status"><i></i><span>Checking hours</span></span>
+        </div>
       </div>
+      <div class="room" id="room"><span class="cnt micro" id="cnt">01 / 03</span></div>
+      <span class="hint" id="hint">Scroll to walk the room</span>
     </div>
   </section>
   <div class="friday" id="friday"></div>
@@ -835,7 +845,7 @@ const FAQ=[['Can I order café drinks ahead?','Yes. Café pickup orders run thro
 const STEPS=['To roast','Roasted','Packed','Ready','Done'];
 const STAGES=['New inquiry','Tasting / quote','Active / scheduled','Reorder due'];
 const ASTAT=['Received','Reviewing','Shortlisted','Accepted','Declined'];
-const GW=[['peony','img/ph-peony-hd.jpg',50,50,24,.08,[50,46,60]],['elpino','img/art-elpino-hd.jpg',4,7,10,1.25,null],['koke','img/art-koke-hd.jpg',76,7,10.5,1.4,[66,12,30]],['jaguar','img/art-jaguar-hd.jpg',8,57,11,1.05,[-6,66,32]],['granos','img/art-granos-hd.jpg',27,77,7.5,1.6,null],['nhot','img/art-nhot-hd.jpg',86,64,10,1.2,null]];
+const GW=[['peony','img/ph-peony-hd.jpg','Peonies','Oil on canvas.'],['koke','img/art-koke-hd.jpg','Koke Honey','Acrylic on canvas, painted for our Ethiopia bag.'],['elpino','img/art-elpino-hd.jpg','El Pino','Acrylic on canvas, painted for our Honduras bag.']];
 const HANGS=[['jaguar','1 / span 3',0],['granos','5 / span 2',80],['peony','8 / span 3',30],['koke','11 / span 2',140],['elpino','2 / span 3',40],['nhot','6 / span 3',-20],['still','10 / span 3',60]];
 const extraArt={peony:['img/ph-peony-hd.jpg','Peonies','Oil on canvas, Genavieve Gilbert'],still:['img/ph-still.jpg','Still life','Pencil, from the sketchbook on the café table']};
 
@@ -900,15 +910,11 @@ function statusRender(){const {day,h}=nowET();const i=HOURS.findIndex(x=>x[0]===
 
 /* =============== HOME STAGE =============== */
 let st={};
-function gwall(){$('#gwall').innerHTML=GW.map(g=>`<figure class="gp${g[0]==='peony'?' hero':''}"><img src="${g[1]}" alt="${g[0]==='peony'?'Peonies, a painting by Genavieve Gilbert in pink, gold and violet':''}" ${g[0]==='peony'?'fetchpriority="high"':''}></figure>`).join('')}
-function measure(){const W=innerWidth,H=innerHeight,mob=W<700,sg=$('#stage');st={W,H,mob,top:sg.offsetTop,len:Math.max(1,sg.offsetHeight-H)};
-  $$('.gp').forEach((f,i)=>{const g=GW[i],m=mob?g[6]:[g[2],g[3],g[4]];if(!m){f.style.display='none';return}f.style.display='';const w=g[0]==='peony'&&!mob?Math.min(W*m[2]/100,420):W*m[2]/100;f.style.width=w+'px';
-    if(g[0]==='peony'){f.style.left=(W-w)/2+'px';f.style.top=(H-w*1.144)/2+(mob?H*.02:0)+'px';st.pe={x:(W-w)/2,y:(H-w*1.144)/2,w,h:w*1.144}}else{f.style.left=m[0]+'%';f.style.top=m[1]+'%'}})}
-function stage(){if(!$('#view-home').classList.contains('on'))return;if(!st.W)measure();const p=clamp((scrollY-st.top)/(st.len*.85)),e=1-Math.pow(1-p,3);
-  $$('.gp').forEach((f,i)=>{const g=GW[i];if(g[0]==='peony'){f.style.transform=`translateY(${-e*st.H*(st.mob?.2:.09)}px) scale(${st.mob?lerp(1,.82,e):lerp(1,1.12,e)})`;return}f.style.transform=`translateY(${-e*st.H*g[5]*1.15}px)`;f.style.opacity=1-clamp((p-.55)/.35)});
-  const fo=1-clamp(p/.32);['#come','#stay'].forEach((s,i)=>{const el=$(s);el.style.opacity=fo;el.style.transform=`translateX(${(i?1:-1)*p*140}px)`});
-  const wl=$('#wl');wl.style.opacity=1-clamp(p/.15);if(st.pe){wl.style.left=Math.max(16,st.pe.x-214)+'px';wl.style.top=(st.pe.y+st.pe.h-70)+'px'}
-  $('#hint').style.opacity=.7*(1-clamp(p/.08));const lv=clamp((p-.68)/.26),L=$('#leave');L.style.opacity=lv;L.style.transform=`translateY(${(1-lv)*24}px)`;L.style.pointerEvents=lv>.5?'auto':'none'}
+function gwall(){$('#room').insertAdjacentHTML('beforeend',GW.map((g,i)=>`<figure class="gp${i?'':' on'}"><img src="${g[1]}" alt="${esc(g[2])}, a painting by Genavieve Gilbert" ${i?'loading="lazy"':'fetchpriority="high"'}><figcaption><b>Genavieve Gilbert</b>${esc(g[2])}<br>${esc(g[3])}<br><span class="muted">On the wall at Canvas, 109 W Stone Ave</span></figcaption></figure>`).join(''))}
+function measure(){const sg=$('#stage');st={H:innerHeight,top:sg.offsetTop,len:Math.max(1,sg.offsetHeight-innerHeight),step:st.step}}
+function stage(){if(!$('#view-home').classList.contains('on'))return;if(!st.H)measure();const p=clamp((scrollY-st.top)/st.len),n=GW.length,s=Math.min(n-1,Math.floor(p*n*.999));
+  $('#hint').style.opacity=s===n-1?0:.6;if(s===st.step)return;st.step=s;
+  $$('.gp').forEach((f,i)=>f.classList.toggle('on',i===s));$$('#phrases > span').forEach((f,i)=>f.classList.toggle('on',i===s));$('#cnt').textContent=String(s+1).padStart(2,'0')+' / '+String(n).padStart(2,'0')}
 function navState(){const home=$('#view-home').classList.contains('on');const r=home?$('#stage').getBoundingClientRect():null;$('#nav').classList.toggle('solid',!home||r.bottom<80||scrollY>40&&!home)}
 let tick=false;addEventListener('scroll',()=>{if(!tick){tick=true;requestAnimationFrame(()=>{tick=false;stage();navState()})}},{passive:true});
 addEventListener('resize',()=>{measure();stage()});
