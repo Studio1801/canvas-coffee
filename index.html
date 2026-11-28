@@ -1006,7 +1006,7 @@ function shipCost(){if(method!=='Shipping')return 0;const goods=S.cart.filter(c=
 function bag(){const n=S.cart.reduce((a,b)=>a+b.q,0);$('#bagCount').textContent=n;const B=$('#dbody');
   if(S.mineOrder){const o=S.orders.find(x=>x.n===S.mineOrder);B.innerHTML=`<p class="micro">Thank you</p><p class="d d-m" style="margin-top:12px">No. ${o?o.n:''}</p><p style="margin-top:14px">We roast in small batches. You will get an email when your order is ${method==='Shipping'?'shipped':'ready'}.</p><p class="small muted" style="margin-top:12px">It is already on the roast list in the owner view.</p><div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap"><a class="pill line sm" href="#owner" id="seeOps">See it in the owner view</a><button class="pill line sm" id="newBag">Keep shopping</button></div>`;return}
   if(!n){B.innerHTML=`<p class="lede">Your bag is empty.</p><p class="small muted" style="margin-top:10px">Café drinks are ordered on Toast. Bags, subscriptions, prints and workshop seats go here.</p><div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap"><a class="pill solid sm" href="#coffee" data-close>Shop coffee</a><a class="pill line sm" href="${TOAST}" target="_blank" rel="noopener">Order café pickup</a></div>`;return}
-  const sub=S.cart.reduce((a,b)=>a+b.q*b.price,0),ship=shipCost(),disc=S.cart.filter(c=>c.kind==='sub').reduce((a,c)=>a+c.price/2*c.q,0);
+  const sub=S.cart.reduce((a,b)=>a+b.q*b.price,0),ship=shipCost(),disc=S.cart.filter(c=>c.kind==='sub').reduce((a,c)=>a+(c.price-(c.ship||0))/2*c.q,0);
   B.innerHTML=`${S.cart.map((c,i)=>`<div class="cline"><span>${c.q} &times; ${esc(c.name)}${c.opt?`<span class="o">${esc(c.opt)}</span>`:''}</span><span>${money(c.q*c.price)}<button data-rm="${i}">remove</button></span></div>`).join('')}
   <p class="micro" style="margin-top:22px">How should it reach you?</p><div class="filters" style="margin-top:10px">${['Pickup','Local delivery','Shipping'].map(m=>`<button class="chip" aria-pressed="${method===m}" data-method="${m}">${m}</button>`).join('')}</div>
   <p class="small muted" style="margin-top:8px">${method==='Pickup'?'Free at 109 W Stone Ave. Grab a drink while you are here.':method==='Local delivery'?'Free within 5 miles of the café.':'$7, free over $45. Subscriptions ship at plan rates.'}</p>
@@ -1022,7 +1022,7 @@ function checkout(){const nm=($('#coName').value||'').trim(),ml=($('#coMail').va
     else if(c.kind==='seat'){const s=S.sessions.find(x=>x.id===c.sid);const q=c.seatsQ||c.q;if(s)s.booked=Math.min(s.seats,s.booked+q);S.bookings.unshift({sid:c.sid,name:nm,q})}
     else if(c.kind==='club'){S.printclub++}
     else extra.push((c.q>1?c.q+' x ':'')+c.name+(c.opt?' ('+c.opt+')':''))});
-  const total=S.cart.reduce((a,b)=>a+b.q*b.price,0)-S.cart.filter(c=>c.kind==='sub').reduce((a,c)=>a+c.price/2*c.q,0)+shipCost();
+  const total=S.cart.reduce((a,b)=>a+b.q*b.price,0)-S.cart.filter(c=>c.kind==='sub').reduce((a,c)=>a+(c.price-(c.ship||0))/2*c.q,0)+shipCost();
   if(items.length||extra.length)S.orders.unshift(O(n,'Shop',nm,items,method,items.length?'To roast':'Packed',total,[extra.join(', '),ad].filter(Boolean).join(' / ')));
   S.cart=[];S.mineOrder=n;save();renderAll();toast('Order No. '+n+' placed')}
 
@@ -1149,7 +1149,7 @@ document.addEventListener('click',e=>{const t=e.target.closest('button,a[data-cl
   else if(t.id==='newBag'){S.mineOrder=null;save();bag();openBag(false)}
   else if(t.id==='seeOps'){openBag(false)}
   else if(t.id==='prev')railBy(-1);else if(t.id==='next')railBy(1);
-  else if(t.id==='sGo'){const {k,P,every,how,dir}=subState();if(S.cart.some(c=>c.kind==='sub')){toast('One subscription per checkout');return}addBag({key:'sub',kind:'sub',plan:k,dir:P.dir?dir:null,every:P.every||every,method:how,name:P.name+' subscription',opt:`${P.dir?DIRS[dir].n+', ':''}every ${P.every||every} weeks, ${how.toLowerCase()}`,price:P.p+(how==='Shipping'?P.ship:0)});method=how;bag();openBag(true)}
+  else if(t.id==='sGo'){const {k,P,every,how,dir}=subState();if(S.cart.some(c=>c.kind==='sub')){toast('One subscription per checkout');return}addBag({key:'sub',kind:'sub',plan:k,dir:P.dir?dir:null,every:P.every||every,method:how,name:P.name+' subscription',opt:`${P.dir?DIRS[dir].n+', ':''}every ${P.every||every} weeks, ${how.toLowerCase()}`,price:P.p+(how==='Shipping'?P.ship:0),ship:how==='Shipping'?P.ship:0});method=how;bag();openBag(true)}
   else if(t.id==='cupUse'){$('#sPlan').value=d.plan;$('#sEvery').value=d.every;sub();$('.subscribe').scrollIntoView({behavior:'smooth'})}
   else if(d.art){openArt(d.art)}else if(t.id==='lbX'){$('#lb').classList.remove('on')}
   else if(d.sess){openSess=openSess===d.sess?null:d.sess;sessions()}
